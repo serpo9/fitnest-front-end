@@ -1,0 +1,350 @@
+<!-- user details -->
+<div [class.bg]="activeTab!='none'" class="user-details-container">
+	<h1 style="text-transform: uppercase; cursor: pointer;" (click)="goToPage('/')">{{ gymName }}</h1>
+	<!-- <i class="fa fa-bell" aria-hidden="true" *ngIf="userType === 'Customer'"></i> -->
+
+	<div  class="d-flex nav-tab">
+		<button [class.active-tab]="activeTab=='none'" (click)="selectedTab('none')" class="custom-btn">Profile</button>
+		<button [class.active-tab]="activeTab=='attendance'" (click)="getIndividualAttendance(userId)" (click)="selectedTab('attendance')" class="custom-btn">Attendance</button>
+		<button [class.active-tab]="activeTab=='diet'" (click)="selectedTab('diet')" class="custom-btn">Diet plan</button>
+		<button [class.active-tab]="activeTab=='track'" (click)="selectedTab('track')" class="custom-btn">Track progress</button>
+	</div>
+
+	<div  class="d-grid-container">
+
+		<div  class="left-side">
+			<span [hidden]="activeTab!='none'" class="d-flex">
+				<p [hidden]="activeTab!='none'" class="welcome-text">Personal Information <span
+						(click)="editProfile()"><mat-icon>border_color</mat-icon></span></p>
+			</span>
+
+			<div [hidden]="activeTab!='none'" class="userdetails-grid">
+				<div  [hidden]="activeTab!='none'" class="user-info-container">
+					<div class="user-info">
+						<!-- <h4>Hey, {{ username.name }} -->
+						<!-- <span class="edit"> <img (click)="openEditDialog()" src="/assets/images/edit.png" alt="Edit">
+					</span> -->
+						<!-- </h4> -->
+					</div>
+
+					<div class="user-detials">
+						<div class="input-container">
+							<div class="input-title">
+								<h4> ID*</h4>
+							</div>
+							<div class="input-value">
+								<p>{{username.id}}</p>
+							</div>
+						</div>
+
+						<div class="input-container">
+							<div class="input-title">
+								<h4>Name*</h4>
+							</div>
+							<div class="input-value">
+								<p>{{ username.name}}</p>
+							</div>
+						</div>
+						<div class="input-container">
+							<div class="input-title">
+								<h4>Email ID*</h4>
+							</div>
+							<div class="input-value" max-length="10">
+								<p>{{ username.email}}</p>
+							</div>
+						</div>
+						<div class="input-container">
+							<div class="input-title">
+								<h4>Mobile Number*</h4>
+							</div>
+							<div class="input-value">
+								<p>{{ username.phone}}</p>
+							</div>
+						</div>
+
+						<div class="input-container" *ngIf="this.plansData?.length > 0">
+							<div class="input-title">
+								<h4>Subscription plan*</h4>
+							</div>
+							<div class="input-value sub-plan" (click)="viewPlan()">
+								<p>{{this.plansData[0].planName}}<mat-icon>info</mat-icon></p>
+							</div>
+						</div>
+
+						<div class="input-container" *ngIf="this.plansData?.length > 0">
+							<div class="input-title">
+								<h4>Expired plan Date*</h4>
+							</div>
+							<div class="input-value sub-plan" (click)="viewPlan()">
+								<p>{{this.plansData[0].expiryDate | date:'dd-MM-yyyy' }}</p>
+							</div>
+						</div>
+
+						<!-- <div class="logout-container">
+					<button class="custom-btn cancel-btn logout" (click)="logout()">Logout</button>
+				</div> -->
+
+						<!-- <div class="share-feedback-container" *ngIf="userType === 'Customer'">
+					<button class="monthly-feedback" (click)="goToPage('feedback')">Share Your Monthly Feedback</button>
+				</div> -->
+					</div>
+				</div>
+
+			</div>
+
+			<span [hidden]="activeTab!='none'" *ngIf="this.userType === 'Customer'">
+				<span class="d-flex">
+					<p class="welcome-text">More Information <span *ngIf="showMoreProfileDetails"
+							(click)="editMoreInfoProfile()"><mat-icon>border_color</mat-icon></span></p>
+
+					<button *ngIf="!showMoreProfileDetails" class="custom-btn complete-profile"
+						(click)="openCompleteProfile()">Complete profile</button>
+				</span>
+				<div [hidden]="activeTab!='none'" class="userdetails-grid">
+					<div *ngIf="showMoreProfileDetails" class="user-info-container">
+						<div class="user-info">
+							<!-- <h4>Hey, {{ username.name }} -->
+							<!-- <span class="edit"> <img (click)="openEditDialog()" src="/assets/images/edit.png" alt="Edit">
+					</span> -->
+							<!-- </h4> -->
+						</div>
+
+						<div class="user-detials">
+							<div class="input-container">
+								<div class="input-title">
+									<h4>Blood Group*</h4>
+								</div>
+								<div class="input-value">
+									<p>{{ username.bloodGroup}}</p>
+								</div>
+							</div>
+							<div class="input-container">
+								<div class="input-title">
+									<h4>Height*</h4>
+								</div>
+								<div class="input-value" max-length="10">
+									<p>{{ username.height}}</p>
+								</div>
+							</div>
+							<div class="input-container">
+								<div class="input-title">
+									<h4>Weight*</h4>
+								</div>
+								<div class="input-value">
+									<p>{{ username.weight}}</p>
+								</div>
+							</div>
+							<div class="input-container">
+								<div class="input-title">
+									<h4> Fitness Goal*</h4>
+								</div>
+								<div class="input-value">
+									<p>{{username.fitnessGoals}}</p>
+								</div>
+							</div>
+
+							<div class="input-container">
+								<div class="input-title">
+									<h4>Dob*</h4>
+								</div>
+								<div class="input-value">
+									<p>{{username.dob}}</p>
+								</div>
+							</div>
+
+							<div class="input-container">
+								<div class="input-title">
+									<h4>Gender*</h4>
+								</div>
+								<div class="input-value">
+									<p>{{username.gender}}</p>
+								</div>
+							</div>
+
+							<!-- <div class="share-feedback-container" *ngIf="userType === 'Customer'">
+						<button class="monthly-feedback" (click)="goToPage('feedback')">Share Your Monthly
+							Feedback</button>
+					</div> -->
+						</div>
+					</div>
+
+					<div *ngIf="!showMoreProfileDetails" class="user-info-container no-data-profile">
+						<p>Please, Fill the Health and Fitness form!!</p>
+					</div>
+				</div>
+			</span>
+
+			<div [hidden]="activeTab!='none'" class="logout-container">
+				<button [hidden]="activeTab!='none'"  class="custom-btn cancel-btn logout" (click)="logout()">Logout</button>
+			</div>
+
+			<!-- Diet container -->
+			<div [hidden]="activeTab !== 'diet' || activeTab=='none'" [class.open]="dietTab==true" class="diet-container">
+				<p class="welcome-text">Diet plan<span></span> </p>
+
+				<div class="table-responsive diet-table" id="content">
+					<table mat-table [dataSource]="dataSourceTwo" class="custom-table"
+						*ngIf="dataSourceTwo.data.length > 0;">
+
+						<ng-container matColumnDef="mealType">
+							<th mat-header-cell *matHeaderCellDef class="col-mealType">Meal Type</th>
+							<td mat-cell *matCellDef="let element" class="col-mealType">{{ element.mealType }}</td>
+						</ng-container>
+
+						<ng-container matColumnDef="foodName">
+							<th mat-header-cell *matHeaderCellDef class="col-foodName">Food Name</th>
+							<td mat-cell *matCellDef="let element" class="col-foodName">{{ element.foodName }}</td>
+						</ng-container>
+
+						<ng-container matColumnDef="quantity">
+							<th mat-header-cell *matHeaderCellDef class="col-quantity">Quantity</th>
+							<td mat-cell *matCellDef="let element" class="col-quantity">{{ element.quantity }}</td>
+						</ng-container>
+
+						<ng-container matColumnDef="notes">
+							<th mat-header-cell *matHeaderCellDef class="col-notes">Notes</th>
+							<td mat-cell *matCellDef="let element" class="col-notes">{{ element.notes }}</td>
+						</ng-container>
+
+						<tr mat-header-row *matHeaderRowDef="displayedColumnsTwo"></tr>
+						<tr mat-row *matRowDef="let row; columns: displayedColumnsTwo"></tr>
+					</table>
+
+					<div class="table-footer" [style.display]="dataSourceTwo.data.length > 0 ? 'flex' : 'none'">
+						<mat-paginator #paginatorTwo [pageSize]="6" class="custom-paginator"></mat-paginator>
+					</div>
+				</div>
+				<div *ngIf="dataSourceTwo.data.length === 0" class="no-data">
+					No data found
+				</div>
+			</div>
+		</div>
+
+
+		<div class="grid-item">
+			<div [hidden]="activeTab !== 'attendance' || activeTab==='none'" [class.open]="attendanceTab==true">
+				<p class="welcome-text">Attendance <span></span> </p>
+
+				<div class="table-responsive" id="content">
+					<!-- Table -->
+					<table mat-table [dataSource]="dataSource" class="custom-table" *ngIf="dataSource.data.length > 0;">
+
+						<ng-container matColumnDef="date">
+							<th mat-header-cell *matHeaderCellDef>Date</th>
+							<td mat-cell *matCellDef="let element">{{ element.createdAt | date:'dd-MM-yyyy':'UTC' }}
+							</td>
+						</ng-container>
+						<ng-container matColumnDef="status">
+							<th mat-header-cell *matHeaderCellDef>Status</th>
+							<td mat-cell *matCellDef="let element">{{ element.status }}</td>
+						</ng-container>
+
+						<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+						<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+					</table>
+
+					<div class="table-footer" [style.display]="dataSource.data.length > 0 ? 'flex' : 'none'">
+						<mat-paginator #paginatorOne [pageSize]="6" class="custom-paginator"></mat-paginator>
+					</div>
+				</div>
+
+				<div *ngIf="dataSource.data.length === 0" class="no-data">
+					No data found
+				</div>
+			</div>
+
+			<div  [hidden]="activeTab !== 'track' || activeTab==='none'" [class.open]="trackTab==true">
+
+				<p class="welcome-text">Track Progress <span></span> </p>
+				<div class="weight-input-container">
+					<label class="add-weight-label">Add Weight :</label>
+					<div class="add-weight">
+					<input class="add-weight-input"
+					type="number"
+					placeholder="Enter weight"
+					[(ngModel)]="newWeight"
+					/>
+					<button class="add-weight-btn" (click)="submitWeight()">Submit</button>
+					</div>
+					</div>
+				<div class="table-responsive" id="content">
+					<!-- Table -->
+					<table mat-table [dataSource]="dataSourceThree" class="custom-table" *ngIf="dataSourceThree.data.length > 0;">
+
+						<ng-container matColumnDef="month">
+							<th mat-header-cell *matHeaderCellDef>Month</th>
+							<td mat-cell *matCellDef="let element">{{ element.createdAt | date:'dd-MM-yyyy':'UTC' }}
+							</td>
+						</ng-container>
+						<ng-container matColumnDef="weight">
+							<th mat-header-cell *matHeaderCellDef>Weight</th>
+							<td mat-cell *matCellDef="let element">{{ element.weight }}</td>
+						</ng-container>
+
+						<tr mat-header-row *matHeaderRowDef="displayedColumnsThree"></tr>
+						<tr mat-row *matRowDef="let row; columns: displayedColumnsThree"></tr>
+					</table>
+
+					<div class="table-footer" [style.display]="dataSourceThree.data.length > 0 ? 'flex' : 'none'">
+						<mat-paginator #paginatorThree [pageSize]="6" class="custom-paginator"></mat-paginator>
+					</div>
+				</div>
+				
+				<div *ngIf="dataSourceThree.data.length === 0" class="no-data">
+					No data found
+				</div>
+
+				<div class="bmi-container">
+  <div class="header">
+    <h2>BMI Calculator</h2>
+    <p>Enter your details below</p>
+  </div>
+
+  <form [formGroup]="bmiForm">
+    <div class="input-boxes">
+      
+      <div class="height-boxes">
+        <label class="input-label">Height</label>
+        <div class="height-input-row">
+          <div class="unit-box">
+            <input type="number" placeholder="0" formControlName="heightInFt" />
+            <span class="unit-label">ft</span>
+          </div>
+          <div class="unit-box">
+            <input type="number" placeholder="0" formControlName="heightInInch" />
+            <span class="unit-label">in</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="weight-box">
+        <label class="input-label">Weight</label>
+        <div class="unit-box full-width">
+          <input type="number" placeholder="0" formControlName="weight" />
+          <span class="unit-label">Kg</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="bmi-btn">
+      <button type="button" class="calculate-btn" (click)="calculateBMI()">Calculate BMI</button>
+    </div>
+  </form>
+</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- <mat-form-field appearance="outline">
+	<mat-label>Select a date</mat-label>
+	<input matInput [matDatepicker]="picker" [dateClass]="dateClass" [(ngModel)]="selectedDate" />
+	<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+	<mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+   -->
+
+<!-- user details -->

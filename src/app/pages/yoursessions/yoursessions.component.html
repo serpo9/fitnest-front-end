@@ -1,0 +1,20 @@
+
+<h1 class="scheduleHeading">All Schedules</h1>
+<div class="schedule-container">
+  <div class="day-row" *ngFor="let day of daysOfWeek">
+    <div class="day-name">{{ day }}</div>
+    <div class="classes-container">
+      <ng-container *ngIf="getClassesByDay(day).length > 0; else noClasses">
+        <div class="class-box" *ngFor="let item of getClassesByDay(day)">
+          <strong>{{ item.className }}</strong><br>
+          <small>{{ item.startingTime }} - {{ item.endTime }}</small>
+        </div>
+      </ng-container>
+      <ng-template #noClasses>
+        <div class="no-classes">No classes assigned</div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+

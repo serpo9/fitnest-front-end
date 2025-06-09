@@ -1,0 +1,147 @@
+.subscription-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  width: 100%;
+  background-color: #1b1a1a;
+  margin-top: 1rem;
+  border-radius: 4px;
+  padding-inline: 12px;
+  // max-width: 1400px;
+  // margin-inline: auto;
+
+  background: linear-gradient(rgba(0, 0, 0, 0.723), rgba(0, 0, 0, 0.713)), url('/assets/images/plan-2.webp') center;
+  flex-direction: column;
+
+
+  h2 {
+    font-size: 38px;
+    color: #fff;
+    max-width: 1000px;
+    margin-inline: auto;
+    font-family: "Playfair Display";
+  }
+
+  p {
+    max-width: 1000px;
+    margin-inline: auto;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 10px;
+  }
+}
+
+.subscription-details-container {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  max-width: 1400px;
+  margin-inline: auto;
+  width: 100%;
+  padding-inline: 20px;
+  display: grid;
+  grid-template-columns: 55% 35%;
+  margin-bottom: 2rem;
+
+  .left {
+
+
+    h3 {
+      font-size: 30px;
+      color: #fff;
+      font-family: "Playfair Display";
+    }
+
+
+    // padding: 10px 50px;
+    .subscription-queries-container {
+      margin-top: 2rem;
+
+      .subscription-queries {
+        ul {
+          li {
+            color: #fff;
+            font-size: 14px;
+            margin-bottom: 6px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+          }
+        }
+      }
+
+      .pricing-container {
+        color: #fff;
+
+        p {
+          margin-bottom: 10px;
+          font-size: 14px;
+        }
+
+        .price-heading {
+          font-size: 18px;
+          margin-top: 1.5rem;
+          font-family: "Playfair Display";
+          margin-bottom: 14px;
+
+        }
+
+        .addons-heading {
+          font-size: 18px;
+          margin-top: 1.5rem;
+          font-family: "Playfair Display";
+          margin-bottom: 14px;
+        }
+      }
+    }
+  }
+
+  .right {
+    border-radius: 12px;
+
+    img {
+      object-fit: cover;
+    }
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .subscription-details-container {
+    grid-template-columns: 50% 45%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .subscription-details-container {
+    display: flex;
+    flex-direction: column-reverse;
+
+    .right {
+      height: 300px;
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .subscription-details-container {
+    .left {
+      .subscription-queries-container {
+        .subscription-queries {
+          ul {
+            li {
+              display: grid;
+              grid-template-columns: 8% 91%;
+              align-items: center;
+            }
+          }
+
+        }
+
+      }
+    }
+  }
+}

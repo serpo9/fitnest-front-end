@@ -1,0 +1,71 @@
+
+
+
+<!-- Our Fitness Programs -->
+<div class="location-main-container max-width-1400 margin-top">
+    <div class="location-title">
+        <h2 class="heading" style="text-transform: uppercase;">{{ formattedClassName }}</h2>
+
+        <p class="heading-description">
+            {{descriptionhead }}
+        </p>
+    </div>
+
+ 
+</div>
+<!-- FAQ -->
+<!-- Personal Training -->
+<!-- Personal Training -->
+<!-- Personal Training -->
+<!-- <div *ngIf="sessions.length === 0" class="no-classes">
+    <p class="no-classes-msg">Currently, no classes are available. Please check back later.</p>
+  </div> -->
+  
+  
+  <div *ngFor="let session of sessions; let i = index" class="faq-main-container">
+      <div class="faq-queries-container">
+        
+        <!-- Condition to alternate image and content -->
+        <div *ngIf="i % 2 === 0" class="faq-queries">
+          <div class="session-status">
+            <button *ngIf="isUpcoming(session.startDate)" class="upcoming">Upcoming Session</button>
+            <span *ngIf="!isUpcoming(session.startDate)" class="started">Already Started</span>
+          </div>
+          <h2>{{ session.className }}</h2>
+          <div class="accordion-container">
+            <p><strong>Trainer:</strong> {{ session.trainer }}</p>
+            <p><strong>Timing:</strong> {{ session.timing }}</p>
+            <p><strong>Duration:</strong> {{ session.duration }}</p>
+            <p><strong>Session Starts:</strong> {{ session.startDate }}</p>
+            <p>{{ session.description }}</p>
+          </div>
+          <button class="custom-btn" (click)="contactUs()">Join Now</button>
+        </div>
+    
+        <div class="faq-img">
+          <img [src]="session.image" [alt]="session.className">
+        </div>
+    
+        <div *ngIf="i % 2 !== 0" class="faq-queries">
+          <div class="session-status">
+            <button *ngIf="isUpcoming(session.startDate)" class="upcoming">Upcoming Session</button>
+            <span *ngIf="!isUpcoming(session.startDate)" class="started">Already Started</span>
+          </div>
+          <h2>{{ session.className }}</h2>
+          <div class="accordion-container">
+            <p><strong>Trainer:</strong> {{ session.trainer }}</p>
+            <p><strong>Timing:</strong> {{ session.timing }}</p>
+            <p><strong>Duration:</strong> {{ session.duration }}</p>
+            <p><strong>Session Starts:</strong> {{ session.startDate }}</p>
+            <p>{{ session.description }}</p>
+          </div>
+          <button class="custom-btn" (click)="contactUs()">Join Now</button>
+        </div>
+    
+      </div>
+  </div>
+  
+
+
+
+

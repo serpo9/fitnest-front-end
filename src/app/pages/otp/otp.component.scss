@@ -1,0 +1,392 @@
+
+.sign-up{
+    background-color: white;
+    background: url('/assets/images/gymFitnest.png') no-repeat center center;
+    width: 100%;
+    background-size: cover;
+    height: 40vh;
+    position: relative;
+    // border: 3px solid green;
+    
+
+    // blind content
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      border-radius: 24px;
+    //   background: #796359;
+
+      mix-blend-mode: hue;
+    }
+    .sign-up-content-container{
+        padding-inline: 3rem;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        // height: 86vh;
+        z-index: 0;
+        // margin-top: 2rem;
+        padding-top: 7rem;
+        .sign-up-content{
+            color: white;
+        }
+        .welcome-page{
+            color: var(--Primary-Light, #F0EEED);
+            text-align: center;
+            text-shadow: 3px 6px 12.9px #000;
+            /* Heading/H1/Extra Bold */
+            font-family: "Playfair Display";
+            font-size: 64px;
+            font-style: normal;
+            font-weight: 800;
+            line-height: normal;
+            
+        }
+     
+        @keyframes moveUpDown {
+            0%, 100% {
+                cursor: pointer;
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-30px);
+            }
+        }
+        
+    }
+    .gradient-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        // top: 2rem;
+        right: 0;
+        height: 10vh;
+        // border: 4px solid red;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #111111 100%);
+        // background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #f0f0f0 100%);
+    }
+}
+.other-else{
+    background-color: var(--bg-color);
+    height: 60vh;
+    bottom: 0px;
+    text-align: center;
+    .login-signup{
+        display: flex;
+        justify-content: space-between;
+        margin-inline:auto;
+        align-items: center;
+        flex-direction: column;
+
+        .next-page-login{
+            // width: 150px;
+            padding-bottom: 1rem;
+            // line-height: normal;
+            color:#F0EEED;
+            font-family: "Playfair Display";
+            font-size: 32px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: normal;
+        }
+        .next-page-signup{
+            // width: 150px;
+            padding-bottom: 1rem;
+            color:#F0EEED;
+            font-family: "Montserrat";
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            span{
+                color:#FFC978;
+                font-family: "Montserrat";
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: normal;
+            }
+        }
+       
+    }
+    .login-form{
+        width: 400px;
+        margin-inline: auto;
+        .Forgot-password{
+            // border: 1px solid red;
+            text-align: start;
+            color: #6B564A;
+            /* subtitle/subtitle 3/Semi Bold */
+            -webkit-text-stroke-width: 1;
+            -webkit-text-stroke-color: #000;
+            font-family: "Montserrat";
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            margin: 23px 0px;
+            span{
+                // border-bottom: 1px solid #6B564A;
+            }
+        }
+       
+        .continue-button{
+            width: 100%;
+            background: #ffc978;
+            padding-top: .8rem;
+            padding-bottom: .8rem;
+            color:  #251E1A;
+            font-family: "Montserrat";
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            z-index: 999;
+            cursor: pointer;
+            border: 2px solid #ffc978;
+
+            &:hover {
+                background: transparent;
+                color: #FFC978;
+            }
+        }
+     
+   
+    }
+
+   
+    .input-field{
+        display: flex;
+        align-items: center;
+        margin-inline: auto;
+        // border: 4px solid red;
+        justify-content: center;
+        gap: 1rem;
+        
+        position: relative;
+        width: 100%;
+        height: 50px;
+        margin: 23px 0;
+        
+        height: 46px;
+        
+   
+        border-radius: 8px;
+        box-shadow: 0px 4px 13.8px 0px rgba(0, 0, 0, 0.05) inset;
+        .input-contain{
+            width: 50px;
+            height: 46px;
+            background: #302721;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+            box-shadow: 0px 12px 24px -4px rgba(0, 0, 0, 0.12), 0px 0px 2px 0px rgba(0, 0, 0, 0.20);
+            input{
+                background: transparent;
+                border: none;
+                color: #fff;
+                width: 50%;
+                position: relative;
+                text-align: center;
+                border: none;
+                color: var(--Text-Primary, #E2E5E9);
+                text-align: center;
+                /* Subtitle 2/Semibold */
+                font-family: "Public Sans";
+                font-size: 16px;
+                font-weight: 600;
+                // height: 40px;
+                padding-bottom: .2rem;
+                
+                border-bottom: 2px solid #504138;
+            //    
+                &::-webkit-inner-spin-button, 
+              &::-webkit-outer-spin-button { 
+                -webkit-appearance: none;
+                appearance: none;
+                margin: 0;
+            }
+                &:focus {
+                    outline: none;
+                    box-shadow: none;
+                }
+    
+            }
+        }
+        
+ 
+    
+        img {
+            position: absolute;
+            left: 1.3rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            object-fit: contain;
+            width:25px;
+          }
+    }
+   
+}
+.welcome-profile{
+    .profile-contianer{
+        .card1{
+            z-index: 99;
+            color: white;
+            position: absolute;
+            bottom: 2rem;
+            left: 70%;
+            background: rgba(107, 86, 74, 0.34);
+            border: 1px solid  #6B564A;
+            width: 250px;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            
+            img{
+                width: 50px;
+            }
+            p{
+                color:  #F0EEED;
+                    text-align: center;
+                    /* Heading/H4/Bold */
+                    font-family: "Playfair Display";
+                    font-size: 24px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: normal;
+                    text-transform: capitalize;
+            }
+            transform: translate(-50%, -50%);
+        }
+        .card2{
+            z-index: 99;
+            color: white;
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            background: rgba(107, 86, 74, 0.34);
+            border: 1px solid  #6B564A;
+            width: 250px;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            img{
+                width: 50px;
+            }
+            p{
+                color:  #F0EEED;
+                    text-align: center;
+                    /* Heading/H4/Bold */
+                    font-family: "Playfair Display";
+                    font-size: 24px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: normal;
+                    text-transform: capitalize;
+            }
+            
+            
+            transform: translate(-50%, -50%);
+        }
+        .card3{
+            z-index: 99;
+            color: white;
+            position: absolute;
+            bottom: 2rem;
+            left: 30%;
+            border: 1px solid  #6B564A;
+            background: rgba(107, 86, 74, 0.34);
+            width: 250px;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            img{
+                width: 50px;
+            }
+            p{
+                color:  #F0EEED;
+                    text-align: center;
+                    /* Heading/H4/Bold */
+                    font-family: "Playfair Display";
+                    font-size: 24px;
+                    font-style: normal;
+                    font-weight: 700;
+                    line-height: normal;
+                    text-transform: capitalize;
+            }
+            
+            transform: translate(-50%, -50%);
+        }
+    }
+}
+@media screen and (max-width: 566px){
+ .sign-up{
+    .sign-up-content-container{
+        .welcome-page{
+            font-size: 48px;
+            
+        }
+    }
+ }
+}
+@media screen and (max-width: 480px){
+    .sign-up{
+        .sign-up-content-container{
+            .sign-up-content{
+                text-align: center;
+            }
+            .welcome-page{
+                font-size: 36px;
+                
+            }
+        }
+     }
+    .other-else{
+        .login-form{
+            width: 320px;
+        }
+    }
+}
+@media screen and (max-width: 360px){
+    .sign-up{
+        .sign-up-content-container{
+            .sign-up-content{
+                text-align: center;
+            }
+            .welcome-page{
+                font-size: 28px;
+                margin-bottom: .8rem;
+                
+            }
+        }
+     }
+    .other-else{
+        .login-form{
+            width: 280px;
+
+        }
+        .login-signup{
+            .next-page-login{
+                font-size: 26px;
+            }
+        }
+    }
+}
+

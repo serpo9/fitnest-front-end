@@ -1,0 +1,14 @@
+<div class="dialogue-container">
+	<button (click)="onClose()" class="close-button">&times;</button>
+  
+	<h2>Send Message</h2>
+  
+	<label>Subject</label>
+	<input [(ngModel)]="subject" type="text" />
+  
+	<label>Message</label>
+	<textarea [(ngModel)]="message" rows="4"></textarea>
+  
+	<button class="send-button" (click)="onSend()">Send Message</button>
+  </div>
+  

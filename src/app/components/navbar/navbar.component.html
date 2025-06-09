@@ -1,0 +1,23 @@
+s<nav class="navbar-container" [class.scrolled]="isScrolled">
+	<div class="mobile-logo">
+	  <div class="logo" (click)="goToPage('/')">
+	  </div>
+  
+	</div>
+  
+	<div class="nav-list-container" [class.nav-list-mobile]="isNavbarVisible">
+	  <ul>
+
+	  </ul>
+	</div>
+  
+	<div class="profile-btn-container">
+	  <div class="btn-container">
+		<button class="custom-btn desktop-view" (click)="LogOut()">Log out</button>
+	  </div>
+  
+	  <div class="profile-container">
+		
+	  </div>
+	</div>
+  </nav>

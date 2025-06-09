@@ -1,0 +1,41 @@
+<div class="main-container">
+    <!-- <app-sidebar
+        (sidenavToggle)="onSidenavToggle($event)"
+        [class.slidebar]="sidenavOpen">
+    </app-sidebar> -->
+
+    <div class="content">
+        <div class="card1" [class.full-width]="!sidenavOpen">
+
+            <!-- Title: Dynamic Heading -->
+            <div class="title" style="margin-bottom: 2rem;">
+                <h2>{{ showNewForm ? '' : 'Enter OTP' }}</h2>
+            </div>
+
+            <!-- OTP Verification Form -->
+            <div class="form-container" *ngIf="!showNewForm">
+                <form #otpForm="ngForm"  class="Employee-info-id">
+
+                    <!-- OTP Input Field -->
+                    <div class="form-group">
+                        <input id="otp" name="otp" type="text" [(ngModel)]="otp"
+                            placeholder="Enter OTP" required pattern="^[0-9]{6}$"
+                            #otpRef="ngModel" />
+
+                        <div *ngIf="otpRef.invalid && otpRef.touched" class="error">
+                            <small *ngIf="otpRef.errors?.['required']">OTP is required.</small>
+                            <small *ngIf="otpRef.errors?.['pattern']">Enter a valid 6-digit OTP.</small>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button (click)="verifyOTP('emailVerification')" style="background-color: black;" class="searchbtn" type="submit"
+                        [disabled]="otpForm.invalid">
+                        Verify OTP
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

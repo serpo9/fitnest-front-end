@@ -1,0 +1,254 @@
+<div class="main-container">
+  <!-- Include Sidebar Component -->
+
+  <!-- <app-sidebar
+      (sidenavToggle)="onSidenavToggle($event)"
+      [class.slidebar]="sidenavOpen"
+    ></app-sidebar> -->
+
+  <!-- Content Area -->
+  <div
+    class="content"
+    [class.full-width]="sidenavOpen === false"
+    [class.translucent]="sidenavOpen"
+  >
+    <div class="mainHistory">ALL SCHEDULES</div>
+    <div class="header">
+      <div class="search-box">
+        <input
+          type="search"
+          name="serach-employee"
+          class="search-field"
+          [(ngModel)]="searchTerm"
+          placeholder="Search by Name"
+          (ngModelChange)="onSearchChange()"
+        />
+        <!-- <button
+            class="clearbtn"
+            mat-icon-button
+            matSuffix
+            *ngIf="searchTerm"
+            aria-label="Clear"
+          ></button> -->
+        <button mat-raised-button class="searchbtn buttoncolor">
+          <mat-icon>search</mat-icon>
+          <span (click)="searchSchedules(searchTerm, '', '')">Search</span>
+        </button>
+      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a date range</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input
+            matStartDate
+            placeholder="Start date"
+            [(ngModel)]="dateRange.start"
+            name="startDate"
+          />
+          <input
+            matEndDate
+            placeholder="End date"
+            [(ngModel)]="dateRange.end"
+            name="endDate"
+          />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+      <button
+        mat-raised-button
+        (click)="searchSchedules(searchTerm, '', '')"
+        class="buttoncolor"
+      >
+        Search
+      </button>
+
+      <div></div>
+    </div>
+    <div class="hikvision-filter">
+      <span
+        routerLink="/days-schedule"
+        (click)="getinfo('days-schedule')"
+        class="filter-btn"
+        [class.active]="selectedFilter === 'Search1'"
+      >
+        Weekly Schedules
+      </span>
+      <!-- <span
+        class="filter-btn"
+        [class.active]="selectedFilter === 'Search2'"
+        (click)="searchSchedules(searchTerm, 'inactive', 'Search2')"
+      >
+        Expire Scheduled
+      </span>
+      <span
+        class="filter-btn"
+        [class.active]="selectedFilter === 'Search3'"
+        (click)="searchSchedules(searchTerm, 'pending', 'Search3')"
+      >
+        Pending
+      </span> -->
+    </div>
+
+    <div
+      class="table-responsive"
+      [ngClass]="{ 'no-data': getTrainerSchedulesData.data.length === 0 }"
+    >
+      <div
+        *ngIf="
+          !getTrainerSchedulesData || getTrainerSchedulesData.data.length === 0
+        "
+        class="no-data-message"
+      >
+        No schedules found.
+      </div>
+      <!-- Trainer Session Schedule Table -->
+      <table
+        mat-table
+        [dataSource]="getTrainerSchedulesData"
+        class="custom-table"
+        *ngIf="(getTrainerSchedulesData?.data?.length || 0) > 0"
+      >
+        >
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="number">
+          <th mat-header-cell *matHeaderCellDef>Number</th>
+          <td mat-cell *matCellDef="let element">{{ element.number }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="start">
+          <th mat-header-cell *matHeaderCellDef>Start</th>
+          <td mat-cell *matCellDef="let element">{{ element.startfrom }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="end">
+          <th mat-header-cell *matHeaderCellDef>End</th>
+          <td mat-cell *matCellDef="let element">{{ element.endTime }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="assignedClass">
+          <th mat-header-cell *matHeaderCellDef>Session</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.assignedClass }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="trainer">
+          <th mat-header-cell *matHeaderCellDef>Trainer</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.trainer }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="capacity">
+          <th mat-header-cell *matHeaderCellDef>Total Capacity</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.capacity }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="filledCapacity">
+          <th mat-header-cell *matHeaderCellDef>filled Capacity</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.filledCapacity }}
+          </td>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="assignTrainer">
+            <th mat-header-cell *matHeaderCellDef>Assign Trainer</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-form-field appearance="outline">
+                <mat-label>Select Trainer</mat-label>
+                <mat-select (selectionChange)="assignTrainer($event.value, element)">
+                  <mat-optgroup *ngFor="let specialization of getSpecializations()" [label]="specialization">
+                    <mat-option *ngFor="let trainer of trainersBySpecialization[specialization]" [value]="trainer.id">
+                      {{ trainer.name }} ({{ trainer.status }})
+                    </mat-option>
+                  </mat-optgroup>
+                </mat-select>
+              </mat-form-field>
+            </td>
+          </ng-container> -->
+
+        <ng-container matColumnDef="assign">
+          <th mat-header-cell *matHeaderCellDef>Assign Trainer</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              class="btn"
+              color="primary"
+              style="color: black"
+              (click)="openTrainerPopup(element)"
+            >
+              Assign
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              class="btn"
+              color="primary"
+              style="color: black"
+              (click)="deleteSchedule(element)"
+            >
+              Delete
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              class="btn"
+              color="primary"
+              style="color: black"
+              (click)="openEditDialog(element)"
+            >
+              Edit
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="time">
+          <th mat-header-cell *matHeaderCellDef>Time</th>
+          <td mat-cell *matCellDef="let element">{{ element.time }}</td>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let element">
+              <button
+                mat-raised-button
+                class="delete-button"
+              >
+                Delete
+              </button>
+            </td>
+          </ng-container> -->
+
+        <tr mat-header-row *matHeaderRowDef="trainerColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: trainerColumns"></tr>
+      </table>
+
+      <div
+        class="table-footer"
+        [style.display]="
+          getTrainerSchedulesData.data.length > 0 ? 'flex' : 'none'
+        "
+      >
+        <mat-paginator [pageSize]="6" class="custom-paginator"></mat-paginator>
+      </div>
+    </div>
+
+    <!-- <div   class="pdf"> <button mat-raised-button color="primary" (click)="exportPDF()"><mat-icon>download</mat-icon> Pdf</button></div>
+       -->
+  </div>
+</div>

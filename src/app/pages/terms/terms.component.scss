@@ -1,0 +1,207 @@
+  // FAQ
+  .banner-container{
+    .banner-left{
+      h1{
+        color: #F0EEED;
+        text-align: center;
+        font-family: "Playfair Display";
+        font-size: 64px;
+        font-style: normal;
+        font-weight: 800;
+        line-height: normal;
+      }
+      .latest-posts{
+        color: #D1CBC7;
+      font-family: "Montserrat";
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      text-align: center;
+      }
+    }
+  }
+  
+  .faq-main-container {
+    margin-top: 2rem;
+    padding: 10px 11rem;
+    // border: 3px solid green;
+    max-width: 1400px;
+    margin-inline: auto;
+    position: relative;
+
+    .faq-queries-container {
+
+      justify-content: center;
+      justify-items: center;
+      border-radius: 20px;
+      background: #F0EEED;
+      padding: 3rem 4rem;
+      box-shadow: 7px 4px 15.2px 0px rgba(255, 255, 255, 0.34);
+      align-items: center;
+      .Why-USA{
+        color: #302721;
+        font-family: "Playfair Display";
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+      }
+      .Published{
+        color: rgba(107, 86, 74, 0.59);
+        font-family: "Montserrat", sans-serif;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        margin-top: 9px;
+      }
+      .Rejecting{
+        color:  #6B564A;
+        font-family: "Montserrat", sans-serif;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        margin-top: 12px;
+        margin-bottom: 12px;
+      }
+      h5{
+        color:  #6B564A;
+        font-family: "Montserrat", sans-serif;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        margin-top: 1rem;
+        margin-bottom: .2rem;
+      }
+      .Tesla-has{
+
+        color:  #6B564A;
+      font-family: "Montserrat", sans-serif;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      }
+
+ 
+    }
+  
+    .luxury-car1{
+      width: 208px;
+      height: 192px;
+      flex-shrink: 0;
+      position: absolute;
+      top: 20rem;
+      left: 0;
+      img{
+        border-radius: 20px 20px 0px 20px;
+      
+        width: 100%;
+      }
+    
+    }
+    .luxury-car2{
+      width: 164px;
+      height: 151px;
+      flex-shrink: 0;
+      position: absolute;
+      bottom: 10rem;
+      left: 1rem;
+      img{
+        border-radius: 20px 20px 0px 20px;
+      
+        width: 100%;
+      }
+    
+    }
+    .luxury-car3{
+      width: 164px;
+      height: 151px;
+      flex-shrink: 0;
+      position: absolute;
+      top: 20rem;
+      right: 1rem;
+      img{
+        border-radius: 20px 20px 0px 20px;
+      
+        width: 100%;
+      }
+    
+    }
+  
+    .more-faq {
+      text-align: center;
+      margin-top: 2.5rem;
+      p {
+        font-size: 18px;
+        color: var(--primary-text-color);
+      }
+      button {
+        width: 200px;
+        margin-top: 1rem;
+        font-weight: 700;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1200px){
+    .faq-main-container {
+      margin-top: 2rem;
+      padding: 10px 6rem;
+      // border: 3px solid green;
+      max-width: 1400px;
+      margin-inline: auto;
+      position: relative;
+  
+     
+    
+    }
+    .banner-container{
+      .banner-left{
+        h1{
+          font-size: 37px;
+        }
+      }
+    }
+    
+
+  }
+  @media screen and (max-width: 991px){
+    .faq-main-container {
+      margin-top: 2rem;
+      padding: 10px 0rem;
+      // border: 3px solid green;
+      max-width: 1400px;
+      margin-inline: auto;
+      position: relative;
+      .faq-queries-container{
+        padding: 3rem 2rem;
+      }
+
+  
+     
+    
+    }
+    
+
+  }
+  @media screen and (max-width: 480px){
+    .faq-main-container {
+     
+      .faq-queries-container{
+        padding: 3rem 1rem;
+      }
+    }
+    .banner-container{
+      .banner-left{
+        h1{
+          font-size: 32px;
+        }
+      }
+    }
+    
+
+  }

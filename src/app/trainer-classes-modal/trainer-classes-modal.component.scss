@@ -1,0 +1,88 @@
+.open-user-classes-btn {
+	background-color: #4a90e2;
+	color: #fff;
+	border: none;
+	padding: 10px 18px;
+	border-radius: 8px;
+	cursor: pointer;
+	font-weight: 600;
+	margin-bottom: 20px;
+	transition: background 0.3s ease;
+  
+	&:hover {
+	  background-color: #357abd;
+	}
+  }
+  
+  .user-class-dialog {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5); // Overlay
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+  
+	.dialog-content {
+	  background-color: #fff;
+	  padding: 30px;
+	  border-radius: 16px;
+	  width: 90%;
+	  max-width: 500px;
+	  max-height: 80%;
+	  overflow: hidden;
+	  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+	  display: flex;
+	  flex-direction: column;
+  
+	  h2 {
+		margin-bottom: 20px;
+		color: #333;
+		text-align: center;
+	  }
+  
+	  .class-scroll-box {
+		flex-grow: 1;
+		overflow-y: auto;
+		padding-right: 10px;
+  
+		.class-card {
+		  background-color: #f3f4f6;
+		  padding: 12px;
+		  border-radius: 12px;
+		  margin-bottom: 10px;
+		  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  
+		  .class-title {
+			font-weight: 600;
+			color: #222;
+		  }
+  
+		  .class-time {
+			font-size: 14px;
+			color: #666;
+			margin-top: 4px;
+		  }
+		}
+	  }
+  
+	  .close-btn {
+		background-color: #e74c3c;
+		color: #fff;
+		border: none;
+		padding: 10px;
+		border-radius: 10px;
+		cursor: pointer;
+		margin-top: 20px;
+		font-weight: bold;
+  
+		&:hover {
+		  background-color: #c0392b;
+		}
+	  }
+	}
+  }
+  

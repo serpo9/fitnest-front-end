@@ -1,0 +1,45 @@
+<!-- signup -->
+<div class="sign-up" *ngIf="condition; else elseBlock">
+    <div class="sign-up-content-container">
+        <p class="welcome-page">
+            Welcome Back !
+        </p>
+        <p class="sign-up-content">
+            Login to your account to book your favourite session.
+        </p>
+        <div class="next-page-click-up" (click)="selectUserType()">
+            <img src="/assets/images/next-page-click.png" alt="Next Page">
+          </div>
+    </div>
+</div>
+<div class="gradient-overlay"></div>
+<!-- signup -->
+<ng-template #elseBlock>
+   
+    <div class="sign-up" >
+        <div class="sign-up-content-container">
+            <p class="welcome-page">
+                Welcome to Fitnest !
+            </p>
+            <p class="sign-up-content">
+                Login to your account to book your favourite session.
+    
+            </p>
+            <!-- <div class="next-page-click-up" style="margin-top: 4rem;"  ><img style="animation: moveUpDown 0s infinite;" src="/assets/images/next-page-click.png" alt=""></div> -->
+        </div>
+    </div>
+    <div class="gradient-overlay">
+    </div>
+    <div class="welcome-profile">
+        <div class="profile-contianer">
+            <div class="card1"  (click)="chooseUserType('Admin')"><img src="/assets/images/corparte.png" alt="">
+            <p>Admin</p></div>
+            <div class="card2"  (click)="chooseUserType('Customer')"><img src="/assets/images/prsnl.png" alt="">
+                <p>customer</p></div>
+          
+          <div class="card2"  (click)="chooseUserType('Trainer')"><img src="/assets/images/Driveimg.png" alt="">
+            <p>Trainer</p></div>
+       
+        </div>
+    </div>
+  </ng-template>

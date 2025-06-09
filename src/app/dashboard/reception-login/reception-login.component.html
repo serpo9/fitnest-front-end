@@ -1,0 +1,30 @@
+<!-- signup -->
+<div>
+    <div class="sign-up">
+        <div class="sign-up-content-container">
+            <div class="gradient-overlay"></div>
+        </div>
+    </div>
+    
+    <div class="other-else">
+        <div class="login-form">
+            <div class="login-signup next-page-click-up">
+                <div class="next-page-login" [ngClass]="{'active': activeButton === 'login'}">
+                    Login
+                </div>
+            </div>
+
+            <div class="input-field login-input-field">
+                <img src="/assets/images/massageimg.png" alt="">
+                <input type="text"  placeholder="Enter Email" [(ngModel)]="loginEmail">
+            </div>
+            <div class="input-field login-input-field">
+                <img src="/assets/images/Outlined.png" alt="">
+                <input type="password" placeholder="Enter Password" autocomplete="new-password" [(ngModel)]="loginPass">
+            </div>
+            <!-- <div class="Forgot-password" (click)="forgotpassword()"> <span>Forgot Password ? </span></div> -->
+            <button class="continue-button" (click)="login()">Continue</button>
+       
+        </div>
+    </div>
+</div>

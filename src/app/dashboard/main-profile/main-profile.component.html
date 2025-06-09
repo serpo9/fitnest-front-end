@@ -1,0 +1,55 @@
+<!-- user details -->
+<div class="user-details-container ">
+    <h1 style="text-transform: uppercase;">{{ gymName }}</h1>
+    <i class="fa fa-bell" aria-hidden="true" *ngIf="userType === 'Customer'"></i>
+    <i class="fa fa-paper-plane" aria-hidden="true" (click)="goToPage('event-notification')"></i>
+
+    <p class="welcome-text">Personal Information</p>
+
+    <div class="userdetails-grid">
+        <div class="user-info-container">
+
+            <div class="user-detials">
+                <div class="input-container">
+                    <div class="input-title">
+                        <h4> ID*</h4>
+                    </div>
+                    <div class="input-value">
+                        <p>{{username.id}}</p>
+                    </div>
+                </div>
+
+                <div class="input-container">
+                    <div class="input-title">
+                        <h4>Name*</h4>
+                    </div>
+                    <div class="input-value">
+                        <p>{{ username.name}}</p>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <div class="input-title">
+                        <h4>Email ID*</h4>
+                    </div>
+                    <div class="input-value" max-length="10">
+                        <p>{{ username.email}}</p>
+                    </div>
+                </div>
+                <div class="input-container">
+                    <div class="input-title">
+                        <h4>Mobile Number*</h4>
+                    </div>
+                    <div class="input-value">
+                        <p>{{ username.phone}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="logout-container">
+        <button class="custom-btn cancel-btn logout" (click)="logout()">Logout</button>
+    </div>
+</div>
+<!-- user details -->

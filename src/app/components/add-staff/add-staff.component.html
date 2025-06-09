@@ -1,0 +1,83 @@
+<div class="main-container">
+
+	<div class="content">
+		<div class="card1" [class.full-width]="!sidenavOpen">
+			<div class="title" style="margin-bottom: 2rem">
+				<h2>Add Staff</h2>
+			</div>
+
+			<!-- Guest Registration Form -->
+			<div class="form-container" *ngIf="isGuest">
+
+				<form (ngSubmit)="registerStaffs()" class="Employee-info-id" #guestForm="ngForm">
+					<div class="form-group">
+						<input id="userName" name="userName" type="text" [(ngModel)]="userName" placeholder="User Name"
+							required #userNameRef="ngModel" />
+						<div *ngIf="userNameRef.invalid && userNameRef.touched" class="error">
+							<small *ngIf="userNameRef.errors?.['required']">Name is required.</small>
+						</div>
+
+						<!-- <input id="phone" name="phone" type="text" [(ngModel)]="phone" placeholder="Enter Phone Number" required #phoneRef="ngModel" /> -->
+
+						<input id="phone" name="phone" type="tel" [(ngModel)]="phone" placeholder="Phone Number"
+							[maxLength]="10" [minLength]="10" (keypress)="onlyNumbers($event)" #phoneRef="ngModel">
+
+
+						<div *ngIf="phoneRef.invalid && phoneRef.touched" class="error">
+							<small *ngIf="phoneRef.errors?.['required']">Phone number is required.</small>
+						</div>
+
+
+						<input id="email" name="email" type="email" [(ngModel)]="email" placeholder="Email"
+							#emailRef="ngModel">
+
+
+						<div *ngIf="emailRef.invalid && emailRef.touched" class="error">
+							<small *ngIf="emailRef.errors?.['required']">email is required.</small>
+						</div>
+
+						<!-- Password -->
+						<input id="password" name="password" type="password" [(ngModel)]="password"
+							placeholder="Enter Password" required #passwordRef="ngModel" />
+						<div *ngIf="passwordRef.invalid && passwordRef.touched" class="error">
+							<small *ngIf="passwordRef.errors?.['required']">Password is required.</small>
+						</div>
+
+						<!-- Confirm Password -->
+						<input id="confirmPassword" name="confirmPassword" type="password" [(ngModel)]="confirmPassword"
+							placeholder="Confirm Password" required #confirmPasswordRef="ngModel" />
+						<div *ngIf="confirmPasswordRef.invalid && confirmPasswordRef.touched" class="error">
+							<small *ngIf="confirmPasswordRef.errors?.['required']">Confirm password is required.</small>
+							<small *ngIf="password !== confirmPassword">Passwords do not match.</small>
+						</div>
+					</div>
+
+					<mat-form-field>
+						<mat-label>Choose a date</mat-label>
+						<input matInput [matDatepicker]="picker" [(ngModel)]="expiryDate" name="expiryDate">
+						<mat-hint>MM/DD/YYYY</mat-hint>
+						<mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+						<mat-datepicker #picker></mat-datepicker>
+					</mat-form-field>
+
+					<mat-form-field appearance="fill" class="custom-height">
+						<mat-label>User Type</mat-label>
+						<mat-select [(ngModel)]="type" name="type" required #typeRef="ngModel">
+							<mat-option *ngFor="let option of userType" [value]="option.value">
+								{{ option.viewValue }}
+							</mat-option>
+						</mat-select>
+					</mat-form-field>
+
+					<button class="searchbtn" type="submit"
+						[disabled]="guestForm.invalid || password !== confirmPassword">
+						Submit
+					</button>
+				</form>
+			</div>
+
+			<!-- Verified Customer Registration Form -->
+
+		</div>
+	</div>
+</div>

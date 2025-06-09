@@ -1,0 +1,134 @@
+<div class="main-container">
+  <!-- Content Area -->
+  <div class="content" [class.full-width]="sidenavOpen === false" [class.translucent]="sidenavOpen">
+    <div class="mainHistory">All Users</div>
+    <div class="header">
+      <div class="search-box">
+        <input type="search" name="serach-employee" class="search-field" [(ngModel)]="searchTerm"
+          (ngModelChange)="onSearchChange()" placeholder=" Search by name/phoneNo" />
+        <!-- <button class="clearbtn" mat-icon-button matSuffix *ngIf="searchTerm" aria-label="Clear"></button> -->
+        <button mat-raised-button class="searchbtn buttoncolor">
+          <mat-icon>search</mat-icon>
+          <span (click)="searchUsersByInputFields(searchTerm)">Search</span>
+        </button>
+      </div>
+      <mat-form-field appearance="fill" class="border-radius">
+        <mat-label>Choose a date range</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate placeholder="Start date" [(ngModel)]="dateRange.start" name="startDate" />
+          <input matEndDate placeholder="End date" [(ngModel)]="dateRange.end" name="endDate" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+      <button mat-raised-button class="buttoncolor" (click)="getAllActiveUser()">
+        Search
+      </button>
+
+      <div></div>
+    </div>
+    <div class="hikvision-filter">
+      <span class="filter-btn"  [class.active]="selectedFilter === 'all'"
+      (click)="activeTab('all')">
+        All
+      </span>
+      <span class="filter-btn"  [class.active]="selectedFilter === 'expired'" (click)="activeTab('expired')">
+        Expired
+      </span>
+      <span class="filter-btn"  [class.active]="selectedFilter === 'expiringSoon'" (click)="activeTab('expiringSoon')">
+        Expiring Soon
+      </span>
+    
+      <span class="filter-btn" (click)="exportToExcel()">
+        Export to Excel
+      </span>
+    </div>
+
+    <div class="table-responsive" [ngClass]="{'no-data': dataSource.data.length === 0}" >
+      <div *ngIf="!dataSource || dataSource.data.length === 0" class="no-data-message">
+        No users found.
+      </div>
+
+      <!-- Main Table (Default) -->
+      <table mat-table [dataSource]="dataSource" class="custom-table" *ngIf="
+          selectedFilter === 'all' && (dataSource?.data?.length || 0) > 0
+        ">
+        <!-- Table Definitions -->
+        <ng-container matColumnDef="userid">
+          <th mat-header-cell *matHeaderCellDef>User ID</th>
+          <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+        </ng-container>
+        <ng-container matColumnDef="employeeNo">
+          <th mat-header-cell *matHeaderCellDef>playerName</th>
+          <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="number">
+          <th mat-header-cell *matHeaderCellDef>Number</th>
+          <td mat-cell *matCellDef="let element">{{ element.number }}</td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+        </ng-container>
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef>Type</th>
+          <td mat-cell *matCellDef="let element">{{ element.type }}</td>
+        </ng-container>
+        <ng-container matColumnDef="joinDate">
+          <th mat-header-cell *matHeaderCellDef>Join Date</th>
+          <td mat-cell *matCellDef="let element">{{element.createdAt | date:'dd-MM-yyyy'}}</td>
+        </ng-container>
+        <ng-container matColumnDef="sendMessage" class="sendMessage">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              mat-raised-button
+              class="buttoncolor"
+              (click)="openMessageDialogue(element)"
+            >
+            Send Message
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="progress" class="sendMessage">
+          <th mat-header-cell *matHeaderCellDef>View</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              mat-raised-button
+              class="buttoncolor"
+              (click)="openTrackDialogue(element.id)"
+            >
+            View Progress
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="postProgress" class="sendMessage">
+          <th mat-header-cell *matHeaderCellDef>Post</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              mat-raised-button
+              class="buttoncolor"
+              (click)="postProgress(element.id)"
+            >
+            Add Progress
+            </button>
+          </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <div class="table-footer" [style.display]="dataSource.data.length > 0 ? 'flex' : 'none'">
+        <mat-paginator [pageSize]="6" class="custom-paginator"></mat-paginator>
+    </div>
+    </div>
+  </div>
+</div>

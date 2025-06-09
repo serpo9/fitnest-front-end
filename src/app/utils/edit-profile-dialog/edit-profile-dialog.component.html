@@ -1,0 +1,54 @@
+<ng-container *ngIf="data.showBasicForm === true">
+  <div class="edit-profile-dialog-container" style="background-color: #302721; max-width: 700px;">
+    <h2>Edit your profile {{data.form}}</h2>
+    <div>
+      <div class="main-dialog-container">
+        <div class="edit-profile-container">
+          <input #nameInput type="text" [(ngModel)]="this.logindata.name">
+          <input #emailInput class="email" type="text" [(ngModel)]="this.logindata.email" readonly>
+          <input #phoneInput type="text" [(ngModel)]="this.logindata.phoneNumber" maxlength="10">
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <button class="custom-btn" (click)="onSave()">Save</button>
+      <button class="custom-btn cancel-btn" (click)="onCancel()">Cancel</button>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="data.showBasicForm !== true">
+  <div class="edit-profile-dialog-container" style="background-color: #302721; max-width: 700px;">
+    <h2>Edit More Information </h2>
+    <div>
+      <div class="main-dialog-container">
+        <div class="edit-profile-container">
+          <div class="d-grid">
+            <label>Blood group: </label>
+            <input #bloodGroupInput type="text" [(ngModel)]="this.moreCustomerInfo.bloodGroup" readonly>
+          </div>
+          <div class="d-grid">
+            <label>Height: </label>
+            <input #heightInput type="text" [(ngModel)]="this.moreCustomerInfo.height">
+          </div>
+
+          <div class="d-grid">
+            <label for="fitnessGoal">Fitness goal:</label>
+            <select #fitnessGoalsInput [(ngModel)]="this.moreCustomerInfo.fitnessGoals">
+              <option *ngFor="let goal of fitnessGoal" [value]="goal">{{ goal }}</option>
+            </select>
+          </div>
+
+          <div class="d-grid">
+            <label>Weight: </label>
+            <input #weightInput type="text" [(ngModel)]="this.moreCustomerInfo.weight">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <button class="custom-btn" (click)="saveMoreInfo()">Save</button>
+      <button class="custom-btn cancel-btn" (click)="onCancel()">Cancel</button>
+    </div>
+  </div>
+</ng-container>

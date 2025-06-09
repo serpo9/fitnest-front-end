@@ -1,0 +1,90 @@
+<div class="main-container">
+    <!-- Include Sidebar Component -->
+
+    <!-- <app-sidebar
+      (sidenavToggle)="onSidenavToggle($event)"
+      [class.slidebar]="sidenavOpen"
+    ></app-sidebar> -->
+
+    <!-- Content Area -->
+    <div class="content" [class.full-width]="sidenavOpen === false" [class.translucent]="sidenavOpen">
+        <div class="mainHistory">All Subscriptions</div>
+        <!-- <div class="header">
+            <div class="search-box">
+                <input type="search" name="serach-employee" class="search-field" [(ngModel)]="searchTerm"
+                    placeholder="Enter Plans name" />
+                <button mat-raised-button class="searchbtn buttoncolor" (click)="applyFilter()">
+                    <mat-icon>search</mat-icon>
+                    <span>Search</span>
+                </button>
+            </div>
+        </div> -->
+            <button class="filter-btn" (click)="goToPage('add-subscription-plans')">Add plans
+                <mat-icon>add_box</mat-icon></button>
+
+            <div class="table-responsive">
+                <!-- Main Table (Default) -->
+                <table mat-table [dataSource]="dataSource" class="custom-table" *ngIf="selectedFilter === 'Search1' && dataSource.data.length > 0;">
+                    <!-- Table Definitions -->
+                    <ng-container matColumnDef="employeeNo">
+                        <th mat-header-cell *matHeaderCellDef>playerName</th>
+                        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="planName">
+                        <th mat-header-cell *matHeaderCellDef>Plan Name</th>
+                        <td mat-cell *matCellDef="let element">{{ element.planName }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="description">
+                        <th mat-header-cell *matHeaderCellDef>Description</th>
+                        <td mat-cell *matCellDef="let element"> {{ element.description | slice:0:40 }}...</td>
+                    </ng-container>
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef>Status</th>
+                        <td mat-cell *matCellDef="let element">{{element.status}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="planType">
+                        <th mat-header-cell *matHeaderCellDef>Plan Type</th>
+                        <td mat-cell *matCellDef="let element">{{element.planType}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="monthlyPrice">
+                        <th mat-header-cell *matHeaderCellDef>Monthly Price ( Rs. )</th>
+                        <td mat-cell *matCellDef="let element">{{element.monthlyPrice || 'NULL'}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="quarterlyPrice">
+                        <th mat-header-cell *matHeaderCellDef>Quarterly Price ( Rs. )</th>
+                        <td mat-cell *matCellDef="let element">{{element.quarterlyPrice || 'NULL'}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="yearlyPrice">
+                        <th mat-header-cell *matHeaderCellDef>Yearly Price ( Rs. )</th>
+                        <td mat-cell *matCellDef="let element">{{element.yearlyPrice || 'NULL'}}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="view">
+                        <th mat-header-cell *matHeaderCellDef>View</th>
+                        <td mat-cell *matCellDef="let element" (click)="viewPlan(element.id)"><button>View</button></td>
+                    </ng-container>
+                    <ng-container matColumnDef="edit">
+                        <th mat-header-cell *matHeaderCellDef>Edit</th>
+                        <td mat-cell *matCellDef="let element"><button (click)="editPlan(element.id)">Edit</button></td>
+                    </ng-container>
+
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                </table>
+
+
+
+                <div class="table-footer" [style.display]="dataSource.data.length > 0 ? 'flex' : 'none'">
+                    <mat-paginator [pageSize]="6" class="custom-paginator"></mat-paginator>
+                </div>
+            </div>
+
+        <div *ngIf="this.dataSource.data.length === 0" class="no-data">
+            <h2>No data found.</h2>
+        </div>
+
+        <!-- <div   class="pdf"> <button mat-raised-button color="primary" (click)="exportPDF()"><mat-icon>download</mat-icon> Pdf</button></div>
+       -->
+    </div>
+</div>

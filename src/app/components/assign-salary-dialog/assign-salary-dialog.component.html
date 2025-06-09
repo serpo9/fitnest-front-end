@@ -1,0 +1,26 @@
+<h2 mat-dialog-title class="dialog-title">💰 Assign Salary</h2>
+
+<div mat-dialog-content class="dialog-content">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Salary Amount</mat-label>
+    <input
+      matInput
+      type="number"
+      [(ngModel)]="salaryAmount"
+      placeholder="Enter salary"
+    />
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-button class="cancel-btn" (click)="onCancel()">Cancel</button>
+  <button
+    mat-flat-button
+    color="primary"
+    class="save-btn"
+    (click)="onSave()"
+    [disabled]="!salaryAmount"
+  >
+    Save
+  </button>
+</div>

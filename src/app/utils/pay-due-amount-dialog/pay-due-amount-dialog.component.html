@@ -1,0 +1,35 @@
+<div class="dialog-container">
+      <div class="header">
+            <h2 class="title">Pay Due Amount</h2>
+      </div>
+      <div class="plan-details">
+            <p class="planName">Paying For :</p>
+            <div class="info">
+                  <p>Purchase Date : {{data.purchasedPlanData.purchaseDate | date:'dd-MM-yyyy':'UTC'}}</p>
+                  <p>Plan Price : {{data.planPrice}} </p>
+                  <p>Amount Pending : {{data.amountDue}}</p>
+            </div>
+      </div>
+      <div class="amount">
+         <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+           <input
+            class="input-box"
+            type="number"
+            formControlName="payAmount"
+            placeholder="Enter Amount"
+            />
+
+            <div class="error" *ngIf="payAmountControl?.invalid && (payAmountControl?.touched || payAmountControl?.dirty)">
+            <span *ngIf="payAmountControl?.errors?.['required']">Amount is required.</span>
+            <span *ngIf="payAmountControl?.errors?.['min']">Amount must be greater than 1.</span>
+            </div>
+
+
+
+            <div class="pay-btn">
+                  <button class="btn" type="submit" [disabled]="paymentForm.invalid">Pay</button>
+            </div>
+            </form>
+
+      </div>
+</div>

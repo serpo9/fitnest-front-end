@@ -1,0 +1,77 @@
+<!-- <div class="container">
+	<h2>Send Notification</h2>
+  
+	<label>Select User Group</label>
+	<select [(ngModel)]="selectedType" (change)="fetchUsers()">
+	  <option value="">-- Select --</option>
+	  <option value="all">All Users</option>
+	  <option value="subscribed">Subscribed Users</option>
+	  <option value="trainers">Trainers</option>
+	  <option value="upcomingRenewals">Upcoming Renewals</option>
+	</select>
+  
+	<div >
+	  <label>Subject</label>
+	  <input [(ngModel)]="subject" placeholder="Enter subject" />
+  
+	  <label>Message</label>
+	  <textarea [(ngModel)]="message" placeholder="Enter message"></textarea>
+  
+	  <button (click)="sendMessages()">Send Notification</button>
+	</div>
+  
+	<p *ngIf="users.length === 0 && selectedType" class="error-message">
+	  No users found for "{{ selectedType }}"
+	</p>
+  </div>
+   -->
+
+   <div class="main-container" style="display: flex; gap: 2rem;">
+	<!-- Left Panel: Notification Form -->
+	<div class="form-container" style="flex: 2;">
+	  <h2 class="heading">Send Notification</h2>
+  
+	  <label class="form-label">Select User Group</label>
+	  <select [(ngModel)]="selectedType" (change)="fetchUsers()">
+		<option value="">-- Select --</option>
+		<option value="all">All Users</option>
+		<option value="subscribed">Subscribed Users</option>
+		<option value="trainers">Trainers</option>
+		<option value="upcomingRenewals">Upcoming Renewals</option>
+	  </select>
+  
+	  <div>
+		<label class="form-label">Subject</label>
+		<input [(ngModel)]="subject" placeholder="Enter subject" />
+  
+		<label class="form-label">Message</label>
+		<textarea [(ngModel)]="message" placeholder="Enter message"></textarea>
+  
+		<button (click)="sendMessages()">Send Notification</button>
+	  </div>
+	</div>
+	
+<div class="user-list">
+	<h3>Recipients</h3>
+	<div class="scroll-area" *ngIf="users.length > 0">
+	  <ul>
+		<li *ngFor="let user of users">
+			<div class="user-entry">
+			  <strong>{{ user.name }}</strong>
+			  <span>{{ user.email }}</span>
+		  
+			  <!-- Show expiry info only if available -->
+			  <div *ngIf="user.expiryDate" class="expiry-info">
+				<span>Expiry: {{ user.expiryDate | date: 'mediumDate' }}</span>
+				<br>
+				<span>Days Left: {{ user.daysLeft }}</span>
+			  </div>
+			</div>
+		  </li>
+	  </ul>
+	</div>
+	<p *ngIf="users.length === 0 && selectedType">No users Found</p>
+  </div>
+  
+  </div>
+  

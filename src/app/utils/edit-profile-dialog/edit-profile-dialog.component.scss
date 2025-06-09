@@ -1,0 +1,268 @@
+::-webkit-scrollbar {
+	display: none !important;
+}
+
+::ng-deep .mat-dialog-actions {
+	gap: 20px;
+	justify-content: center;
+}
+
+::ng-deep .cdk-overlay-pane {
+	width: 500px !important;
+	border-radius: 5px;
+	background-color: transparent;
+
+}
+
+::ng-deep .mat-dialog-title {
+	font-family: "Playfair Display";
+	font-size: 24px;
+	font-weight: 700;
+	text-align: center;
+}
+
+::ng-deep .mat-dialog-container {
+	box-shadow: none;
+	display: flex;
+	justify-content: center;
+	margin-left: auto;
+	margin-right: auto;
+	color: white;
+	background-color: #302721;
+	padding: 20px;
+	border-radius: 20px;
+	width: 700px;
+	height: 480px;
+	overflow: hidden;
+	z-index: 9999;
+
+	.urlforTransaction {
+		margin-top: 20px;
+	}
+
+	h2 {
+		text-decoration: underline;
+		text-align: center;
+	}
+
+	::-webkit-scrollbar {
+		display: none;
+	}
+
+	::ng-deep .mat-dialog-content {
+		height: 70% !important;
+	}
+
+	::ng-deep app-dialog {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+
+		::ng-deep .mat-dialog-title {
+			font-family: "Playfair Display" !important;
+			font-size: 32px;
+			font-weight: 500;
+			text-align: center;
+		}
+
+		::ng-deep .mat-dialog-content {
+			font-size: 20px;
+			font-family: "Montserrat", sans-serif;
+			color: white;
+			text-align: center;
+			height: 70% !important;
+		}
+
+		::ng-deep .mat-dialog-actions {
+			justify-content: center !important;
+			gap: 20px;
+		}
+	}
+}
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+	background-color: transparent;
+
+}
+
+.mat-mdc-dialog-actions {
+	padding: 0px !important;
+	margin-top: 1rem;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+
+	.cancel-btn {
+		border: 2px solid #FF4848;
+	}
+
+}
+
+.edit-profile-dialog-container {
+
+	width: 500px;
+	height: auto;
+	padding: 2rem;
+	border-radius: 5px;
+
+	.d-grid {
+		display: grid;
+		grid-template-columns: 30% 70%;
+		gap: 5px;
+		align-items: center;
+
+		label {
+			color: #fff;
+			font-weight: 600;
+		}
+	}
+	h2 {
+		color: #f0eeed;
+	}
+
+	.main-dialog-container {
+		.edit-profile-container {
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+
+			input, select {
+				margin-top: 1rem;
+				padding-top: .5rem;
+				padding-bottom: .5rem;
+				border: 2px solid #76706c;
+				background-color: #302721;
+				border-radius: 8px;
+				padding-left: 1rem;
+				color: #d3d0ce;
+
+				&::placeholder {
+					color: var(--light-color-active)
+				}
+			}
+
+			.email {
+				color: #adacac;
+			}
+		}
+
+	}
+
+	.custom-btn {
+		margin-right: 1rem;
+	}
+
+}
+
+// Phone view SCSS
+
+@media screen and (max-width: 768px) {
+	.main-dialog-container {
+		// grid-template-columns: repeat(1, 1fr);
+		grid-template-columns: 40% 55%;
+
+		.dialog-left {
+			height: 200px;
+		}
+	}
+
+	::ng-deep .mat-dialog-container {
+		width: 500px;
+		height: 400px;
+		// height: auto;
+		grid-template-columns: 40% 56%;
+
+		// ::ng-deep .mat-dialog-content {
+		// 	height: auto !important;
+		// }
+
+	}
+
+	.main-dialog-container {
+		height: 70%;
+	}
+
+
+}
+
+@media screen and (max-width: 580px) {
+	.main-dialog-container {
+		.dialog-right {
+			.per-rides-container {
+				.rides-info {
+					.ride-price {
+						font-size: 17px;
+					}
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.main-dialog-container {
+		grid-template-columns: repeat(1, 1fr);
+
+		.dialog-left {
+			height: 85px;
+			display: none;
+		}
+	}
+
+	::ng-deep .mat-dialog-container {
+		box-shadow: none;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 520px;
+
+		::ng-deep app-dialog {
+			::ng-deep .mat-dialog-title {
+				font-size: 26px;
+				margin-bottom: 8px;
+			}
+
+			::ng-deep .mat-dialog-content {
+				font-size: 17px;
+
+				p {
+					margin-bottom: 4px;
+				}
+
+
+				.mat-dialog-container {
+					height: 460px;
+
+					.dialog-left {
+						height: 150px;
+					}
+				}
+			}
+
+
+		}
+	}
+}
+
+@media screen and (max-width: 360px) {
+	::ng-deep .mat-dialog-container {
+		::ng-deep app-dialog {
+			::ng-deep .mat-dialog-title {
+				font-size: 16px;
+				margin-bottom: 8px;
+			}
+
+			::ng-deep .mat-dialog-content {
+				font-size: 14px;
+
+				p {
+					margin-bottom: 4px;
+				}
+			}
+
+
+		}
+	}
+}

@@ -1,0 +1,28 @@
+<div class="view-subs-container">
+
+    <div class="close" (click)="closeDialog()"><mat-icon>clear</mat-icon></div>
+
+    <h2 *ngIf="data?.planName">{{ data?.planName }}</h2>
+    <p class="description" *ngIf="data?.description">{{ data?.description }}</p>
+    <h3 class="features-heading" *ngIf="data?.features !==null">Features:</h3>
+    <ul *ngIf="data?.features !==null">
+        <li *ngFor="let feature of parsedFeatures">{{ feature }}</li>
+    </ul>
+
+    <p class="personal-trainer margin-top"><strong>Personal Trainer:</strong> {{ data?.includesPersonalTrainer == true ?
+        'Yes' : 'No' }}</p>
+    <p class="group-classes margin-top"><strong>Group Classes:</strong> {{ data?.includesGroupClasses == true ? 'Yes' :
+        'No'}}</p>
+
+    <h3 class="pricing-heading margin-top" *ngIf="data?.monthlyPrice && data?.quarterlyPrice &&data?.yearlyPrice">Pricing:</h3>
+    <p class="common-item" *ngIf="data?.monthlyPrice">Monthly: {{ data?.monthlyPrice }}</p>
+    <p class="common-item" *ngIf="data?.quarterlyPrice">Quarterly: {{ data?.quarterlyPrice }}</p>
+    <p class="common-item" *ngIf="data?.yearlyPrice">Yearly: {{ data?.yearlyPrice }}</p>
+
+    <h3 class="add-ons-heading margin-top">Add-ons:</h3>
+    <p class="common-item">Personal Trainer: {{ data?.extraPersonalTrainerFee }} per session</p>
+    <p class="common-item">Group Class: {{ data?.extraGroupClassFee }} per class</p>
+
+    <h3 class="statuss-heading margin-top">Status: {{ data?.status == 'active' ? 'Active' : 'Inactive' }}</h3>
+
+</div>

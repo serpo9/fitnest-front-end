@@ -1,0 +1,47 @@
+<div class="main-container">
+      <div class="title"><h1>{{salaryData?.name}} Salary Details </h1> </div>
+      <div class="header">
+            <p class="salary-info">Effective From : {{salaryData?.effectiveFrom | date:'dd-MM-yyyy':'UTC' }}</p>
+            <p class="salary-info">Assigned Salary : {{salaryData?.salaryAmount || 'No data'}}</p>
+            <p class="salary-info">This Month Salary : {{data?.salary }}</p>
+            <p class="salary-info">Last Paid on : {{ lastPaidOn | date:'dd-MM-yyyy':'UTC' }}</p>
+
+      </div>
+      <div class="table-responsive" [ngClass]="{'no-data': dataSource.data.length === 0}">
+			<div *ngIf="!dataSource || dataSource.data.length === 0" class="no-data-message">
+				No Data found.
+			</div>
+			<table mat-table [dataSource]="dataSource" class="custom-table" *ngIf=" (dataSource?.data?.length || 0) > 0">
+				<ng-container matColumnDef="date">
+					<th mat-header-cell *matHeaderCellDef>Paid on</th>
+					<td mat-cell *matCellDef="let element">{{ element.createdAt | date:'dd-MM-yyyy':'UTC'}}</td>
+				</ng-container>
+				
+				<ng-container matColumnDef="amount">
+					<th mat-header-cell *matHeaderCellDef>Email</th>
+					<td mat-cell *matCellDef="let element">{{ element.calculatedAmount }}</td>
+				</ng-container>
+				<ng-container matColumnDef="presentDays">
+					<th mat-header-cell *matHeaderCellDef>Salary</th>
+					<td mat-cell *matCellDef="let element">{{ element.totalPresentDays  }}</td>
+				</ng-container>
+				<ng-container matColumnDef="status">
+					<th mat-header-cell *matHeaderCellDef>Days Present</th>
+					<td mat-cell *matCellDef="let element">{{ element.totalPresentDays }}</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+			</table>
+
+			<div class="table-footer" [style.display]="dataSource.data.length > 0 ? 'flex' : 'none'">
+				<mat-paginator [pageSize]="6" class="custom-paginator"></mat-paginator>
+			</div>
+	</div>
+
+      <div class="pay-container">
+            <label for="Salary Amount :"></label>
+            <input [(ngModel)]="amount" type="number" min=`${amount}`>
+            <button (click)="paySalary()" class="btn">Pay</button>
+      </div>
+</div>

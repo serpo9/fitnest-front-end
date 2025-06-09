@@ -1,0 +1,33 @@
+<!-- <h2 mat-dialog-title class="title" >Trainer Status</h2>
+<mat-dialog-content>
+  <p>Name: {{ data.name }}</p>
+  <p>Phone: {{ data.number }}</p>
+  <p>Email: {{ data.email }}</p>
+  <p>Status: <b>{{ data.userStatus }}</b></p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">Close</button>
+  <button *ngIf="data.userStatus === 'pending'" mat-button color="primary" (click)="changeStatus()">
+    Approve Trainer
+  </button>
+</mat-dialog-actions> -->
+<div class="dialog-container">
+  <h2 mat-dialog-title class="title">Trainer Verification</h2>
+  <mat-dialog-content class="content">
+    <p>{{ data.message }}</p> <!-- ✅ Dynamic message -->
+  </mat-dialog-content>
+  <mat-dialog-actions class="actions">
+    <button mat-button (click)="closeDialog()">Cancel</button>
+    <button *ngIf="data.userStatus === 'pending'" class="approve-btn" mat-button (click)="changeStatus('active')">
+      Verify
+    </button>
+    <button *ngIf="data.userStatus === 'inactive'" class="approve-btn" mat-button (click)="changeStatus('active')">
+      Activate
+    </button>
+    <button *ngIf="data.userStatus === 'active'" class="cancel-btn" mat-button (click)="changeStatus('inactive')">
+      Deactivate
+    </button>
+  </mat-dialog-actions>
+</div>
+
+

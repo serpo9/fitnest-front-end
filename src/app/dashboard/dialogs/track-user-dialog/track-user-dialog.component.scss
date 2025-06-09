@@ -1,0 +1,58 @@
+.close-button {
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: #e5e5e5;
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #ffffff;
+    }
+  }
+  
+.table-responsive {
+    overflow-x: auto;
+    background: #40342c;
+    border-radius: 5px;
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+        background: #40342c;
+
+        bord th,
+        td {
+            padding: 12px 8px;
+            text-align: start;
+            white-space: nowrap;
+            color: #c9bbbb;
+        }
+
+        th {
+            background-color: #f0f0f0e6;
+            font-weight: 500;
+        }
+    }
+
+
+
+    .table-footer {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 1rem;
+
+        .custom-paginator {
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+
+.no-data {
+    margin-top: 0;
+}

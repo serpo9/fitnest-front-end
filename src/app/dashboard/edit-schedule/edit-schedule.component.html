@@ -1,0 +1,66 @@
+<div class="edit-subscription-dialog-container">
+  <div class="close" (click)="close()">
+    <mat-icon>clear</mat-icon>
+  </div>
+  <h2>Edit Schedule</h2>
+  <div class="edit-subscription-container">
+    <!-- Plan Name -->
+    <div class="form-group">
+      <label for="planName">Class Name</label>
+      <input
+        id="planName"
+        type="text"
+        [(ngModel)]="editedSchedule.assignedClass"
+
+        placeholder="Enter Class Name"
+      />
+    </div>
+
+
+     <!-- Start Time -->
+     <div class="form-group">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Start Time</mat-label>
+        <input   [(ngModel)]="editedSchedule.startfrom" name="startTime" matInput type="time" required />
+      </mat-form-field>
+    </div>
+
+    <!-- End Time -->
+    <div class="form-group">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>End Time</mat-label>
+        <input [(ngModel)]="editedSchedule.endTime" name="endTime" matInput type="time" required />
+      </mat-form-field>
+    </div>
+   
+
+    <!-- capacity Section -->
+    <div class="pricing-container">
+      <div class="form-group">
+        <label for="monthlyPrice">Capacity</label>
+        <input
+          id="monthlyPrice"
+          type="number"
+          [(ngModel)]="editedSchedule.capacity"
+          placeholder="1"
+        />
+      </div>
+    </div>
+    <!-- Status -->
+    <!-- <div class="form-group">
+      <label>Status</label>
+      <select [(ngModel)]="editedSchedule.status">
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+        <option value="pending">Pending</option>
+
+      </select>
+    </div> -->
+  </div>
+
+  <!-- Buttons -->
+  <div mat-dialog-actions class="actions-container">
+    <button class="custom-btn save-btn" (click)="onSave()">Save</button>
+    <button class="custom-btn cancel-btn" (click)="close()">Cancel</button>
+  </div>
+</div>

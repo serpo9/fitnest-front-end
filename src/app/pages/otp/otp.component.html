@@ -1,0 +1,105 @@
+<!-- signup -->
+<div *ngIf="condition; else elseBlock">
+
+    <div class="sign-up">
+        <div class="sign-up-content-container">
+          
+
+
+            <div class="gradient-overlay"></div>
+        </div>
+    </div>
+    <div class="other-else">
+        <div class="login-form">
+            <div class="login-signup next-page-click-up">
+                <p class="next-page-login">You’re almost done !</p>
+                <div class="next-page-signup">We have sent a code to <span>{{mailid}}</span> </div>
+            </div>
+
+            <div class="input-field">
+                <div class="input-contain">
+                  <input id="codeBox1" type="number" maxlength="1" (input)="onInputEvent(1, $event)"
+                         (keyup)="onKeyUpEvent(1, $event)" (focus)="onFocusEvent(1)" (paste)="onPasteEvent(1, $event)"
+                         [(ngModel)]="otpone">
+                </div>
+                <div class="input-contain">
+                  <input id="codeBox2" type="number" maxlength="1" (input)="onInputEvent(2, $event)"
+                         (keyup)="onKeyUpEvent(2, $event)" (focus)="onFocusEvent(2)" (paste)="onPasteEvent(2, $event)"
+                         [(ngModel)]="otptwo">
+                </div>
+                <div class="input-contain">
+                  <input id="codeBox3" type="number" maxlength="1" (input)="onInputEvent(3, $event)"
+                         (keyup)="onKeyUpEvent(3, $event)" (focus)="onFocusEvent(3)" (paste)="onPasteEvent(3, $event)"
+                         [(ngModel)]="otpthree">
+                </div>
+                <div class="input-contain">
+                  <input id="codeBox4" type="number" maxlength="1" (input)="onInputEvent(4, $event)"
+                         (keyup)="onKeyUpEvent(4, $event)" (focus)="onFocusEvent(4)" (paste)="onPasteEvent(4, $event)"
+                         [(ngModel)]="otpfour">
+                </div>
+                <div class="input-contain">
+                  <input id="codeBox5" type="number" maxlength="1" (input)="onInputEvent(5, $event)"
+                         (keyup)="onKeyUpEvent(5, $event)" (focus)="onFocusEvent(5)" (paste)="onPasteEvent(5, $event)"
+                         [(ngModel)]="otpfive">
+                </div>
+                <div class="input-contain">
+                  <input id="codeBox6" type="number" maxlength="1" (input)="onInputEvent(6, $event)"
+                         (keyup)="onKeyUpEvent(6, $event)" (focus)="onFocusEvent(6)" (paste)="onPasteEvent(6, $event)"
+                         [(ngModel)]="otpsix">
+                </div>
+              </div>
+              
+
+            <div class="Forgot-password">
+                <span style="color: #F0EEED;">
+                    <span *ngIf="remainingTime > 0">
+                        Resend in: <span style="color: #FFC978;"> {{ remainingTime }} sec </span>
+                    </span>
+                    <span *ngIf="remainingTime === 0">
+                        <button 
+                            style="color: #FFC978; background: none; border: none; cursor: pointer;">Resend OTP</button>
+                    </span>
+                </span>
+            </div>
+            <button class="continue-button" *ngIf="showEmailVerifyBtn"
+                (click)="verifyOTP('emailVerification')">Continue</button>
+            <button class="continue-button" *ngIf="showForgotPassVerifyBtn"
+                (click)="verifyOTP('forgotPasswordVerification')">Verify Password Email</button>
+        </div>
+
+    </div>
+</div>
+
+<!-- signup -->
+<ng-template #elseBlock>
+
+    <div class="sign-up">
+        <div class="sign-up-content-container">
+            <p class="welcome-page">
+                Welcome Back !
+            </p>
+            <p class="sign-up-content">
+                Login to your account to book your favourite fleet
+
+            </p>
+            <div class="next-page-click-up"><img src="/assets/images/next-page-click.png" alt=""></div>
+        </div>
+    </div>
+    <div class="gradient-overlay">
+    </div>
+    <div class="welcome-profile">
+        <div class="profile-contianer">
+            <div class="card1"><img src="/assets/images/corparte.png" alt="">
+                <p>corpate</p>
+            </div>
+            <div class="card2"><img src="/assets/images/corparte.png" alt="">
+                <p>Personal</p>
+            </div>
+            <div class="card3"><img src="/assets/images/corparte.png" alt="">
+                <p>Driver</p>
+            </div>
+
+
+        </div>
+    </div>
+</ng-template>

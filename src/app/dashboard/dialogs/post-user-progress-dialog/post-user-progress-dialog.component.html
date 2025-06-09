@@ -1,0 +1,11 @@
+<div class="dialogue-container">
+	<button (click)="onClose()" class="close-button">&times;</button>
+  
+	<h2>Fill Progress</h2>
+  
+	<label>Body Weight (Kg)</label>
+	<input [(ngModel)]="weight" type="number" [min]="1"/>
+
+	<button class="send-button" (click)="postTrack()">Add Progress</button>
+  </div>
+  

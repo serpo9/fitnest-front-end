@@ -1,0 +1,93 @@
+<div class="main-container">
+  <!-- <app-sidebar
+    (sidenavToggle)="onSidenavToggle($event)"
+    [class.slidebar]="sidenavOpen">
+  </app-sidebar> -->
+
+  <div class="content">
+      <div class="card1" [class.full-width]="!sidenavOpen">
+          <div class="title" style="margin-bottom: 2rem;">
+              <h2>Add Trainer</h2>
+          </div>
+
+          <!-- First Form: Scheduling -->
+          <div class="form-container" *ngIf="!showNewForm">
+              <form #registerForm="ngForm" (ngSubmit)="onSubmit()" class="Employee-info-id">
+                  
+                     <div class="form-group">
+                      <input id="gymName" name="gymName" type="text" [(ngModel)]="gymName" placeholder="Gym Name" required #gymNameRef="ngModel" />
+                      <div *ngIf="gymNameRef.invalid && gymNameRef.touched" class="error">Gym Name is required</div>
+                     </div>
+
+                     <div class="form-group">
+                      <input id="userName" name="userName" type="text" [(ngModel)]="userName" placeholder="Username" required #userNameRef="ngModel" />
+                      <div *ngIf="userNameRef.invalid && userNameRef.touched" class="error">Username is required</div>
+
+                     </div>
+
+                     <div class="form-group">
+                      <input id="password" name="password" type="password" [(ngModel)]="password" placeholder="Password" required minlength="6" #passwordRef="ngModel" />
+                      <div *ngIf="passwordRef.invalid && passwordRef.touched" class="error">
+                          Password must be at least 6 characters long
+                      </div>
+                     </div>
+                     
+                     <div class="form-group">
+                      <mat-form-field appearance="fill" class="custom-height">
+                        <mat-label>Device Purposes</mat-label>
+                        <mat-select [(ngModel)]="devicePurpose" name="devicePurpose" required #devicePurposeRef="ngModel">
+                            <mat-option *ngFor="let location of locations" [value]="location.value">
+                                {{ location.viewValue }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div *ngIf="devicePurposeRef.invalid && devicePurposeRef.touched" class="error">
+                        Please select a device purpose
+                    </div>
+                     </div>
+                     
+
+                  <div class="skip-device">Skip</div>
+
+                  <button style="background-color: black;" class="searchbtn" type="submit" [disabled]="registerForm.invalid">
+                      Submit
+                  </button>
+              </form>
+          </div>
+
+          <!-- Second Form: Assign Schedule -->
+          <div class="form-container" *ngIf="showNewForm">
+              <form #scheduleForm="ngForm" (ngSubmit)="onAssignSchedule()" class="Employee-info-id">
+                 
+
+                     <div class="form-group">
+                        <input id="trainerName" name="trainerName" type="text" [(ngModel)]="trainerName" placeholder="Trainer Name" required #trainerNameRef="ngModel" />
+                        <div *ngIf="trainerNameRef.invalid && trainerNameRef.touched" class="error">Trainer Name is required</div>
+                     </div>
+
+                     <div class="form-group">
+                        <input id="classType" name="classType" type="text" [(ngModel)]="classType" placeholder="Class Type" required #classTypeRef="ngModel" />
+                        <div *ngIf="classTypeRef.invalid && classTypeRef.touched" class="error">Class Type is required</div>
+
+                     </div>
+                     
+                     <div class="form-group">
+                        <input id="scheduleDate" name="scheduleDate" type="date" [(ngModel)]="scheduleDate" required #scheduleDateRef="ngModel" />
+                        <div *ngIf="scheduleDateRef.invalid && scheduleDateRef.touched" class="error">Schedule Date is required</div>
+                     </div>
+
+                      <div class="form-group">
+                        <input id="scheduleTime" name="scheduleTime" type="time" [(ngModel)]="scheduleTime" required #scheduleTimeRef="ngModel" />
+                        <div *ngIf="scheduleTimeRef.invalid && scheduleTimeRef.touched" class="error">Schedule Time is required</div>
+                      </div>
+
+                 
+
+                  <button style="background-color: black;" class="searchbtn" type="submit" [disabled]="scheduleForm.invalid">
+                      Assign
+                  </button>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>

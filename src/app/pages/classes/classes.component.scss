@@ -1,0 +1,77 @@
+
+
+
+.main-container {
+    text-align: center;
+    background-color: rgba(44, 37, 32, 0.81);
+    overflow-x: hidden;
+    height: 100%;
+}
+
+
+.scheduler-form {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+
+      label {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #333;
+
+        .required {
+          color: red;
+        }
+      }
+
+      .form-control {
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        outline: none;
+
+        &:focus {
+          border-color: #1abc9c;
+        }
+      }
+
+      .fee-input {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        span {
+          font-size: 1.2rem;
+        }
+      }
+    }
+
+    .add-button {
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      background-color: #40342c;
+      color: white;
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      align-self: flex-start;
+
+     
+    }
+  }
+  
+}

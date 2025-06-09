@@ -1,0 +1,34 @@
+<!-- Button to open the dialog -->
+
+<!-- User Classes Dialog -->
+<!-- <div class="user-class-dialog" >
+  <div class="dialog-content">
+    <h2>Assigned Classes</h2>
+    <div class="class-scroll-box">
+      <div class="class-card" *ngFor="let cls of userClasses">
+        <div class="class-title">{{ cls.className }}</div>
+        <div class="class-time">{{ cls.day }} ({{ cls.startingTime }} - {{ cls.endTime }})</div>
+      </div>
+    </div>
+    <button class="close-btn" (click)="closeUserDialog()">Close</button>
+  </div>
+</div> -->
+
+<div class="user-class-dialog">
+  <div class="dialog-content">
+    <h2>Assigned Classes</h2>
+    <div class="class-scroll-box">
+      <ng-container *ngIf="userClasses && userClasses.length > 0; else noClasses">
+        <div class="class-card" *ngFor="let cls of userClasses">
+          <div class="class-title">{{ cls.className }}</div>
+          <div class="class-time">{{ cls.day }} ({{ cls.startingTime }} - {{ cls.endTime }})</div>
+        </div>
+      </ng-container>
+      <ng-template #noClasses>
+        <p class="no-classes-msg">No class assigned.</p>
+      </ng-template>
+    </div>
+    <button class="close-btn" (click)="closeUserDialog()">Close</button>
+  </div>
+</div>
+

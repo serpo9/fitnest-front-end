@@ -1,0 +1,48 @@
+<!-- <div class="modal-backdrop" (click)="closeModal.emit()"></div>
+
+<div class="modal-content">
+  <h2>Available Classes</h2>
+
+  <div *ngIf="loading">Loading...</div>
+
+  <div *ngIf="!loading && classes.length === 0">No classes found.</div>
+
+  <ul *ngIf="!loading && classes.length > 0">
+    <li *ngFor="let classItem of classes" class="class-item">
+      {{ classItem.class_name }} ({{ classItem.
+startfrom }})
+      <button (click)="assign(classItem)">Assign</button>
+    </li>
+  </ul>
+
+  <button class="close-btn" (click)="closeModal.emit()">Close</button>
+</div> -->
+
+
+<div class="modal-backdrop" (click)="closeModal.emit()"></div>
+
+<div class="modal-content">
+  <h2>Available Classes</h2>
+
+  <div class="class-list">
+    <div *ngIf="loading" class="loading">Loading classes...</div>
+
+    <div *ngIf="!loading && classes.length === 0" class="no-classes">No classes found.</div>
+
+    <div *ngIf="!loading && classes.length > 0" class="scroll-container">
+      <div *ngFor="let classItem of classes" class="class-item">
+        <div class="info">
+          <div class="name">{{ classItem.class_name }}</div>
+          <div class="time">{{ classItem.startfrom }} -  {{ classItem.
+            endTime
+             }}</div>
+        </div>
+        <button (click)="assign(classItem)">Assign</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <button class="close-btn" (click)="close()">Close</button>
+  </div>
+</div>

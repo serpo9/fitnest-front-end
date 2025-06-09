@@ -1,0 +1,176 @@
+<!--  banner -->
+
+<nav class="navbar-container" [class.scrolled]="isScrolled">
+    <!-- <div class="logo mobile-logo" (click)="goToPage('/')">
+        {{gymname}}
+    </div> -->
+
+    <div class="nav-list-container" [class.nav-list-mobile]="isNavbarVisible">
+        <ul>
+
+        </ul>
+    </div>
+
+    <div class="profile-btn-container">
+        <div class="btn-container">
+            <button class="custom-btn desktop-view" (click)="profile()">Profile</button>
+        </div>
+    </div>
+</nav>
+<div class="sign-up">
+    <div class="sign-up-content-container">
+        <div class="gradient-overlay"></div>
+        <h1 class="gym-name">{{gymname}}</h1>
+    </div>
+</div>
+
+
+<!-- Our Fitness Programs -->
+<div class="location-main-container max-width-1400 margin-top">
+    <div class="location-title">
+        <h2 class="heading">Our Fitness Programs</h2>
+        <p class="heading-description">
+            Achieve your fitness goals with our diverse range of workout programs. Whether you're looking to build
+            muscle, lose weight, or enhance flexibility, we have the perfect class for you!
+        </p>
+    </div>
+
+    <div class="location-carousel-container">
+        <div class="slide-contianer">
+            <h2> <span class="count">{{count}}</span>/{{end}}</h2>
+        </div>
+        <div class="carousel-div">
+            <owl-carousel-o [options]="customOptionsTwo" (translated)="onTranslated($event)">
+                <ng-template carouselSlide *ngFor="let item of cities; let i = index">
+                    <div class="carousel-slide">
+                        <div class="location-img on-hover">
+                            <img [src]="item.img" [alt]="item.img">
+                            <span class="image-tag">{{ item.title }}</span>
+                            <!-- <span class="location-tag"><img src="/assets/images/shareicon.png" alt=""></span> -->
+                        </div>
+                    </div>
+                </ng-template>
+            </owl-carousel-o>
+        </div>
+    </div>
+</div>
+<!-- FAQ -->
+
+<div class="membership-main-container max-width-1400" *ngIf="gymPlans?.length > 0">
+    <h2 class="heading">Membership Plans</h2>
+
+    <div class="faq-main-container" *ngFor="let plan of gymPlans; let i = index">
+        <div class="faq-queries-container" [ngClass]="{'reverse': i % 2 !== 0}">
+
+            <!-- Plan Description -->
+            <div class="faq-queries">
+                <h2>{{ plan.planName }}</h2>
+                <div class="accordion-container">
+                    {{ plan.description }}
+                </div>
+
+                <!-- Plan Features -->
+                <ul>
+                    <li *ngFor="let feature of plan.features">
+                        <mat-icon class="icon">stars</mat-icon> {{ feature }}
+                    </li>
+                </ul>
+
+                <!-- Pricing Information -->
+                <!-- <div class="pricing-container">
+                    <p><strong>Pricing & Duration:</strong></p>
+                    <p>Monthly: {{ plan.pricing.monthly }}</p>
+                    <p>Quarterly: {{ plan.pricing.quarterly }}</p>
+                    <p>Yearly: {{ plan.pricing.yearly }}</p>
+
+                    <p><strong>Add-ons (extra cost):</strong></p>
+                    <p>Personal trainer session: {{ plan.addOns.personalTrainer }}</p>
+                    <p>Group fitness classes: {{ plan.addOns.groupClasses }}</p>
+                </div> -->
+
+                <!-- CTA Button -->
+                <button class="custom-btn" (click)="viewPlan(plan.id)">View package</button>
+                <button class="custom-btn" (click)="requestForSubscription(plan.id)">Request To Buy</button>
+
+            </div>
+
+            <!-- Plan Image -->
+            <div class="faq-img">
+                <img [src]="plan.imagePath" alt="{{ plan.planName }}">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- <div class="faq-main-container">
+    <div class="faq-queries-container">
+        <div class="faq-img">
+            <img src="/assets/images/musclegain.jpg" alt="Muscle Gain">
+        </div>
+        <div class="faq-queries">
+            <h2>Build Strength & Muscle Effectively</h2>
+            <div class="accordion-container">
+                Unlock your full potential with **expert-led muscle gain programs**. From **strength training to hypertrophy-focused workouts**, we provide **personalized coaching, nutrition guidance, and progressive training plans** to help you achieve your fitness goals.
+            </div>
+            <button class="custom-btn" (click)="contactUs()">Join Now</button>
+        </div>
+    </div>
+</div> -->
+
+<!-- <div class="faq-main-container">
+    <div class="faq-queries-container">
+        <div class="faq-queries">
+            <h2>Achieve Your Weight Loss Goals</h2>
+            <div class="accordion-container">
+                Transform your body with our **expert-designed weight loss programs**. From **personalized workout plans to nutrition coaching**, we provide **science-backed strategies** to help you burn fat, boost metabolism, and stay fit for life.
+            </div>
+            <button class="custom-btn" (click)="contactUs()">Get Started</button>
+        </div>
+        <div class="faq-img">
+            <img src="/assets/images/weightloss.jpg" alt="Weight Loss">
+        </div>
+    </div>
+</div> -->
+
+<!-- <div class="faq-main-container">
+    <div class="faq-queries-container">
+        <div class="faq-img">
+            <img src="/assets/images/premium-plan.webp" alt="premium-plan">
+        </div>
+        <div class="faq-queries">
+            <h2>Premium Gym + Cardio Package</h2>
+            <div class="accordion-container">
+                Designed for fitness enthusiasts and weight-loss seekers, this package includes everything from the
+                Basic Plan plus unlimited cardio access, HIIT programs, group classes, and monthly diet
+                consultations.
+                Personal training and priority access included.
+            </div>
+            <button class="custom-btn" (click)="contactUs('yoga_session')">Join a Session</button>
+        </div>
+    </div>
+</div>
+
+<div class="faq-main-container" style="margin-bottom: 3rem;">
+    <div class="faq-queries-container">
+
+        <div class="faq-queries">
+            <h2>Special Zumba Classes</h2>
+            <div class="accordion-container">
+                Enjoy energetic Zumba sessions with full access to both the Zumba and Premium Zones. This package
+                offers
+                flexible pricing options and the ability to enhance your fitness journey with an optional monthly
+                nutrition plan upgrade.
+            </div>
+            <button class="custom-btn" (click)="contactUs('cardio_session')">Join a Class</button>
+        </div>
+        <div class="faq-img">
+            <img src="/assets/images/zumba-plan.webp" alt="Spinning and Cardio">
+        </div>
+    </div>
+</div> -->
+
+<!-- </div> -->
+<!-- /FAQ -->
+<!-- /location carousel -->

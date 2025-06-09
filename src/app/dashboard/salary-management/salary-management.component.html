@@ -1,0 +1,108 @@
+s<div class="main-container">
+	<div class="content" [class.full-width]="sidenavOpen === false" [class.translucent]="sidenavOpen">
+		<div class="mainHistory">Staff Salaries </div>
+
+		<div class="nav-tab-container">
+			<button class="custom-btn" [ngClass]="{'active-btn': activeTab}" (click)="activeForm('assignsalary')">Assign
+				Salary</button>
+			<button class="custom-btn" [ngClass]="{'active-btn': !activeTab}" (click)="activeForm('salaryTillNow')">Salary till Now</button>
+		</div>
+
+		<div class="header">
+
+			<div class="search-box" *ngIf="activeTab">
+				<input type="search" name="serach-employee" class="search-field" [(ngModel)]="searchTerm"
+					(ngModelChange)="onSearchChange()" placeholder="Search by Name/phoneNo" />
+				<button mat-raised-button class="searchbtn buttoncolor">
+					<mat-icon>search</mat-icon>
+					<span (click)="getAllStaffByname(searchTerm)">Search</span>
+				</button>
+			</div>
+
+			<div class="search-box" *ngIf="!activeTab">
+				<input type="search" name="serach-employee" class="search-field" [(ngModel)]="searchTerm"
+					(ngModelChange)="onSearchChange()" placeholder="Search by Name/phoneNo" />
+				<button mat-raised-button class="searchbtn buttoncolor">
+					<mat-icon>search</mat-icon>
+					<span (click)="applyFilter(searchTerm)">Search</span>
+				</button>
+			</div>
+		</div>
+
+
+		<div class="table-responsive" [ngClass]="{'no-data': dataSource.data.length === 0}">
+			<div *ngIf="!dataSource || dataSource.data.length === 0" class="no-data-message">
+				No users found.
+			</div>
+			<!-- Main Table (Default) -->
+			<table mat-table [dataSource]="dataSource" class="custom-table" *ngIf="
+			selectedFilter === 'Search1' && (dataSource?.data?.length || 0) > 0">
+				<!-- Table Definitions -->
+				<ng-container matColumnDef="name">
+					<th mat-header-cell *matHeaderCellDef>Name</th>
+					<td mat-cell *matCellDef="let element">{{ element.name }}</td>
+				</ng-container>
+				<ng-container matColumnDef="number">
+					<th mat-header-cell *matHeaderCellDef>
+					  {{ activeTab ? 'Number' : 'Phone Number' }}
+					</th>
+					<td mat-cell *matCellDef="let element">
+					  {{ activeTab ? element.number : element.phoneNumber }}
+					</td>
+				  </ng-container>
+				<ng-container matColumnDef="email">
+					<th mat-header-cell *matHeaderCellDef>Email</th>
+					<td mat-cell *matCellDef="let element">{{ element.email }}</td>
+				</ng-container>
+				<ng-container matColumnDef="salary">
+					<th mat-header-cell *matHeaderCellDef>Salary</th>
+					<td mat-cell *matCellDef="let element">{{ element.salary || 0 }}</td>
+				</ng-container>
+				<ng-container matColumnDef="type">
+					<th mat-header-cell *matHeaderCellDef>Type</th>
+					<td mat-cell *matCellDef="let element">{{ element.userType }}</td>
+				</ng-container>
+				<ng-container matColumnDef="effective">
+					<th mat-header-cell *matHeaderCellDef>
+						{{ activeTab ? 'Effective From' : 'Present Days' }}
+					</th>
+					<td mat-cell *matCellDef="let element">
+						<ng-container *ngIf="activeTab; else presentDays">
+							<ng-container *ngIf="element.effectiveFrom !== 'N/A'; else notAvailable">
+								{{ element.effectiveFrom | date: 'dd/MM/yyyy' }}
+							</ng-container>
+							<ng-template #notAvailable>N/A</ng-template>
+						</ng-container>
+						<ng-template #presentDays>
+							{{ element.totalPresentDays }}
+						</ng-template>
+					</td>
+				</ng-container>
+
+
+				<ng-container matColumnDef="assign" [style.display]="activeTab ? 'flex' : 'none'">
+					<th mat-header-cell *matHeaderCellDef>Assign</th>
+					<td mat-cell *matCellDef="let element">
+						<button mat-raised-button class="buttoncolor" (click)="openAssignSalaryPopUp(element)">
+							{{ element.salary !== 'N/A' ? 'Edit' : 'Assign' }}
+						</button>
+					</td>
+				</ng-container>
+
+				<ng-container matColumnDef="pay">
+					<th mat-header-cell *matHeaderCellDef>Pay</th>
+					<td mat-cell *matCellDef="let element"> <button  mat-raised-button 
+						color=#fff style="color: #000; background-color: white; width: 70px;" 
+						(click)="openSalaryDataDialog(element)">View</button> </td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+			</table>
+
+			<div class="table-footer" [style.display]="dataSource.data.length > 0 ? 'flex' : 'none'">
+				<mat-paginator [pageSize]="6" class="custom-paginator"></mat-paginator>
+			</div>
+		</div>
+	</div>
+</div>

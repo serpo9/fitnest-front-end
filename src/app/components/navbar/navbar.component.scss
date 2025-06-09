@@ -1,0 +1,272 @@
+::-webkit-scrollbar {
+	display: none !important;
+  }
+  
+  .navbar-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 1500;
+	padding-inline: 50px;
+  
+	&.scrolled {
+	  background-color: var(--bg-color);
+	}
+  
+	.mobile-logo {
+	  display: flex;
+	  justify-content: space-between;
+	  align-items: center;
+  
+	  .navbar-toggle {
+		display: none;
+	  }
+  
+	  .logo {
+		display: flex;
+		align-items: center;
+		width: 182px;
+		height: 96px;
+		cursor: pointer;
+  
+		img {
+		  height: 100%;
+		  width: 100%;
+		  object-fit: contain;
+		}
+	  }
+  
+	  .navbar-toggle {
+		background: none;
+		border: none;
+		font-size: 24px;
+		cursor: pointer;
+		margin-left: 20px;
+		/* Adjust spacing between logo and button as needed */
+	  }
+  
+	  .menu-icon {
+		cursor: pointer;
+		display: none;
+  
+		.bar1,
+		.bar2,
+		.bar3 {
+		  width: 25px;
+		  height: 4px;
+		  background-color: white;
+		  margin: 6px 0;
+		  transition: 0.4s;
+		}
+  
+		.bar1.change {
+		  width: 28px;
+		  height: 5px;
+		  transform: rotate(-45deg) translate(-2px, 4px);
+		  margin-top: 1rem;
+		}
+  
+		.bar2.change {
+		  transform: translateX(-20px);
+		  opacity: 0;
+		}
+  
+		.bar3.change {
+		  width: 28px;
+		  height: 5px;
+		  transform: rotate(45deg) translate(-10px, -13px);
+		}
+	  }
+  
+	}
+  
+	.nav-list-container {
+	  display: flex;
+	  align-items: center;
+  
+	  ul {
+		display: flex;
+		justify-content: flex-start;
+		gap: 40px;
+		align-items: center;
+  
+		li {
+		  a {
+			color: var(--inactive-text-color);
+			font-weight: 700;
+  
+			&.active {
+			  color: var(--primary-text-color);
+			}
+  
+			&:hover {
+			  color: var(--primary-text-color);
+			  transition: 200ms ease-in-out;
+			}
+		  }
+		}
+  
+		.phone-view-reserve-btn {
+		  display: none;
+		}
+	  }
+	}
+  
+	.profile-btn-container {
+	  display: flex;
+	  gap: 15px;
+	  align-items: center;
+  
+	  .profile-container {
+		.profile-icon {
+		  display: flex;
+		  justify-content: center;
+		  align-items: center;
+		  width: 38px;
+		  height: 38px;
+		  background-color: var(--cta-color-hover);
+		  border-radius: 50%;
+		  cursor: pointer;
+		  overflow: hidden;
+		  border: 2px solid var(--cta-color-hover);
+		  transition: all 200ms linear;
+  
+		  img {
+			height: 100%;
+			width: 100%;
+			object-fit: contain;
+		  }
+  
+		  &:hover {
+			border: 2px solid var(--cta-color);
+		  }
+		}
+	  }
+	}
+  }
+  
+  @media screen and (min-width: 1025px) {
+  
+	.navbar-container {
+	  .profile-btn-container {
+		opacity: 1 !important;
+	  }
+	}
+  
+	.nav-list-container {
+	  opacity: 1 !important;
+  
+	  .profile-btn-container {
+		opacity: 1 !important;
+  
+		.btn-container {
+		  opacity: 1 !important;
+		}
+  
+		.profile-container {
+		  opacity: 1 !important;
+		}
+	  }
+	}
+  
+  }
+  
+  @media screen and (max-width: 1024px) {
+	.navbar-container {
+	  flex-direction: column;
+	  align-items: flex-start;
+	  padding: 10px;
+	  padding-inline: 50px;
+  
+	  .mobile-logo {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		align-items: center;
+  
+		.navbar-toggle {
+		  display: block;
+		}
+  
+		.logo {
+		  height: auto;
+		  margin-bottom: 10px;
+		  display: flex;
+		  justify-content: space-between;
+		  height: 80px;
+  
+		  img {
+			width: 60px;
+		  }
+		}
+  
+		.menu-icon {
+		  display: inline-block;
+		}
+	  }
+  
+	  .nav-list-container {
+		display: flex;
+		background-color: var(--bg-color);
+		width: 100%;
+		padding: 20px;
+		justify-content: center;
+		border-radius: 0;
+		transition: 400ms ease-in-out;
+		width: 300px;
+		position: fixed;
+		top: 5.5rem;
+		right: -300px;
+		height: 100vh;
+		align-items: flex-start;
+  
+		ul {
+		  display: flex;
+		  flex-direction: column;
+  
+		  .phone-view-reserve-btn {
+			display: block;
+		  }
+		}
+	  }
+  
+	  .nav-list-mobile {
+		transition: 400ms ease-in-out;
+		right: 0;
+	  }
+  
+	  .profile-btn-container {
+		display: flex;
+		flex-direction: column;
+		position: fixed;
+		right: 6rem;
+		top: 2.3rem;
+  
+		.btn-container {
+		  display: none;
+		}
+  
+		.profile-container {
+		  display: flex;
+		  justify-content: center;
+		  width: 100%;
+		}
+	  }
+	}
+  }
+  
+  @media screen and (max-width: 480px) {
+	.navbar-container {
+	  padding-inline: 20px;
+  
+	  .profile-btn-container {
+		right: 4rem;
+	  }
+	}
+  }
+  
+  

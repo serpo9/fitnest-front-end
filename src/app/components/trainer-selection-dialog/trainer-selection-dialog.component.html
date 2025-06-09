@@ -1,0 +1,65 @@
+<!-- <h2 mat-dialog-title >Select a Trainer</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>Trainer</mat-label>
+    <mat-select [(ngModel)]="selectedTrainer">
+      <mat-optgroup *ngFor="let specialization of specializations" [label]="specialization">
+        <mat-option *ngFor="let trainer of trainersBySpecialization[specialization]" [value]="trainer.id">
+          {{ trainer.name }}
+        </mat-option>
+      </mat-optgroup>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="closeDialog()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="assignTrainer()">Assign</button>
+</mat-dialog-actions> -->
+
+
+<!-- <h2 mat-dialog-title class="custom-dialog-title">Select a Trainer</h2>
+
+<mat-dialog-content class="custom-dialog-content">
+  <mat-form-field appearance="outline" class="custom-form-field">
+    <mat-label>Trainer</mat-label>
+    <mat-select [(ngModel)]="selectedTrainer">
+      <mat-optgroup *ngFor="let specialization of specializations" [label]="specialization">
+        <mat-option *ngFor="let trainer of trainersBySpecialization[specialization]" [value]="trainer.id">
+          {{ trainer.name }}
+        </mat-option>
+      </mat-optgroup>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="custom-dialog-actions">
+  <button mat-button class="btn-cancel" (click)="closeDialog()">Cancel</button>
+  <button mat-raised-button color="primary" class="btn-assign" (click)="assignTrainer()">Assign</button>
+</mat-dialog-actions> -->
+
+<h2 mat-dialog-title class="custom-dialog-title">Select a Trainer</h2>
+
+<mat-dialog-content class="custom-dialog-content">
+  <mat-form-field appearance="fill" class="custom-form-field">
+    <mat-label>Select Trainer</mat-label>
+    <mat-select [(ngModel)]="selectedTrainer" panelClass="custom-select-panel">
+      <mat-optgroup *ngFor="let specialization of specializations" [label]="specialization">
+        <mat-option *ngFor="let trainer of trainersBySpecialization[specialization]" [value]="trainer.id">
+          <div class="trainer-option">
+            <span class="trainer-name">{{ trainer.name }}</span>
+            <!-- <span class="trainer-specialization">{{ specialization }}</span> -->
+          </div>
+        </mat-option>
+      </mat-optgroup>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="custom-dialog-actions">
+  <button mat-button class="btn-cancel" (click)="closeDialog()">Cancel</button>
+  <button mat-raised-button color="primary" class="btn-assign" (click)="assignTrainer()">Assign</button>
+</mat-dialog-actions>
+
+
+

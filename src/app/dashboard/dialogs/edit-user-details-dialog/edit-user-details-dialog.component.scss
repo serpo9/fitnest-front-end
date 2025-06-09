@@ -1,0 +1,64 @@
+.dialogue-container {
+    position: relative;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+
+    .close-button {
+        position: absolute;
+        top: 0px;
+        right: 14px;
+        font-size: 44px;
+        cursor: pointer;
+        scale: .9;
+        transition: 200ms all;
+
+        &:hover {
+            scale: 1;
+        }
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 24px;
+    }
+
+    .input-container {
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+
+        label {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        input {
+            margin-top: 4px;
+            outline: none;
+            border: 2px solid #d9d9d9;
+            height: 34px;
+            border-radius: 5px;
+            padding-left: 8px;
+        }
+    }
+
+    .dialog-btn {
+        width: 130px;
+        margin-top: 14px;
+        text-align: center;
+        height: 30px;
+        margin-inline: auto;
+        background-color: #713e3e;
+        color: #fff;
+        border: 2px solid #713e3e;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 200ms all;
+
+        &:hover {
+            background-color: transparent;
+            color: #713e3e;
+        }
+    }
+}

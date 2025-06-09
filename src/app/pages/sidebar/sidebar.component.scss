@@ -1,0 +1,269 @@
+::-webkit-scrollbar {
+  display: none !important;
+}
+
+::ng-deep .mat-mdc-button .mat-mdc-button-touch-target,
+.mat-mdc-unelevated-button .mat-mdc-button-touch-target,
+.mat-mdc-raised-button .mat-mdc-button-touch-target,
+.mat-mdc-outlined-button .mat-mdc-button-touch-target {
+  top: 30% !important;
+}
+
+.top-navbar {
+  background-color: #111111;
+  width: 100%;
+  height: 50px;
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 998;
+
+  p {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    text-transform: uppercase;
+  }
+
+  .user-profile {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    border-radius: 50%;
+    background-color: #fff;
+    height: 35px;
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 2px solid #fff;
+
+    img {
+      object-fit: scale-down;
+      height: 30px;
+      width: 30px;
+    }
+
+  }
+}
+
+.sidenav {
+  position: relative;
+  width: 14rem;
+  background: #111111;
+  height: 100vh;
+  // overflow: hidden;
+  transition: width 0.3s ease-in-out;
+  // z-index: 1000;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: center;
+
+  // position: fixed;
+  // top: 0;
+  // left: 0;
+  z-index: 998;
+
+  .toggle-button {
+    margin: 5px 10px 2px 0;
+    color: white;
+    z-index: 999;
+
+  }
+
+  &.sidenav-closed {
+    width: 3.5rem;
+    overflow: hidden;
+
+    .toggle-button {
+      margin: 5px 10px 2px 0;
+      color: white;
+    }
+
+    .nav-container {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding-left: 8px;
+
+      .nav-link {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+
+        &.active {
+          color: green;
+          /* Change text and icon color to green */
+
+          mat-icon {
+            color: green;
+            /* Icon color */
+          }
+        }
+      }
+
+      .nav-link span {
+        display: none;
+      }
+    }
+  }
+
+  .nav-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 2px 0;
+    color: white;
+    text-align: center;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    mat-icon {
+      font-size: 1.2rem;
+    }
+
+    span {
+      font-size: 13px;
+    }
+  }
+
+  .logout {
+    color: #d32f2f;
+  }
+
+  .dropdown {
+    margin-left: 1rem;
+  }
+
+  ::ng-deep .mdc-button__label {
+    display: flex !important;
+  }
+
+  .dropdown-icon {
+    font-size: 14px !important;
+    font-size: 11px !important;
+    margin-top: 2px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidenav {
+    // position: relative;
+    position: fixed;
+    // width: 10rem;
+    background: #111111;
+    height: 100vh;
+    overflow: hidden;
+    transition: width 0.3s ease-in-out;
+    z-index: 1000;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: center;
+
+    .toggle-button {
+      margin: 5px 20px 20px 0;
+      color: white;
+    }
+
+    &.sidenav-closed {
+      position: absolute;
+      z-index: 1000;
+      left: 1rem;
+      overflow: hidden;
+      background: none;
+
+      .nav-link {
+        display: none;
+      }
+
+      .toggle-button {
+        font-size: larger;
+        margin: 5px 20px 2px 0;
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .sidenav {
+    // position: absolute;
+    // top: 0;
+    // left: 0;
+    width: 10rem;
+    z-index: 1000;
+    transition: width 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    background: #111111;
+
+    &.sidenav-closed {
+      height: 4rem;
+      overflow: hidden;
+      background: none;
+
+      .nav-container {
+        display: none;
+      }
+    }
+
+    .toggle-button {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 4rem;
+    }
+
+    .nav-container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      &.active {
+        color: green;
+        /* Active navlink text color for mobile view */
+
+        mat-icon {
+          color: green;
+          /* Active navlink icon color for mobile view */
+        }
+      }
+
+      mat-icon {
+        font-size: 1.5rem;
+      }
+
+      span {
+        font-size: 0.9rem;
+      }
+    }
+
+    .logout {
+      color: #d32f2f;
+      margin-top: 1rem;
+    }
+  }
+}
+
+@media (max-width: 250px) {
+  .sidenav {
+    position: relative;
+  }
+}

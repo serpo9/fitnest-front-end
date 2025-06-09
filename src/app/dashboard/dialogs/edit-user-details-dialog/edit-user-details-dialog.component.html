@@ -1,0 +1,27 @@
+<div class="dialogue-container">
+    <span class="close-button" (click)="close()">&times;</span>
+
+    <h2>Edit User Details</h2>
+
+    <div class="input-container">
+        <label>Name: </label>
+        <input type="text" [(ngModel)]="data.name"/>
+    </div>
+
+    <div class="input-container">
+        <label>Email: </label>
+        <input type="email" [(ngModel)]="data.email"/>
+    </div>
+
+    <div class="input-container">
+        <label>Phone Number: </label>
+        <input type="number" [minlength]="10" [maxlength]="10" [(ngModel)]="data.phoneNumber">
+    </div>
+
+    <div class="input-container">
+        <label>Password: </label>
+        <input type="text" [(ngModel)]="password" placeholder="Password">
+    </div>
+
+    <button class="dialog-btn" (click)="update()">Update</button>
+</div>

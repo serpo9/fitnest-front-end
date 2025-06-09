@@ -1,0 +1,134 @@
+<div class="main-container">
+  <!-- <app-sidebar (sidenavToggle)="onSidenavToggle($event)" [class.slidebar]="sidenavOpen"></app-sidebar> -->
+
+  <div class="content">
+    <div class="card1" [class.full-width]="!sidenavOpen">
+      
+      <!-- Toggle Buttons -->
+      <div class="toggle-buttons" style="margin-bottom: 2rem;">
+        <button (click)="showTrainerForm = true" [class.active]="showTrainerForm" *ngIf="!showTrainerForm">Trainer Schedule</button>
+        <!-- <button (click)="showTrainerForm = false" [class.active]="!showTrainerForm" *ngIf="showTrainerForm">Gym Selection</button> -->
+      </div>
+      
+      <!-- Dynamic Title -->
+      <div class="title" style="margin-bottom: 2rem;">
+        <h2>{{ showTrainerForm ? 'New Scheduling' : 'Register Gym' }}</h2>
+      </div>
+
+      <!-- Trainer Scheduling Form -->
+      <div class="form-container" *ngIf="showTrainerForm">
+        <form (ngSubmit)="onAssignSchedule()" class="Employee-info-id" #trainerForm="ngForm">
+          <mat-form-field appearance="fill" class="custom-height">
+            <mat-label>Employee Number</mat-label>
+            <input 
+              matInput 
+              name="employeeNo" 
+              type="text" 
+              [(ngModel)]="employeeNo" 
+              placeholder="Enter Employer number"
+              required 
+              pattern="^[0-9]+$" 
+              #employeeRef="ngModel"
+              minlength="1"
+              (keypress)="restrictToNumbers($event)"
+            />
+            <mat-error *ngIf="employeeRef.invalid && employeeRef.touched">
+              Please enter a valid number
+            </mat-error>
+          </mat-form-field>
+          
+          <mat-form-field appearance="fill" class="custom-height">
+            <mat-label>Enter Amount</mat-label>
+            <input matInput name="amount" type="text" [(ngModel)]="amount" placeholder="Enter Amount"
+            pattern="^[0-9]+$" required min="1" #amountRef="ngModel" (keypress)="restrictToNumbers($event)" />
+          </mat-form-field>
+          
+       
+          
+          <div *ngIf="amountRef.invalid && amountRef.touched" class="error">
+            <small *ngIf="amountRef.errors?.['required']">Amount is required.</small>
+            <small *ngIf="amountRef.errors?.['min']">Amount must be at least 1.</small>
+          </div>
+
+       
+          <mat-form-field appearance="fill" class="choose-date">
+            <mat-label>Start from</mat-label>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate" name="selectedDate"
+                   required #selectedDateRef="ngModel" [min]="minDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="custom-height">
+            <mat-label>Select Month</mat-label>
+            <mat-select [(ngModel)]="selectedTrainer" name="selectedTrainer" required #trainerRef="ngModel">
+              <mat-option *ngFor="let trainer of locations" [value]="trainer.value">
+                {{ trainer.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="custom-height">
+            <mat-label>Select Session</mat-label>
+            <mat-select [(ngModel)]="selectedSession" name="selectedSession" required #sessionRef="ngModel">
+              <mat-option *ngFor="let session of trainerList" [value]="session.value">
+                {{ session.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        
+          
+          
+          
+          <!-- Error Message for Validation -->
+          <div *ngIf="selectedDateRef.invalid && selectedDateRef.touched" class="error">
+            <small *ngIf="selectedDateRef.errors?.['required']">Date is required.</small>
+          </div>
+          
+
+          <button style="background-color: black;" class="searchbtn" type="submit" [disabled]="trainerForm.invalid">
+            Submit
+          </button>
+        </form>
+      </div>
+      
+      <!-- Gym Registration Form -->
+      <div class="form-container" *ngIf="!showTrainerForm">
+        <form (ngSubmit)="onRegisterGym()" class="Employee-info-id" #gymForm="ngForm">
+          <mat-form-field appearance="fill" class="custom-height">
+            <mat-label>Employee Number</mat-label>
+            <input 
+              matInput 
+              name="gymEmployeeNo" 
+              type="text" 
+              [(ngModel)]="gymEmployeeNo" 
+              placeholder="Enter Employer number"
+              required 
+              pattern="^[0-9]+$" 
+              #gymEmployeeRef="ngModel"
+              (keypress)="restrictToNumbers($event)"
+            />
+            <mat-error *ngIf="gymEmployeeRef.invalid && gymEmployeeRef.touched">
+              Please enter a valid number
+            </mat-error>
+          </mat-form-field>
+          
+          <mat-form-field appearance="fill" class="custom-height">
+            <mat-label>Enter Amount</mat-label>
+            <input matInput name="gymAmount" type="text" [(ngModel)]="gymAmount" placeholder="Enter Amount"
+            pattern="^[0-9]+$" required min="1" #gymAmountRef="ngModel" (keypress)="restrictToNumbers($event)" />
+          </mat-form-field>
+          
+          <div *ngIf="gymAmountRef.invalid && gymAmountRef.touched" class="error">
+            <small *ngIf="gymAmountRef.errors?.['required']">Amount is required.</small>
+            <small *ngIf="gymAmountRef.errors?.['min']">Amount must be at least 1.</small>
+          </div>
+
+        
+
+          <button style="background-color: black;" class="searchbtn" type="submit" [disabled]="gymForm.invalid">
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,132 @@
+<div class="main-container">
+  <!-- Include Sidebar Component -->
+
+  <!-- <app-sidebar
+      (sidenavToggle)="onSidenavToggle($event)"
+      [class.slidebar]="sidenavOpen"
+    ></app-sidebar> -->
+
+  <!-- Content Area -->
+  <div class="content" [class.full-width]="sidenavOpen === false" [class.translucent]="sidenavOpen">
+    <div class="mainHistory">Trainer Attendance</div>
+    <div class="total-present">Total Present ( {{presentCount || 0}} )</div>
+    <div class="header">
+      <div class="search-box">
+        <input type="search" name="serach-employee" class="search-field" [(ngModel)]="searchTerm"
+          placeholder="Search by Employee No." />
+        <button mat-raised-button class="searchbtn buttoncolor" (click)="applyFilter()">
+          <mat-icon>search</mat-icon>
+          <span>Search</span>
+        </button>
+      </div>
+      <!-- <mat-form-field appearance="fill">
+        <mat-label>Choose a date range</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate placeholder="Start date" [(ngModel)]="dateRange.start" name="startDate" />
+          <input matEndDate placeholder="End date" [(ngModel)]="dateRange.end" name="endDate" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+      <button mat-raised-button class="buttoncolor" (click)="searchAttendanceByDate()">Search</button> -->
+
+      <mat-form-field>
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="dateRange.start">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <button mat-raised-button class="buttoncolor" (click)="searchAttendanceByDate()">Search</button>
+    </div>
+
+    <div class="hikvision-filter">
+         <span
+        class="filter-btn"
+        [class.active]="userType === 'Trainer'"
+        (click)="  userTypeSelection('Trainer')"
+      >
+       Trainers
+      </span>
+      <span
+        class="filter-btn"
+       [class.active]="userType === 'Cleaner'"
+        (click)="  userTypeSelection('Cleaner')"
+      >
+        Cleaners
+      </span>
+      
+      
+
+      <span
+        class="filter-btn"
+        [class.active]="userType === 'Receptionist'"
+        (click)="  userTypeSelection('Receptionist')"
+      >
+      Receptionist
+      </span>
+
+      <span
+      class="filter-btn"
+      [class.active]="userType === 'Weight-Picker'"
+      (click)="  userTypeSelection('Weight-Picker')"
+    >
+    Weight-picker
+    </span>
+      <span class="filter-btn" [class.active]="selectedDeviceId && getPurposeById(selectedDeviceId) === 'Door 1'"
+        (click)="selectDoor('Door 1')">
+        Door-1
+      </span>
+
+      <span class="filter-btn" [class.active]="selectedDeviceId && getPurposeById(selectedDeviceId) === 'Door 2'"
+        (click)="selectDoor('Door 2')">
+        Door-2
+      </span>
+    </div>
+
+
+    <div class="table-responsive" id="content">
+      <!-- Main Table (Default) -->
+      <table mat-table [dataSource]="dataSource" class="custom-table" *ngIf="dataSource.data.length > 0;">
+        <ng-container matColumnDef="employeeNum">
+          <th mat-header-cell *matHeaderCellDef class="mat-column-employee-num">EmployeeNo</th>
+          <td mat-cell  style="cursor: pointer;" *matCellDef="let element" (click)="getIndividualAttendance(element)"   class="mat-column-employee-num">{{ element.userId }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef class="mat-column-name">Name</th>
+          <td mat-cell style="cursor: pointer;" *matCellDef="let element"(click)="getIndividualAttendance(element)"  class="mat-column-name"> {{ element.name }}</td>
+        </ng-container>
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef class="mat-column-date">Date</th>
+          <td mat-cell  style="cursor: pointer;" *matCellDef="let element" (click)="getIndividualAttendance(element)"   class="mat-column-date">{{element.time | date:'dd-MM-yyyy'}}</td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef class="mat-column-status">Status</th>
+          <td mat-cell  style="cursor: pointer;" *matCellDef="let element"(click)="getIndividualAttendance(element)"   class="mat-column-status">{{element.status}}</td>
+        </ng-container>
+        <ng-container matColumnDef="viewCalender">
+          <th mat-header-cell *matHeaderCellDef class="mat-column-status">Calender</th>
+          <td mat-cell  style="cursor: pointer;" *matCellDef="let element"  class="mat-column-status"><button mat-raised-button color=#fff style="color: #000; background-color: white; width: 70px;" (click)="getIndividualAttendance(element)" >View</button> </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+
+      <div class="table-footer" [style.display]="dataSource.data.length > 0 ? 'flex' : 'none'">
+        <mat-paginator [pageSize]="6" class="custom-paginator"></mat-paginator>
+      </div>
+    </div>
+
+    <div *ngIf="dataSource.data.length === 0" class="no-data">
+      No data found
+    </div>
+
+    <!-- <div   class="pdf"> <button mat-raised-button color="primary" (click)="exportPDF()"><mat-icon>download</mat-icon> Pdf</button></div>
+       -->
+  </div>
+
+  
+</div>

@@ -1,0 +1,54 @@
+.view-subs-container {
+    padding: 20px;
+    // background: #3b2a28;
+    background: #fff;
+    color: #000;
+
+    .close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        transition: all 200ms;
+        cursor: pointer;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    .margin-top {
+        margin-top: 14px;
+        font-size: 15px;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 10px;
+        font-family: "Playfair Display";
+    }
+
+    .description {
+        text-align: center;
+        font-size: 15px;
+    }
+
+    .features-heading {
+        margin-top: 14px;
+        margin-bottom: 2px;
+        font-size: 14px;
+    }
+
+    ul {
+        padding-left: 1rem;
+
+        li {
+            list-style: square;
+            font-size: 15px;
+        }
+    }
+
+    .common-item {
+        margin-top: 3px;
+        font-size: 15px;
+    }
+}

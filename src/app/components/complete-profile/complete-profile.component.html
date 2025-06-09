@@ -1,0 +1,62 @@
+<div class="form-container">
+
+    <span class="close" (click)="closeDialog()"><fa-icon [icon]="faMultiply"></fa-icon></span>
+
+    <h2>Health & Fitness Form</h2>
+
+    <form [formGroup]="fitnessForm" (ngSubmit)="onSubmit()">
+
+        <label>Blood Group</label>
+
+        <mat-form-field>
+            <mat-select formControlName="bloodGroup">
+                <mat-option *ngFor="let group of bloodGroups" [value]="group">
+                    {{group}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
+        <label>
+            Body Weight (kg)
+            <input type="number" formControlName="bodyWeight" min="0">
+        </label>
+
+        <label>
+            Height (cm)
+            <input type="number" formControlName="height" class="no-spinner" min="0">
+        </label>
+
+        <label>Fitness Goals</label>
+
+        <mat-form-field>
+            <mat-select formControlName="fitnessGoals">
+                <mat-option *ngFor="let fitness of fitnessGoal" [value]="fitness">
+                    {{fitness}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <label>
+            Date of Birth
+            <input type="date" formControlName="dob">
+        </label>
+
+        <div class="gender-container">
+            <span>Gender</span>
+
+            <div class="d-flex">
+                <label>
+                    <input type="radio" formControlName="gender" value="Male"> Male
+                </label>
+                <label>
+                    <input type="radio" formControlName="gender" value="Female"> Female
+                </label>
+            </div>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <p class="check-input" *ngIf="showFormErrLabel">*Please fill all the feilds</p>
+</div>

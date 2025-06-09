@@ -1,0 +1,101 @@
+<!-- 
+<div class="main-container">
+<div class="scheduler-form">
+  <form>
+    <div class="form-group">
+      <label>Class Name <span class="required">*</span></label>
+      <input type="text" class="form-control" placeholder="Enter class name" />
+    </div>
+    <div class="form-group">
+      <label>Select Days <span class="required">*</span></label>
+    <select class="form-control" >
+        <option value="all">
+          {{ areAllDaysSelected() ? 'Deselect All' : 'Select All' }}
+        </option>
+        <option *ngFor="let day of days" [value]="day.name">
+          {{ day.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Start Time <span class="required">*</span></label>
+      <input type="time" class="form-control" value="23:30" />
+    </div>
+
+    <div class="form-group">
+      <label>End Time <span class="required">*</span></label>
+      <input type="time" class="form-control" value="01:45" />
+    </div>
+
+    <button type="submit" class="add-button">Add Time</button>
+  </form>
+</div>
+</div> -->
+
+
+<div class="main-container">
+  <div class="scheduler-form">
+    <form>
+      <!-- Class Name -->
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Class Name</mat-label>
+          <input [(ngModel)]="className" name="className" matInput placeholder="Enter class name" required />
+        </mat-form-field>
+      </div>
+
+      <!-- Select Days -->
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Select Days</mat-label>
+          <mat-select
+            multiple
+            [(ngModel)]="selectedDays"
+            name="days"          >
+            <mat-option (click)="toggleAllSelection()" [value]="'all'">
+             select all
+            </mat-option>
+            <mat-option
+              *ngFor="let day of days"
+              [value]="day.name"
+            >
+              {{ day.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Start Time -->
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Start Time</mat-label>
+          <input   [(ngModel)]="startTime" name="startTime" matInput type="time" required />
+        </mat-form-field>
+      </div>
+
+      <!-- End Time -->
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>End Time</mat-label>
+          <input [(ngModel)]="endTime" name="endTime" matInput type="time" required />
+        </mat-form-field>
+      </div>
+
+
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Capacity </mat-label>
+          <input [(ngModel)]="capacity" name="capacity" matInput placeholder="Enter Capacity" required />
+        </mat-form-field> <div class="form-group">
+      </div>
+
+      </div>
+
+      <!-- Submit Button -->
+      <button  class="add-button" (click)="onAssignSchedule()" type="submit">
+        Add Schedule
+      </button>
+    </form>
+  </div>
+</div>

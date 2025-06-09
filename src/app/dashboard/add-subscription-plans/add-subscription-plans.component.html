@@ -1,0 +1,184 @@
+<div class="main-container">
+    <div class="nav-tab-container">
+        <button class="custom-btn" [ngClass]="{'active-btn': activeTab}" (click)="activeForm('membership')">Membership plan</button>
+        <button class="custom-btn" [ngClass]="{'active-btn': !activeTab}" (click)="activeForm('visitor')">Extra plan</button>
+    </div>
+
+    <div class="form-container" *ngIf="activeTab">
+        <h2>🏋️‍♂️ Add Membership Plan</h2>
+        <form [formGroup]="membershipForm" (ngSubmit)="submitForm()">
+
+            <div class="form-group">
+                <label>📌 Plan Name:</label>
+                <input type="text" formControlName="planName" class="form-control" placeholder="Enter plan name">
+            </div>
+
+            <div class="form-group">
+                <label>📝 Description:</label>
+                <textarea formControlName="description" class="form-control" placeholder="Plan description"></textarea>
+            </div>
+
+            <div class="form-group">
+                <span class="feature-flex">
+                    <label>✅ Features:</label>
+                    <button type="button" class="btn btn-success btn-sm add-feature-btn" (click)="addFeature()">
+                        <mat-icon>add_box</mat-icon> Add
+                        Feature</button>
+                </span>
+                <div formArrayName="features">
+                    <div class="input-container" *ngFor="let feature of featuresArray.controls; let i = index"
+                        [formGroupName]="i">
+                        <input type="text" formControlName="feature" class="form-control" placeholder="Enter feature">
+                        <button type="button" class="remove-btn" (click)="removeFeature(i)"
+                            *ngIf="featuresArray.length > 1">❌</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>💪 Includes Personal Trainer?</label>
+                    <select formControlName="includesPersonalTrainer" class="form-control">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>👥 Includes Group Classes?</label>
+                    <select formControlName="includesGroupClasses" class="form-control">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label> Plan type</label>
+                    <select formControlName="planType" class="form-control">
+                        <option value="membership">Membership</option>
+                        <!-- <option value="visitor">Visitor</option> -->
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label>💰 Monthly Price (Rs.):</label>
+                    <input type="number" formControlName="monthlyPrice" class="form-control" placeholder="e.g., 50"
+                        min="1">
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>📅 Quarterly Price (Rs.):</label>
+                    <input type="number" formControlName="quarterlyPrice" class="form-control" placeholder="e.g., 120"
+                        min="1">
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>🏆 Yearly Price (Rs.):</label>
+                    <input type="number" formControlName="yearlyPrice" class="form-control" placeholder="e.g., 400"
+                        min="1">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>🔥 Extra Personal Trainer Fee (Rs.):</label>
+                    <input type="number" formControlName="extraPersonalTrainerFee" class="form-control"
+                        placeholder="Per session fee" min="1">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>📢 Extra Group Class Fee (Rs.):</label>
+                    <input type="number" formControlName="extraGroupClassFee" class="form-control"
+                        placeholder="Per class fee" min="1">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>⚠️ Plan Status:</label>
+                    <select formControlName="status" class="form-control">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Select Doors?</label>
+                    <select formControlName="doors" class="form-control" >
+                        <option value="Door 1">Door 1</option>
+                        <option value="Both">Both Doors</option>
+                      </select>
+                </div>
+            </div>
+
+
+            <div class="showError" *ngIf="showError">*Please fill all the fields</div>
+
+            <button type="submit" class="btn btn-primary">Submit Plan </button>
+        </form>
+    </div>
+
+
+    <div class="form-container" *ngIf="!activeTab">
+        <h2>Extra plan</h2>
+
+        <form [formGroup]="visitorForm" (ngSubmit)="submitVisitorForm()">
+
+            <div class="form-group">
+                <label>📌 Plan Name:</label>
+                <input type="text" formControlName="planName" class="form-control" placeholder="Enter plan name">
+            </div>
+
+            <div class="form-group">
+                <label>📝 Description:</label>
+                <textarea formControlName="description" class="form-control" placeholder="Plan description"></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>📍 Plan type</label>
+                    <select formControlName="planType" class="form-control">
+                        <!-- <option value="membership">Membership</option> -->
+                        <option value="visitor">Visitor</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>🗓️ No. of days:</label>
+                    <input type="number" formControlName="days" class="form-control" placeholder="Days" min="1">
+                </div>
+
+                <div class="form-group">
+                    <label>💰 Enter Price:</label>
+                    <input type="number" formControlName="price" class="form-control" placeholder="Price" min="1">
+                </div>
+    
+
+                <div class="form-group">
+                    <label>⚠️ Plan Status:</label>
+                    <select formControlName="status" class="form-control">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Select Doors?</label>
+                    <select formControlName="doors" class="form-control" >
+                        <option value="Door 1">Door 1</option>
+                        <option value="Both">Both Doors</option>
+                      </select>
+                </div>
+                
+            </div>
+
+            <div class="form-row">
+                
+            </div>
+
+            <div class="showError" *ngIf="showError">*Please fill all the fields</div>
+
+            <button type="submit" class="btn btn-primary">Submit Plan </button>
+        </form>
+    </div>
+</div>

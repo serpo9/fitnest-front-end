@@ -1,0 +1,203 @@
+.form-container {
+    max-width: 500px;
+    margin: auto;
+    padding: 30px 20px;
+    background: #3b2a28;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+
+    .close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+        transition: 200ms all;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 15px;
+        color: #fff;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: #fff;
+        margin-top: 1.3rem;
+
+        .no-spinner {
+            -moz-appearance: textfield;
+        }
+
+        .no-spinner::-webkit-outer-spin-button,
+        .no-spinner::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    }
+
+    ::ng-deep .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
+        padding-top: 6px;
+    }
+
+    ::ng-deep .mdc-text-field--filled .mdc-line-ripple {
+        &::before {
+            border-bottom-width: 0 !important;
+        }
+    }
+
+    ::ng-deep .mdc-text-field--filled.mdc-text-field--invalid:not(.mdc-text-field--disabled):not(.mdc-text-field--focused):hover .mdc-line-ripple {
+        &::before {
+            border-bottom-color: #8b5e3c !important;
+        }
+    }
+
+    ::ng-deep .mdc-text-field--filled.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-line-ripple {
+        &::before {
+            border-bottom-color: #ffffff00;
+        }
+
+    }
+
+    ≈ ::ng-deep .mdc-text-field--filled.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-line-ripple {
+        &::after {
+            border-bottom-color: #8b5e3c !important;
+        }
+    }
+
+    ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple {
+        &::after {
+            border-bottom-color: #8b5e3c !important;
+
+        }
+    }
+
+    ::ng-deep .mat-mdc-form-field {
+        width: 100%;
+        border-radius: 4px;
+
+        .mat-mdc-text-field-wrapper {
+            background: #4a322e;
+            border: 1px solid #8b5e3c;
+            height: 38px;
+            border-radius: 4px;
+
+            .mat-mdc-select-value-text {
+                color: #d2b48c;
+            }
+        }
+
+        .mat-mdc-select-arrow svg {
+            fill: rgb(216 123 116 / 87%) !important;
+        }
+    }
+
+    ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+        display: none;
+    }
+
+    input {
+
+        width: 100%;
+        padding: 8px;
+        margin-top: 10px;
+        border: 1px solid #8b5e3c;
+        border-radius: 4px;
+        background: #4a322e;
+        color: #d2b48c;
+        outline: none;
+        height: 38px;
+
+
+        /* Chrome, Safari, Edge, Opera */
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    }
+
+    .gender-container {
+        margin-bottom: 10px;
+
+        .d-flex {
+            display: flex;
+            gap: 10px;
+            margin-top: -13px;
+
+            label {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                margin: 0;
+
+                input {
+                    margin-top: 0;
+                }
+            }
+        }
+
+        span {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #fff;
+            margin-top: 1.3rem;
+        }
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background: #8b5e3c;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.3s;
+        margin-bottom: 14px;
+
+        &:hover {
+            background: #6d4a34;
+        }
+    }
+
+    .check-input {
+        margin-top: 10px;
+        font-weight: 600;
+        color: red;
+        font-size: 13px;
+        position: absolute;
+        bottom: 14px;
+        left: 16px;
+    }
+}
+
+
+@media screen and (max-width: 580px) {
+    .form-container {
+        padding: 30px 10px;
+
+        h2 {
+            font-size: 14px !important;
+        }
+
+        label {
+            margin-top: 11px;
+            font-size: 11px;
+        }
+    }
+}

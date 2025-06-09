@@ -1,0 +1,26 @@
+.app-container {
+    display: flex;
+    height: 100vh;
+
+    .content {
+        flex: 1;
+        padding-top: 40px;
+        overflow-y: auto;
+    }
+
+    .snackbar-success {
+        background-color: #4caf50 !important; /* Green */
+        color: white !important;
+      }
+      
+      .snackbar-error {
+        background-color: #f44336 !important; /* Red */
+        color: white !important;
+      }
+      
+      .snackbar-warning {
+        background-color: #ff9800 !important; /* Orange */
+        color: white !important;
+      }
+      
+}

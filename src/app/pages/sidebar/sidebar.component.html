@@ -1,0 +1,240 @@
+<div class="top-navbar">
+  <!-- <p>{{gymname}} management system</p> -->
+  <p>Gym management system</p>
+
+  <button class="user-profile" (click)="profile()">
+    <img src="/assets/images/user.png" alt="Profile">
+  </button>
+</div>
+
+<div class="sidenav" [class.sidenav-closed]="!sidenavOpen">
+  <!-- Toggle Button -->
+
+  <button mat-icon-button class="toggle-button" (click)="toggleSidenav()">
+    <mat-icon>{{ sidenavOpen ? 'menu_open' : 'menu' }}</mat-icon>
+  </button>
+
+  <!-- Navigation Links -->
+  <div class="nav-container">
+    <button (click)="getinfo('admin-home')" mat-button routerLink="/home" class="nav-link" matTooltip="Home"  *ngIf="userType === 'Admin'">
+      <mat-icon>home</mat-icon>
+      <span *ngIf="sidenavOpen">Home</span>
+    </button>
+
+    <button (click)="getinfo('your-session')" mat-button routerLink="/your-session" class="nav-link" matTooltip="Home"  *ngIf="userType === 'Trainer'">
+      <mat-icon>home</mat-icon>
+      <span *ngIf="sidenavOpen">Home</span>
+    </button>
+
+    <button (click)="getinfo('super-admin-panel')" mat-button routerLink="/super-admin-panel" class="nav-link" matTooltip="Home"  *ngIf="userType === 'SuperAdmin'">
+      <mat-icon>home</mat-icon>
+      <span *ngIf="sidenavOpen">Home</span>
+    </button>
+
+    <button (click)="getinfo('reception-home')" mat-button routerLink="/reception-home" class="nav-link" matTooltip="Home"  *ngIf="userType === 'Receptionist'">
+      <mat-icon>home</mat-icon>
+      <span *ngIf="sidenavOpen">Home</span>
+    </button>
+    
+    <button (click)="getinfo('register-admin')" mat-button routerLink="/register-admin" class="nav-link" matTooltip="Add Admin"  *ngIf="userType === 'SuperAdmin'">
+      <mat-icon>person</mat-icon>
+      <span *ngIf="sidenavOpen">Add Admin</span>
+    </button>
+    
+    <button (click)="getinfo('add-user-by-receptionist')" mat-button routerLink="/add-user-by-receptionist" class="nav-link" matTooltip="Add User"  *ngIf="userType === 'Receptionist'">
+      <mat-icon>person</mat-icon>
+      <span *ngIf="sidenavOpen">Add User</span>
+    </button>
+
+    <!-- <button (click)="getinfo('your-session')" mat-button routerLink="/your-session" class="nav-link" matTooltip="Home"  *ngIf="userType === 'Trainer'">
+      <mat-icon>home</mat-icon>
+      <span *ngIf="sidenavOpen">Home</span>
+    </button> -->
+
+    <div class="dropdown-container"  *ngIf="userType === 'Admin'">
+      <button class="nav-link utility-btn" mat-button matTooltip="Schedule" (click)="toggleSessionDropdown()">
+        <mat-icon>schedule</mat-icon>
+        <span *ngIf="sidenavOpen" class="utility-label">Schedule</span>
+        <span class="arrow-container">
+          <mat-icon>{{ sessionDropdownOpen ? 'expand_less' : 'expand_more' }}</mat-icon>
+        </span>
+      </button>
+
+      <div class="dropdown" *ngIf="sessionDropdownOpen">
+        <button mat-button routerLink="/add-scheduling" class="nav-link" (click)="getinfo('add-scheduling')">
+          <mat-icon class="dropdown-icon">panorama_fish_eye</mat-icon>
+          <span *ngIf="sidenavOpen">Add Schedule</span>
+        </button>
+        <button mat-button routerLink="/all-scheduling" class="nav-link" (click)="getinfo('all-scheduling')">
+          <mat-icon class="dropdown-icon">panorama_fish_eye</mat-icon>
+          <span *ngIf="sidenavOpen">All Schedule</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="dropdown-container"  *ngIf="userType === 'Admin'">
+      <button class="nav-link utility-btn" mat-button matTooltip="Users" (click)="toggleUsersDropdown()">
+        <mat-icon>person</mat-icon>
+        <span *ngIf="sidenavOpen" class="utility-label">Users</span>
+        <span class="arrow-container">
+          <mat-icon>{{ usersDropdownOpen ? 'expand_less' : 'expand_more' }}</mat-icon>
+        </span>
+      </button>
+
+      <div class="dropdown" *ngIf="usersDropdownOpen">
+        <button mat-button routerLink="/register-user" class="nav-link" (click)="getinfo('register-user')">
+          <mat-icon class="dropdown-icon">panorama_fish_eye</mat-icon>
+          <span *ngIf="sidenavOpen">Add customers</span>
+        </button>
+        <button mat-button routerLink="/add-staff" class="nav-link" (click)="getinfo('add-staff')">
+          <mat-icon class="dropdown-icon">panorama_fish_eye</mat-icon>
+          <span *ngIf="sidenavOpen">Add Staff</span>
+        </button>
+        <button mat-button routerLink="/all-users" class="nav-link" (click)="getinfo('all-users')">
+          <mat-icon class="dropdown-icon">panorama_fish_eye</mat-icon>
+          <span *ngIf="sidenavOpen">All users</span>
+        </button>
+        <button mat-button routerLink="/trainer" class="nav-link" (click)="getinfo('trainer')">
+          <mat-icon class="dropdown-icon">panorama_fish_eye</mat-icon>
+          <span *ngIf="sidenavOpen">Trainer</span>
+        </button>
+        <button (click)="getinfo('subscribed-users')" [class.active]="activelink==='/subscribed-users'"
+          routerLinkActive="list-item-active" mat-button routerLink="/History" class="nav-link" matTooltip="Dashboard">
+          <mat-icon class="dropdown-icon">panorama_fish_eye</mat-icon>
+          <span *ngIf="sidenavOpen">Subscribed User</span>
+        </button>
+
+
+      </div>
+    </div>
+
+    <div class="dropdown-container"  *ngIf="userType === 'Admin'">
+      <button class="nav-link utility-btn" mat-button matTooltip="Devices" (click)="toggleDeviceDropdown()">
+        <mat-icon>devices</mat-icon>
+        <span *ngIf="sidenavOpen" class="utility-label">Devices</span>
+        <span class="arrow-container">
+          <mat-icon>{{ deviceDropdownOpen ? 'expand_less' : 'expand_more' }}</mat-icon>
+        </span>
+      </button>
+
+      <div class="dropdown" *ngIf="deviceDropdownOpen">
+        <button mat-button routerLink="/add-device" class="nav-link" (click)="getinfo('add-device')">
+          <mat-icon class="dropdown-icon">panorama_fish_eye</mat-icon>
+          <span *ngIf="sidenavOpen">Add Device</span>
+        </button>
+        <button mat-button routerLink="/registered-device" class="nav-link" (click)="getinfo('registered-device')">
+          <mat-icon class="dropdown-icon">panorama_fish_eye</mat-icon>
+          <span *ngIf="sidenavOpen">Registered Device</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="dropdown-container" *ngIf="userType === 'Admin'">
+      <button class="nav-link utility-btn" mat-button matTooltip="Subscription" (click)="toggleSubscriptionDropdown()">
+        <mat-icon>money</mat-icon>
+        <span *ngIf="sidenavOpen" class="utility-label">Subscription</span>
+        <span class="arrow-container">
+          <mat-icon>{{ subscriptionDropdownOpen ? 'expand_less' : 'expand_more' }}</mat-icon>
+        </span>
+      </button>
+
+      <div class="dropdown" *ngIf="subscriptionDropdownOpen" >
+        <button mat-button routerLink="/all-plans" class="nav-link" (click)="getinfo('all-plans')">
+          <mat-icon class="dropdown-icon">panorama_fish_eye</mat-icon>
+          <span *ngIf="sidenavOpen">All Plans</span>
+        </button>
+      </div>
+
+      <div class="dropdown" *ngIf="subscriptionDropdownOpen">
+        <button mat-button routerLink="/buy-subscription-plans" class="nav-link"
+          (click)="getinfo('buy-subscription-plans')">
+          <mat-icon class="dropdown-icon">panorama_fish_eye</mat-icon>
+          <span *ngIf="sidenavOpen">Purchase plan</span>
+        </button>
+      </div>
+
+      <div class="dropdown" *ngIf="subscriptionDropdownOpen">
+        <button mat-button routerLink="/add-subscription-plans" class="nav-link"
+          (click)="getinfo('add-subscription-plans')">
+          <mat-icon class="dropdown-icon">panorama_fish_eye</mat-icon>
+          <span *ngIf="sidenavOpen">Add plans</span>
+        </button>
+      </div>
+      <div class="dropdown" *ngIf="subscriptionDropdownOpen">
+        <button mat-button routerLink="/subscription-request" class="nav-link"
+          (click)="getinfo('subscription-request')">
+          <mat-icon class="dropdown-icon">panorama_fish_eye</mat-icon>
+          <span *ngIf="sidenavOpen">Subscription Request</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="dropdown-container" *ngIf="userType === 'Admin'">
+      <button class="nav-link utility-btn" mat-button matTooltip="Attendance" (click)="toggleAttendanceDropdown()">
+        <mat-icon>widgets</mat-icon>
+        <span *ngIf="sidenavOpen" class="utility-label">Attendance</span>
+        <span class="arrow-container">
+          <mat-icon>{{ attendanceDropdownOpen ? 'expand_less' : 'expand_more' }}</mat-icon>
+        </span>
+      </button>
+
+      <div class="dropdown" *ngIf="attendanceDropdownOpen">
+        <button mat-button routerLink="/users-attendence" class="nav-link" (click)="getinfo('users-attendence')">
+          <mat-icon class="dropdown-icon">panorama_fish_eye</mat-icon>
+          <span *ngIf="sidenavOpen">Users</span>
+        </button>
+        <button mat-button routerLink="/trainer-attendence" class="nav-link" (click)="getinfo('trainer-attendence')">
+          <mat-icon class="dropdown-icon">panorama_fish_eye</mat-icon>
+          <span *ngIf="sidenavOpen">Staff</span>
+        </button>
+      </div>
+    </div>
+
+    <button (click)="getinfo('message')" [class.active]="activelink==='/message'" routerLinkActive="list-item-active"
+      mat-button routerLink="/message" class="nav-link" matTooltip="Message" *ngIf="userType === 'Admin'">
+      <mat-icon>message</mat-icon>
+      <span *ngIf="sidenavOpen">Message</span>
+    </button>
+
+    <button (click)="getinfo('salary-management')" [class.active]="activelink==='/dashboard'"
+      routerLinkActive="list-item-active" mat-button routerLink="/salary-management" class="nav-link"
+      matTooltip="Salary Management" *ngIf="userType === 'Admin'">
+      <mat-icon>attach_money</mat-icon>
+      <span *ngIf="sidenavOpen">Salary Management</span>
+    </button>
+
+    <button (click)="getinfo('received-amount-history')" [class.active]="activelink==='/received-amount-history'"
+      routerLinkActive="list-item-active" mat-button routerLink="/received-amount-history" class="nav-link"
+      matTooltip="Installment Payments"*ngIf="userType === 'Admin'">
+      <mat-icon>history</mat-icon>
+      <span *ngIf="sidenavOpen">Installment Payments</span>
+    </button>
+
+    <button (click)="getinfo('payment-history')" [class.active]="activelink==='/payment-history'"
+      routerLinkActive="list-item-active" mat-button routerLink="/payment-history" class="nav-link"
+      matTooltip="Payment history" *ngIf="userType === 'Admin'">
+      <mat-icon>history</mat-icon>
+      <span *ngIf="sidenavOpen">Payment history</span>
+    </button>
+
+    <button (click)="getinfo('leave-management')" [class.active]="activelink==='/leave-management'"
+      routerLinkActive="list-item-active" mat-button routerLink="/leave-management" class="nav-link"
+      matTooltip="Leave Management" *ngIf="userType === 'Admin'">
+      <mat-icon>timeline</mat-icon>
+      <span *ngIf="sidenavOpen">Leave Management</span>
+    </button>
+
+    <button (click)="getinfo('diet-plan')" [class.active]="activelink==='/diet-plan'" *ngIf="userType === 'Trainer'"
+      routerLinkActive="list-item-active" mat-button routerLink="/diet-plan" class="nav-link"
+      matTooltip="Diet Plan">
+      <mat-icon> fastfood</mat-icon>
+      <span *ngIf="sidenavOpen">Diet Plan</span>
+    </button>
+
+    <button mat-button routerLink="/logout" class="nav-link logout" matTooltip="Logout" (click)='logout()'>
+      <mat-icon>logout</mat-icon>
+      <span *ngIf="sidenavOpen">Logout</span>
+    </button>
+  </div>
+</div>
+<div class="noblur" [class.blur]="sidenavOpen"></div>

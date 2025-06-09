@@ -1,0 +1,139 @@
+<div class="main-container">
+
+    <div class="content">
+      <div class="card1" [class.full-width]="!sidenavOpen">
+        <div class="title" style="margin-bottom: 2rem">
+          <h2>{{ isGuest ? "Register as Guest" : "Register as Verified Customer" }}</h2>
+        </div>
+  
+        <!-- Guest Registration Form -->
+        <div class="form-container" *ngIf="isGuest">
+          <div class="d-flex">
+            <button (click)="selectVerified()" class="btn" [ngClass]="{'btn-color': !isGuest}">Register as Verified
+              Customer</button>
+            <button (click)="selectGuest()" class="btn" [ngClass]="{'btn-color': isGuest}">Register as Guest</button>
+          </div>
+  
+          <form (ngSubmit)="onAssignSchedule(false)" class="Employee-info-id" #guestForm="ngForm">
+            <div class="form-group">
+              <input id="userName" name="userName" type="text" [(ngModel)]="userName" placeholder="User Name" required
+                #userNameRef="ngModel" />
+              <div *ngIf="userNameRef.invalid && userNameRef.touched" class="error">
+                <small *ngIf="userNameRef.errors?.['required']">Name is required.</small>
+              </div>
+  
+              <!-- <input id="phone" name="phone" type="text" [(ngModel)]="phone" placeholder="Enter Phone Number" required #phoneRef="ngModel" /> -->
+  
+              <input id="phone" name="phone" type="tel" [(ngModel)]="phone" placeholder="Phone Number" [maxLength]="10"
+                [minLength]="10" (keypress)="onlyNumbers($event)" #phoneRef="ngModel">
+  
+  
+              <div *ngIf="phoneRef.invalid && phoneRef.touched" class="error">
+                <small *ngIf="phoneRef.errors?.['required']">Phone number is required.</small>
+              </div>
+  
+              <!-- Password -->
+              <input id="password" name="password" type="password" [(ngModel)]="password" placeholder="Enter Password"
+                required #passwordRef="ngModel" />
+              <div *ngIf="passwordRef.invalid && passwordRef.touched" class="error">
+                <small *ngIf="passwordRef.errors?.['required']">Password is required.</small>
+              </div>
+  
+              <!-- Confirm Password -->
+              <input id="confirmPassword" name="confirmPassword" type="password" [(ngModel)]="confirmPassword"
+                placeholder="Confirm Password" required #confirmPasswordRef="ngModel" />
+              <div *ngIf="confirmPasswordRef.invalid && confirmPasswordRef.touched" class="error">
+                <small *ngIf="confirmPasswordRef.errors?.['required']">Confirm password is required.</small>
+                <small *ngIf="password !== confirmPassword">Passwords do not match.</small>
+              </div>
+            </div>
+            <!-- Health Status Dropdown -->
+            <mat-form-field appearance="fill" class="custom-height">
+              <mat-label>Health Status</mat-label>
+              <mat-select [(ngModel)]="duration" name="duration" required #durationRef="ngModel">
+                <mat-option *ngFor="let option of durationOptions" [value]="option.value">
+                  {{ option.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+  
+            <button class="searchbtn" type="submit" [disabled]="guestForm.invalid || password !== confirmPassword">
+              Submit
+            </button>
+          </form>
+        </div>
+  
+        <!-- Verified Customer Registration Form -->
+        <div class="form-container" *ngIf="!isGuest">
+  
+          <div class="d-flex">
+            <button (click)="selectVerified()" class="btn" [ngClass]="{'btn-color': !isGuest}">Register as Verified
+                Customer</button>
+              <button (click)="selectGuest()" class="btn" [ngClass]="{'btn-color': isGuest}">Register as Guest</button>
+          </div>
+  
+          <form (ngSubmit)="onAssignSchedule(true)" class="Employee-info-id" #verifiedForm="ngForm">
+            <div class="form-group">
+              <input id="userName" name="userName" type="text" [(ngModel)]="userName" placeholder="User Name" required
+                #userNameRef="ngModel" />
+              <div *ngIf="userNameRef.invalid && userNameRef.touched" class="error">
+                <small *ngIf="userNameRef.errors?.['required']">Name is required.</small>
+              </div>
+  
+              <!-- <input id="phone" name="phone" type="text" [(ngModel)]="phone" placeholder="Enter Phone Number" required #phoneRef="ngModel" /> -->
+  
+              <input id="phone" name="phone" type="tel" [(ngModel)]="phone" placeholder="Phone Number" [maxLength]="10"
+                [minLength]="10" (keypress)="onlyNumbers($event)" #phoneRef="ngModel">
+  
+              <div *ngIf="phoneRef.invalid && phoneRef.touched" class="error">
+                <small *ngIf="phoneRef.errors?.['required']">Phone number is required.</small>
+              </div>
+  
+              <input id="email" name="email" type="email" [(ngModel)]="email" placeholder="Enter Email ID" required
+                #emailRef="ngModel" />
+              <div *ngIf="emailRef.invalid && emailRef.touched" class="error">
+                <small *ngIf="emailRef.errors?.['required']">Email is required.</small>
+                <small *ngIf="emailRef.errors?.['email']">Enter a valid email.</small>
+              </div>
+  
+              <mat-form-field appearance="fill" class="choose-date">
+                <mat-label>DOB</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="selectedDate" name="selectedDate" required
+                  #selectedDateRef="ngModel">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+  
+              <!-- Password -->
+              <input id="password" name="password" type="password" [(ngModel)]="password" placeholder="Enter Password"
+                required #passwordRef="ngModel" />
+              <div *ngIf="passwordRef.invalid && passwordRef.touched" class="error">
+                <small *ngIf="passwordRef.errors?.['required']">Password is required.</small>
+              </div>
+  
+              <!-- Confirm Password -->
+              <input id="confirmPassword" name="confirmPassword" type="password" [(ngModel)]="confirmPassword"
+                placeholder="Confirm Password" required #confirmPasswordRef="ngModel" />
+              <div *ngIf="confirmPasswordRef.invalid && confirmPasswordRef.touched" class="error">
+                <small *ngIf="confirmPasswordRef.errors?.['required']">Confirm password is required.</small>
+                <small *ngIf="password !== confirmPassword">Passwords do not match.</small>
+              </div>
+            </div>
+            <!-- Health Status Dropdown -->
+            <mat-form-field appearance="fill" class="custom-height">
+              <mat-label>Health Status</mat-label>
+              <mat-select [(ngModel)]="duration" name="duration" required #durationRef="ngModel">
+                <mat-option *ngFor="let option of durationOptions" [value]="option.value">
+                  {{ option.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+  
+            <button class="searchbtn" type="submit" [disabled]="verifiedForm.invalid || password !== confirmPassword">
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

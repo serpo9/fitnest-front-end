@@ -1,0 +1,17 @@
+<div class="custom-dialog">
+    <h2 mat-dialog-title>{{ data.title }}</h2>
+    <div mat-dialog-content>
+        <div mat-dialog-content>
+            <img *ngIf="data.imageUrl" src="{{ data.imageUrl }}" alt="Payment Success" width="100" height="100">
+        </div>
+        <p>{{ data.message }}</p>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button class="custom-btn" (click)="onDefaultButton()">{{ data.defaultBtnText }}</button>
+        <button *ngIf="data.doubleBtn" class="custom-btn" mat-button (click)="onOtherButton()">{{ data.otherBtnText
+            }}</button>
+    </div>
+    <div *ngIf="data.linkToOpen" class="urlforTransaction">
+        <a href="{{data.linkToOpen}}" target="_blank"> {{ data.showStatus }}</a>
+    </div>
+</div>

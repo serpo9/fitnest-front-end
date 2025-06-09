@@ -1,0 +1,102 @@
+<div class="main-container">
+
+	<div class="d-grid">
+		<div class="item one">
+			<p>{{customerCount || 0}}</p>
+			<h4>Total No. of Customers</h4>
+		</div>
+		<div class="item two">
+			<p>{{todaysPresent || 0}}</p>
+			<h4>Today's present</h4>
+		</div>
+		<div class="item three">
+			<p>{{todaysCollection || 0}}</p>
+			<!-- <h4>Total No. of Staffs</h4> -->
+			<h4>Today's collection (Rs.)</h4>
+		</div>
+		<div class="item four">
+			<p>{{subsUsersCount || 0}}</p>
+			<h4>Total No. of Subscribed users</h4>
+		</div>
+	</div>
+
+	<div class="table">
+
+		<div class="mainHistory">Upcoming Subscription plan Expire</div>
+
+		<div class="header">
+			<div class="search-box">
+				<input type="search" name="serach-employee" class="search-field" [(ngModel)]="searchTerm"
+					placeholder="Search by Phone no." />
+				<button mat-raised-button class="searchbtn buttoncolor" (click)="applyFilter()">
+					<mat-icon>search</mat-icon>
+					<span>Search</span>
+				</button>
+			</div>
+			<mat-form-field appearance="fill">
+				<mat-label>Choose a date range</mat-label>
+				<mat-date-range-input [rangePicker]="picker">
+					<input matStartDate placeholder="Start date" [(ngModel)]="dateRange.start" name="startDate" />
+					<input matEndDate placeholder="End date" [(ngModel)]="dateRange.end" name="endDate" />
+				</mat-date-range-input>
+				<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+				<mat-date-range-picker #picker></mat-date-range-picker>
+			</mat-form-field>
+			<button mat-raised-button class="buttoncolor calendarBtn" (click)="applyFilter()">Search</button>
+		</div>
+
+
+		<div class="table-responsive">
+			<!-- Main Table (Default) -->
+
+			<table mat-table [dataSource]="dataSource" class="custom-table" *ngIf="dataSource.data.length > 0;">
+				<ng-container matColumnDef="id">
+					<th mat-header-cell *matHeaderCellDef class="mat-column-employee-num">EmployeeNo</th>
+					<td mat-cell *matCellDef="let element" class="mat-column-employee-num">{{ element.userId }}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="name">
+					<th mat-header-cell *matHeaderCellDef class="mat-column-name">Name</th>
+					<td mat-cell *matCellDef="let element" class="mat-column-name">{{ element.name }}</td>
+				</ng-container>
+				<ng-container matColumnDef="mail">
+					<th mat-header-cell *matHeaderCellDef class="mat-column-status">Email</th>
+					<td mat-cell *matCellDef="let element" class="mat-column-status">{{element.email}}</td>
+				</ng-container>
+				<ng-container matColumnDef="number">
+					<th mat-header-cell *matHeaderCellDef class="mat-column-status">Phone</th>
+					<td mat-cell *matCellDef="let element" class="mat-column-status">{{element.phoneNumber}}</td>
+				</ng-container>
+				<ng-container matColumnDef="plan">
+					<th mat-header-cell *matHeaderCellDef class="mat-column-status">Type</th>
+					<td mat-cell *matCellDef="let element" class="mat-column-status">{{element.planName}}</td>
+				</ng-container>
+				<ng-container matColumnDef="expireDate">
+					<th mat-header-cell *matHeaderCellDef class="mat-column-status">Expire Date</th>
+					<td mat-cell *matCellDef="let element" class="mat-column-status" style="color: red; font-weight: 600;">{{element.expiryDate |
+						date:'dd-MM-yyyy':'UTC' }}</td>
+				</ng-container>
+				<ng-container matColumnDef="renew">
+				<th mat-header-cell *matHeaderCellDef>renew</th>
+				<td mat-cell *matCellDef="let element">
+					<button mat-raised-button color=#fff style="color: #000; background-color: white;" (click)="navigate(element)">
+					renew
+					</button>
+				</td>
+        </ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+			</table>
+
+			<div class="table-footer" [style.display]="dataSource.data.length > 0 ? 'flex' : 'none'">
+				<mat-paginator [pageSize]="6" class="custom-paginator"></mat-paginator>
+			</div>
+		</div>
+
+		<div *ngIf="dataSource.data.length === 0" class="no-data">
+			No data found
+		</div>
+	</div>
+
+</div>

@@ -1,0 +1,13 @@
+<div [ngClass]="{'no-padding': removePadding}" [ngClass]="{ 'app-container': showSidebar }">
+  <!-- <app-navbar *ngIf="showNavbar"></app-navbar> -->
+  <div *ngIf="showSidebar" class="sidenav">
+    <!-- Sidebar Content -->
+    <app-sidebar></app-sidebar>
+  </div>
+
+  <!-- Content Area -->
+  <!-- <div class="content"> -->
+  <div [ngClass]="{ 'content': showSidebar }">
+    <router-outlet></router-outlet>
+  </div>
+</div>

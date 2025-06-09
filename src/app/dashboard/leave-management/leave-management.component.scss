@@ -1,0 +1,561 @@
+::ng-deep .mat-mdc-paginator-page-size {
+  display: none !important;
+}
+
+::ng-deep .mat-mdc-paginator-icon {
+  fill: rgb(255 255 255) !important;
+}
+
+::ng-deep .mat-mdc-icon-button[disabled] .mat-mdc-paginator-icon {
+  fill: rgb(181 171 171 / 65%) !important;
+}
+
+::ng-deep .mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background,
+.mdc-checkbox .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background,
+.mdc-checkbox .mdc-checkbox__native-control[data-indeterminate=true]:enabled~.mdc-checkbox__background {
+  border-color: #ffc978 !important;
+  background-color: #ffc978 !important;
+}
+
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
+  display: none !important;
+}
+
+::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+
+::ng-deep .mdc-checkbox .mdc-checkbox__native-control:enabled:not(:checked):not(:indeterminate):not([data-indeterminate=true])~.mdc-checkbox__background {
+  border-color: rgb(255 255 255) !important;
+}
+
+.mat-mdc-raised-button:not(:disabled) {
+  background-color: white;
+
+}
+
+.mat-mdc-raised-button:not(:disabled) {
+  background-color: white;
+
+}
+
+::ng-deep .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
+  height: 47px;
+
+}
+
+::ng-deep .mat-mdc-table tbody,
+.mat-mdc-table tfoot,
+.mat-mdc-table thead,
+.mat-mdc-cell,
+.mat-mdc-footer-cell,
+.mat-mdc-header-row,
+.mat-mdc-row,
+.mat-mdc-footer-row,
+.mat-mdc-table .mat-mdc-header-cell {
+  border-bottom: 2px solid #75695fd3;
+}
+
+.app-container {
+  padding-inline: 50px;
+  background-color: var(--bg-color);
+}
+
+.main-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  flex-direction: column;
+
+  .time-red {
+    color: red !important;
+    font-weight: bold !important;
+  }
+
+  .time-negative {
+    color: red;
+    /* Example of styling negative time */
+    font-weight: bold
+  }
+
+  .content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 0;
+    transition: all 0.3s ease;
+    padding: 1rem;
+    text-align: center;
+    background-color: rgb(44 37 32 / 81%);
+    overflow-x: hidden;
+
+    /* Style the container to align items to the right */
+    .filter-btn {
+      padding: 8px 10px;
+      background-color: #cfcfcfe6;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 13px;
+      cursor: pointer;
+      width: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 1rem;
+      margin-left: auto;
+      transition: all 0.3s ease;
+      font-weight: 500;
+
+      &:hover {
+        background-color: #ffffffe6;
+      }
+
+      &.active {
+        background-color: #40342c;
+        color: #fff;
+        border-color: #40342c;
+      }
+    }
+
+
+    &.full-width {
+      margin-left: 0;
+    }
+
+    .mainHistory {
+      color: white;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      font-size: 22px;
+      font-weight: bold;
+      text-align: start;
+    }
+
+    .buttoncolor {
+      background-color: #111111 !important;
+      color: white;
+      padding: 22px;
+
+    }
+
+    .header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      // background-color: #40342c;
+      border-radius: 5px;
+      // padding: 1rem;
+      gap: 1rem;
+      margin-bottom: 2rem;
+
+      .search-box {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        //   background-color: #111111;
+        border-radius: 5px;
+        // padding: 0.5rem;
+        flex-grow: 1;
+
+        .search-field {
+          flex: 1;
+          height: 2.5rem;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          padding: 0.5rem;
+          font-size: 1rem;
+          background-color: rgba(240, 240, 240, 0.9019607843);
+
+          &:focus {
+            outline: none;
+            border-color: #6200ee;
+          }
+        }
+
+        .clearbtn,
+        .searchbtn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: none;
+          cursor: pointer;
+          padding: 22px;
+          border-radius: 5px;
+
+          mat-icon {
+            font-size: 1.2rem;
+          }
+        }
+
+        .searchbtn {
+          background-color: #111111;
+          color: #ffffff;
+        }
+      }
+
+      mat-form-field {
+        width: 100%;
+        max-width: 300px;
+
+        input {
+          font-size: 1rem;
+        }
+      }
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+      background: #40342c;
+      border-radius: 5px;
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+        background: #40342c;
+
+        bord th,
+        td {
+          padding: 12px 8px;
+          text-align: start;
+          white-space: nowrap;
+          color: #c9bbbb;
+        }
+
+        th {
+          background-color: #f0f0f0e6;
+          font-weight: 500;
+        }
+      }
+
+
+
+      .table-footer {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 1rem;
+
+        .custom-paginator {
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+
+    .d-flex {
+      margin-bottom: 2rem;
+      gap: 20px;
+
+      button {
+        background-color: #fff;
+        border: 2px solid #fff;
+
+        &:hover {
+          background-color: #ffc978;
+          border: 2px solid #ffc978;
+          color: #000;
+        }
+      }
+
+      .active {
+        background-color: #ffc978;
+        border: 2px solid #ffc978;
+        color: #000;
+      }
+    }
+
+  }
+
+  .plans-container {
+    // padding-block: 2rem;
+    margin-top: 2rem;
+    min-height: 500px;
+    margin-bottom: 9rem;
+
+    .plan-content {
+      padding: 2rem 1rem;
+      background-color: #40342c;
+      border-radius: 4px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+
+        label {
+          text-align: start;
+          color: #fff;
+          font-weight: 600;
+          font-size: 17px;
+        }
+
+        ::ng-deep mat-form-field {
+          margin-top: 1rem;
+        }
+
+        ::ng-deep .custom-calendar {
+          width: 100%;
+
+          ::ng-deep .calendar {
+            height: 55px;
+            width: 100%;
+          }
+        }
+      }
+
+      .selected-dates-section {
+
+        .selected-dates-list {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin-top: 14px;
+
+          .date-chip {
+            background: #fff;
+            border: 1px solid #fff;
+            padding: 15px 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            border-top-right-radius: 4px;
+            border-top-left-radius: 4px;
+
+            button {
+              width: 24px;
+              height: 24px;
+            }
+
+            mat-icon {
+              color: red;
+            }
+          }
+        }
+      }
+    }
+
+    button {
+      // margin-top: 2rem;
+      width: 200px;
+    }
+  }
+}
+
+/* Media Queries */
+@media screen and (max-width: 1300px) {
+  .main-container {
+    .plans-container {
+      .plan-content {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    //flex-direction: column;
+
+    .content {
+      padding: 0.5rem;
+
+      .header {
+        // flex-direction: column;
+        gap: 0.5rem;
+
+        .search-box {
+          // flex-direction: column;
+          // align-items: stretch;
+
+          .search-field {
+            font-size: 0.9rem;
+            height: 2rem;
+          }
+
+          .searchbtn {
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
+          }
+        }
+      }
+
+      .table-responsive {
+        table {
+
+          th,
+          td {
+            padding: 10px 6px;
+            font-size: 12px;
+          }
+        }
+
+        .table-footer {
+          justify-content: center;
+        }
+      }
+    }
+
+    .plans-container {
+      .plan-content {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    .header {
+      // padding: 0.5rem;
+
+      .search-box {
+        .search-field {
+          font-size: 0.8rem;
+        }
+
+        .searchbtn {
+          font-size: 0.7rem;
+        }
+      }
+    }
+
+    .table-responsive {
+      table {
+
+        th,
+        td {
+          font-size: 10px;
+          padding: 8px 6px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 340px) {
+  .main-container {
+    display: flex;
+    flex-direction: column;
+
+    .content {
+      .header {
+        gap: 0.5rem;
+
+        .search-box {
+          .search-field {
+            font-size: 0.7rem;
+            height: 1.8rem;
+          }
+
+          .searchbtn {
+            font-size: 0.6rem;
+          }
+        }
+      }
+
+      .table-responsive {
+        table {
+
+          th,
+          td {
+            font-size: 12px;
+            padding: 6px 4px;
+          }
+        }
+
+        .table-footer {
+          justify-content: center;
+        }
+      }
+    }
+  }
+}
+
+
+.table-responsive {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto; // Enables scrolling
+  display: block;
+
+  .custom-table {
+    min-width: 1200px; // Ensures the table does not shrink
+    width: 100%; // Allows it to be responsive but not smaller than min-width
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+
+
+    /* Set Fixed Column Widths */
+    .mat-column-select {
+      width: 50px;
+      /* Checkbox column */
+    }
+
+    .mat-column-name {
+      width: 200px;
+      /* Name column */
+    }
+
+    .mat-column-email {
+      width: 250px;
+      /* Email column */
+    }
+
+    .mat-column-plan {
+      width: 50px;
+    }
+  }
+
+  th.mat-header-cell,
+  td.mat-cell {
+    text-align: center !important;
+    padding: 12px;
+    white-space: nowrap;
+  }
+
+  th.mat-header-cell {
+    background-color: #3f51b5;
+    color: white;
+    font-weight: bold;
+  }
+
+  td.mat-cell {
+    font-size: 14px;
+    color: #333;
+  }
+
+  tr.mat-header-row {
+    height: 50px;
+    text-align: center;
+  }
+
+  tr.mat-row:hover {
+    background-color: #f5f5f5;
+  }
+
+  button {
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+}
+
+// Prevent Angular Material Table Shrinking
+.mat-table {
+  table-layout: fixed; // Ensures consistent column width
+}
+
+// Center paginator
+.custom-paginator {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
