@@ -3,7 +3,8 @@
 	color: #2e7d32;
 	border-radius: 50%;
 }
-.open{
+
+.open {
 	display: grid;
 	position: absolute;
 	grid-template-columns: 100%;
@@ -11,12 +12,14 @@
 	top: 26vh;
 	// padding-left: 15px;
 	left: 80px;
-	
+
 }
+
 .hidden {
-  display: none;
+	display: none;
 }
-.bg{
+
+.bg {
 	position: absolute;
 	background-color: #1f1d1d;
 	// background: url('/assets/images/signup_bg.png') no-repeat center center;
@@ -126,36 +129,39 @@ h2 {
 			font-size: 18px;
 			font-weight: 600;
 		}
+
 		.weight-input-container {
-				max-width: 400px;
-				background: rgb(52 52 52 / 61%);
-				border-radius: 8px;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				// gap: 12px;
-				// margin-bottom: 16px;	
-				margin-top: 10px;
-				flex-wrap: wrap;	
-				// max-width: 400px;
-				padding: 10px;
-				// width: 100%;
+			max-width: 400px;
+			background: rgb(52 52 52 / 61%);
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			// gap: 12px;
+			// margin-bottom: 16px;	
+			margin-top: 10px;
+			flex-wrap: wrap;
+			// max-width: 400px;
+			padding: 10px;
+
+			// width: 100%;
 			.add-weight-label {
 				font-weight: 500;
 				font-size: 14px;
 				color: white;
 				margin-right: 10px;
 			}
-				.add-weight {
-					display: flex;
-					align-items: center;
-					justify-content: center;
 
-					// width: fit-content;
-					//   margin-bottom: 20px;
-					box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+			.add-weight {
+				display: flex;
+				align-items: center;
+				justify-content: center;
 
-					.add-weight-input {
+				// width: fit-content;
+				//   margin-bottom: 20px;
+				box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+				.add-weight-input {
 					padding: 10px 14px;
 					font-size: 14px;
 					border: 1px solid #ccc;
@@ -164,14 +170,14 @@ h2 {
 					border-bottom-left-radius: 6px;
 					outline: none;
 					height: 40px;
-					max-width:174px;
+					max-width: 174px;
 
 					&:focus {
 						border-color: #3f51b5;
 					}
-					}
+				}
 
-					.add-weight-btn {
+				.add-weight-btn {
 					padding: 0 16px;
 					height: 40px;
 					background-color: #3f51b5;
@@ -190,122 +196,120 @@ h2 {
 					&:active {
 						background-color: #283593;
 					}
-					}
 				}
+			}
 
 
 		}
 
 		.bmi-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  background: rgb(52 52 52 / 61%);
-  border-radius: 8px;
-  padding: 20px;
-  margin-top: 1rem;
+			display: flex;
+			flex-direction: column;
+			gap: 1.5rem;
+			background: rgb(52 52 52 / 61%);
+			border-radius: 8px;
+			padding: 20px;
+			margin-top: 1rem;
 
-  .header {
-    h2 {
-      font-family: "Montserrat", sans-serif;
-      font-size: 18px;
-      font-weight: 600;
-      color: white;
-    }
+			.header {
+				h2 {
+					font-family: "Montserrat", sans-serif;
+					font-size: 18px;
+					font-weight: 600;
+					color: white;
+				}
 
-    p {
-      color: white;
-      font-family: "Montserrat", sans-serif;
-      font-size: 14px;
-    }
-  }
+				p {
+					color: white;
+					font-family: "Montserrat", sans-serif;
+					font-size: 14px;
+				}
+			}
 
-  .input-boxes {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-bottom: 20px;
+			.input-boxes {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 20px;
+				margin-bottom: 20px;
 
-    .height-boxes,
-    .weight-box {
-      flex: 1 1 250px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+				.height-boxes,
+				.weight-box {
+					flex: 1 1 250px;
+					display: flex;
+					flex-direction: column;
+					gap: 10px;
 
-      .input-label {
-        font-family: "Montserrat", sans-serif;
-        font-size: 14px;
-        font-weight: 500;
-        color: white;
-      }
+					.input-label {
+						font-family: "Montserrat", sans-serif;
+						font-size: 14px;
+						font-weight: 500;
+						color: white;
+					}
 
-      .height-input-row {
-        display: flex;
-        gap: 10px;
-      }
+					.height-input-row {
+						display: flex;
+						gap: 10px;
+					}
 
-      .unit-box {
-        position: relative;
-        flex: 1;
+					.unit-box {
+						position: relative;
+						flex: 1;
 
-        input {
-          width: 100%;
-          padding: 12px 40px 12px 12px;
-          border-radius: 8px;
-          border: 1px solid #ccc;
-          font-size: 16px;
-          outline: none;
+						input {
+							width: 100%;
+							padding: 12px 40px 12px 12px;
+							border-radius: 8px;
+							border: 1px solid #ccc;
+							font-size: 16px;
+							outline: none;
 
-          &:focus {
-            border-color: #3f51b5;
-          }
-        }
+							&:focus {
+								border-color: #3f51b5;
+							}
+						}
 
-        .unit-label {
-          position: absolute;
-          right: 12px;
-          top: 50%;
-          transform: translateY(-50%);
-          font-size: 14px;
-          color: #3f51b5;
-          font-weight: 600;
-        }
-      }
+						.unit-label {
+							position: absolute;
+							right: 12px;
+							top: 50%;
+							transform: translateY(-50%);
+							font-size: 14px;
+							color: #3f51b5;
+							font-weight: 600;
+						}
+					}
 
-      .full-width {
-        width: 100%;
-      }
-    }
-  }
+					.full-width {
+						width: 100%;
+					}
+				}
+			}
 
-  .bmi-btn {
-    display: flex;
-    justify-content: flex-start;
+			.bmi-btn {
+				display: flex;
+				justify-content: flex-start;
 
-    .calculate-btn {
-      background-color: #3f51b5;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: 500;
-      transition: background-color 0.2s ease;
+				.calculate-btn {
+					background-color: #3f51b5;
+					color: #fff;
+					padding: 10px 20px;
+					border: none;
+					border-radius: 5px;
+					cursor: pointer;
+					font-size: 16px;
+					font-weight: 500;
+					transition: background-color 0.2s ease;
 
-      &:hover {
-        background-color: #303f9f;
-      }
+					&:hover {
+						background-color: #303f9f;
+					}
 
-      &:active {
-        background-color: #283593;
-      }
-    }
-  }
-}
-
-		
+					&:active {
+						background-color: #283593;
+					}
+				}
+			}
+		}
 
 		.table-responsive {
 			overflow-x: auto;
@@ -313,7 +317,7 @@ h2 {
 			border-radius: 5px;
 			margin-top: 1rem;
 			// height: 440px;
-			
+
 
 			table {
 				width: 100%;
@@ -393,7 +397,7 @@ h2 {
 	width: 100%;
 	background-size: cover;
 	height: 100vh;
-	height: 100%;
+	// height: 100%;
 	padding-inline: 5rem;
 
 
@@ -422,7 +426,8 @@ h2 {
 		button {
 			width: 130px;
 		}
-		.active-tab{
+
+		.active-tab {
 			// background-color: #1f1d1d;
 			background: transparent;
 			color: white;
@@ -1074,18 +1079,19 @@ h2 {
 
 // Media Query 
 @media screen and (min-width: 1399px) {
-	
+
 	.low-banner-container {
 		grid-template-columns: 45% 55%;
 	}
 }
 
 @media screen and (max-width: 1200px) {
-	.open{
+	.open {
 		// top:30vh;
 		left: 80px;
-		width:88%;
+		width: 88%;
 	}
+
 	.user-details-container {
 
 		.userdetails-grid {
@@ -1123,10 +1129,11 @@ h2 {
 }
 
 @media screen and (max-width: 1024px) {
-	.open{
+	.open {
 		// top:30vh;
 		left: 16px;
 	}
+
 	.user-details-container {
 		padding-inline: 1rem;
 
@@ -1170,11 +1177,12 @@ h2 {
 }
 
 @media screen and (max-width: 768px) {
-	
-.open{
-		left:16px;
-		
+
+	.open {
+		left: 16px;
+
 	}
+
 	.d-grid-container {
 		grid-template-columns: repeat(1, 1fr);
 		margin-bottom: 2rem;
@@ -1241,15 +1249,17 @@ h2 {
 }
 
 @media screen and (max-width: 580px) {
-	.open{
-	//   top: 25%;
-        left: 16px;
-        padding-left: 0px;
-        width: 94%;
+	.open {
+		//   top: 25%;
+		left: 16px;
+		padding-left: 0px;
+		width: 94%;
 	}
-	.bg{
+
+	.bg {
 		// height: 120vh;
 	}
+
 	.user-details-container {
 		padding-inline: 14px;
 
@@ -1257,13 +1267,13 @@ h2 {
 			// flex-direction: column;
 			// align-items: normal;
 			// gap: 8px;
-			
+
 			text-wrap-mode: nowrap;
 			overflow: scroll;
 		}
 	}
 
-	
+
 
 	.previous-details-container {
 		overflow: auto;
@@ -1277,17 +1287,19 @@ h2 {
 
 }
 
-@media(max-width:430px){
-	.weight-input-container{
+@media(max-width:430px) {
+	.weight-input-container {
 		// margin: 10px 10px;
 		flex-wrap: wrap;
 		padding: 5px;
-		.add-weight-label{
+
+		.add-weight-label {
 			margin-bottom: 5px;
-			
+
 		}
-		.add-weight{
-			.add-weight-input{
+
+		.add-weight {
+			.add-weight-input {
 				width: 160px;
 			}
 		}
