@@ -627,8 +627,13 @@ export class UserService {
 
   // users filter apis
   searchUser(searchTerm: any, onSuccess: (data: any) => void) {
-    const userId = this.userRegisterData.id;
-    this.apiService.get(this.apiService.uri.SEARCH_USER(searchTerm, userId), (response) => {
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
+    this.apiService.get(this.apiService.uri.SEARCH_USER(searchTerm, adminId), (response) => {
       onSuccess(response);
     })
   }
