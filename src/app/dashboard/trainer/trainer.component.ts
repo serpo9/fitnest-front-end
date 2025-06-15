@@ -40,8 +40,9 @@ export class TrainerComponent {
  
 
   dateRange = {
-    start: new Date(new Date().setDate(new Date().getDate() - 7)), // 7 days before today
-    end: new Date(new Date().setDate(new Date().getDate() + 1)), // Tomorrow
+    start: '', // 7 days before today
+    end: '', // Tomorrow
+    // end: new Date(new Date().setDate(new Date().getDate() + 1)), // Tomorrow
   };
   searchTerm: string = "";
   cachedData: UserInfo[] = []; // Store cached

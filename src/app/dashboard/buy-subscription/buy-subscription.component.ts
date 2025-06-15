@@ -53,25 +53,25 @@ export class BuySubscriptionComponent {
   daysQty = 1;
   email: any
   visitorAmountPaid = 0;
-  admissionFee : any;
-  receivedAmount : number = 0;
+  admissionFee: any;
+  receivedAmount: number = 0;
   visitorPlans: any;
   visitorSelectedPlan: any;
   cachedData: UserInfo[] = []; // Store cached
   filteredData: UserInfo[] = []; // Store filtered data
-  
-  totalAmount : any;
+
+  totalAmount: any;
 
   postObj: any;
-  redirectedCustomerId : any;
+  redirectedCustomerId: any;
   //pagiantion
-  totalRecords : number = 0;
-  pageSize : number = 4;
-  pageIndex : number = 0;
+  totalRecords: number = 0;
+  pageSize: number = 4;
+  pageIndex: number = 0;
   cachedSearchTerm: string = '';
-  isFilterOn : boolean = false;
-  invoicePayload : any;
-  tableData : any ;
+  isFilterOn: boolean = false;
+  invoicePayload: any;
+  tableData: any;
 
   constructor(
     private userService: UserService,
@@ -79,7 +79,7 @@ export class BuySubscriptionComponent {
     private snackBarService: SnackBarService,
     private loadingService: LoadingService
   ) {
-    if(this.userService.redirectedCustomerId){
+    if (this.userService.redirectedCustomerId) {
       this.redirectedCustomerId = this.userService.redirectedCustomerId;
       this.loadOneUser();
     }
@@ -91,18 +91,18 @@ export class BuySubscriptionComponent {
   ngOnInit() {
     // Set the paginator after view initialization
     this.dataSource.paginator = this.paginator;
-    
+
   }
 
-  loadOneUser(){
-      this.userService.getActiveCustomerById(this.userService.redirectedCustomerId, (response) => {
-        if(response.success){
-         this.cachedData = response.data;
-          this.tableData = [response.data];
-          this.dataSource.data =([response.data]); 
-          this.toggleRowSelection(response.data);
-        }
-      });
+  loadOneUser() {
+    this.userService.getActiveCustomerById(this.userService.redirectedCustomerId, (response) => {
+      if (response.success) {
+        this.cachedData = response.data;
+        this.tableData = [response.data];
+        this.dataSource.data = ([response.data]);
+        this.toggleRowSelection(response.data);
+      }
+    });
   }
 
   ngAfterViewInit() {
@@ -112,20 +112,20 @@ export class BuySubscriptionComponent {
   onSidenavToggle(sidenavState: boolean): void {
     this.sidenavOpen = sidenavState;
   }
-  
-  loadPage(event : any){
-    this.pageIndex = event.pageIndex ;
+
+  loadPage(event: any) {
+    this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    if(this.isFilterOn){
-      this.applyFilter(); 
+    if (this.isFilterOn) {
+      this.applyFilter();
     }
     else this.loadUsers();
   }
 
   loadUsers() {
     const pageData = {
-        page : this.pageIndex +1,
-        limit : 4
+      page: this.pageIndex + 1,
+      limit: 4
     }
 
     this.userService.getActiveCustomers(
@@ -136,7 +136,7 @@ export class BuySubscriptionComponent {
           // this.dataSource.data = response.data;
           this.totalRecords = response.totalData;
           this.tableData = response.data;
-          this.dataSource = new MatTableDataSource<UserInfo>(response.data); 
+          this.dataSource = new MatTableDataSource<UserInfo>(response.data);
         }
       }
     );
@@ -181,24 +181,24 @@ export class BuySubscriptionComponent {
       this.resetFilters(); // Call reset when input is empty
     }
   }
-  
+
   applyFilter() {
-    if(!this.isFilterOn){
-      if(this.searchTerm !== this.cachedSearchTerm || this.cachedSearchTerm === ''){
+    if (!this.isFilterOn) {
+      if (this.searchTerm !== this.cachedSearchTerm || this.cachedSearchTerm === '') {
         this.cachedSearchTerm = this.searchTerm;
         this.pageIndex = 0;
-        this.totalRecords = 0;  
+        this.totalRecords = 0;
       }
       this.isFilterOn = true;
     }
 
-     const pageData = {
-        page : this.pageIndex + 1,
-        limit : 4
-       }
+    const pageData = {
+      page: this.pageIndex + 1,
+      limit: 4
+    }
 
     this.userService.getActiveCustomers(
-      this.searchTerm,pageData,
+      this.searchTerm, pageData,
       (response) => {
         // this.dataSource.data = response.data;
         this.dataSource = new MatTableDataSource<UserInfo>(response.data);
@@ -209,28 +209,28 @@ export class BuySubscriptionComponent {
   }
 
   toggleRowSelection(selectedElement: any) {
-    
-    this.tableData.forEach((element:any) => {
-    if (element !== selectedElement) {
-      element.selected = false;
-      this.selectedUsers.delete(element.id);
-      this.dataSource.data = this.tableData;
-    }
+
+    this.tableData.forEach((element: any) => {
+      if (element !== selectedElement) {
+        element.selected = false;
+        this.selectedUsers.delete(element.id);
+        this.dataSource.data = this.tableData;
+      }
     });
     selectedElement.selected = !selectedElement.selected;
 
-  if (selectedElement.selected) {
-     this.name = selectedElement.name;
+    if (selectedElement.selected) {
+      this.name = selectedElement.name;
       this.phoneNo = selectedElement.phoneNumber;
       this.email = selectedElement.email;
-    this.selectedUsers.clear(); 
-    this.selectedUsers.add(selectedElement.id);
-  } else {
-    this.selectedUsers.delete(selectedElement.id);
+      this.selectedUsers.clear();
+      this.selectedUsers.add(selectedElement.id);
+    } else {
+      this.selectedUsers.delete(selectedElement.id);
+    }
+
+    console.log("slected user :", this.selectedUsers)
   }
-  
-  console.log("slected user :", this.selectedUsers)
-}
 
   assignSubscription(type: any) {
     const userId = Array.from(this.selectedUsers);
@@ -296,7 +296,7 @@ export class BuySubscriptionComponent {
           }
 
           if (response.success) {
-             this.invoicePayload = response.invoice;
+            this.invoicePayload = response.invoice;
             this.loadingService.close();
             this.snackBarService.showSnackBar(
               "Assigned subscription plan successfully!"
@@ -331,55 +331,55 @@ export class BuySubscriptionComponent {
       this.totalAmount = this.planprice;
     }
   }
-  setTotalAmount(event : Event){
+  setTotalAmount(event: Event) {
     this.admissionFee = ((event.target as HTMLInputElement).value);
-   
+
     this.totalAmount = parseFloat(this.planprice) + parseFloat(this.admissionFee);
     return this.totalAmount;
   }
 
-generateInvoicePDF(invoice: any) {
-  console.log("generate : ", invoice);
-  const doc = new jsPDF();
+  generateInvoicePDF(invoice: any) {
+    console.log("generate : ", invoice);
+    const doc = new jsPDF();
 
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(18);
-  doc.text('GYM Membership Invoice', 70, 20);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(18);
+    doc.text('GYM Membership Invoice', 70, 20);
 
-  doc.setFontSize(12);
-  doc.setFont('helvetica', 'normal');
-  const rightX = 195; 
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'normal');
+    const rightX = 195;
 
-  doc.text(`Invoice Id: ${invoice.invoiceId}`, rightX, 30, { align: 'right' });
-  doc.text(`Invoice Date: ${invoice.date}`, rightX, 37, { align: 'right' });
+    doc.text(`Invoice Id: ${invoice.invoiceId}`, rightX, 30, { align: 'right' });
+    doc.text(`Invoice Date: ${invoice.date}`, rightX, 37, { align: 'right' });
 
-  doc.setFont('helvetica', 'bold');
-  doc.text('Invoice To:', 15, 40);
-  doc.text(invoice.customerName, 15, 47);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Invoice To:', 15, 40);
+    doc.text(invoice.customerName, 15, 47);
 
-  doc.line(15, 52, 195, 52);
+    doc.line(15, 52, 195, 52);
 
-  doc.setFontSize(14);
-  doc.setFont('helvetica', 'bold');
-  doc.text('Membership Plan', 15, 65);
-  doc.text('Amount', 150, 65);
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Membership Plan', 15, 65);
+    doc.text('Amount', 150, 65);
 
-  doc.setFontSize(12);
-  doc.setFont('helvetica', 'normal');
-  doc.text(invoice.items[0].name, 15, 75);
-  doc.text(`₹${invoice.items[0].price}`, 150, 75);
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'normal');
+    doc.text(invoice.items[0].name, 15, 75);
+    doc.text(`₹${invoice.items[0].price}`, 150, 75);
 
-  doc.setFont('helvetica', 'bold');
-  doc.text('Total Amount:', 15, 90);
-  doc.text(`₹${invoice.total}`, 150, 90);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Total Amount:', 15, 90);
+    doc.text(`₹${invoice.total}`, 150, 90);
 
-  doc.setFontSize(10);
-  doc.setTextColor(150);
-  doc.text('Thank you for choosing our gym!', 130, 130);
-  doc.text('For any queries,\ncontact us at\nsupport@gym.com', 130, 135);
+    doc.setFontSize(10);
+    doc.setTextColor(150);
+    doc.text('Thank you for choosing our gym!', 130, 130);
+    doc.text('For any queries,\ncontact us at\nsupport@gym.com', 130, 135);
 
-  doc.save(`${invoice.invoiceId}.pdf`);
-}
+    doc.save(`${invoice.invoiceId}.pdf`);
+  }
 
 
   formatDate(date: any): string {

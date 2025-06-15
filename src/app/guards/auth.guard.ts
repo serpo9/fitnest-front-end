@@ -137,7 +137,8 @@ export class AuthGuard implements CanActivate {
         this.router.navigate([ROUTES.YOURSESSION]);
         break;
       case 'Receptionist':
-        this.router.navigate([ROUTES.RECEPTIONHOME]);
+        // this.router.navigate([ROUTES.RECEPTIONHOME]);
+        this.router.navigate([ROUTES.ADMINHOME]);
         break;
       case 'SuperAdmin':
         this.router.navigate([ROUTES.SUPERADMINPANEL]);

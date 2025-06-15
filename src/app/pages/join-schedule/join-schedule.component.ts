@@ -19,7 +19,8 @@ import { DateRange } from '@angular/material/datepicker';
 
 
 export interface UserInfo {
-  userid: string
+  id: number
+  employeeNo: number
   name: string;
   number: string;
   email: string;
@@ -29,7 +30,7 @@ export interface UserInfo {
   joinDate: string;
   progress: string;
   postProgress: string;
-  profile: string
+  profile: string,
 }
 
 @Component({
@@ -41,7 +42,7 @@ export class JoinScheduleComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   sidenavOpen: boolean = true;
   selectedFilter: string = 'Search1';
-  displayedColumns: string[] = ["userid", 'name', 'number', 'type', 'email', 'joinDate', 'sendMessage', 'progress', 'postProgress', 'profile', 'edit', 'delete'];
+  displayedColumns: string[] = ["employeeNo", 'name', 'number', 'type', 'email', 'joinDate', 'sendMessage', 'progress', 'postProgress', 'profile', 'edit', 'delete'];
   dateRange: { start: Date | null; end: Date | null } = {
     start: null,
     end: null
@@ -51,12 +52,13 @@ export class JoinScheduleComponent implements OnInit {
   //   start: new Date(new Date().setDate(new Date().getDate() - 7)), // 7 days before today
   //   end: new Date() // Today
   // };
+
   searchTerm: string = '';
   cachedData: UserInfo[] = []; // Store cached 
   filteredData: UserInfo[] = []; // Store filtered data
 
-
   dataSource = new MatTableDataSource<UserInfo>([]);
+  userType: any;
 
   constructor(
     private http: HttpClient,
@@ -65,13 +67,12 @@ export class JoinScheduleComponent implements OnInit {
     private userService: UserService,
     private dialogService: DialogService,
     private snackbarService: SnackBarService
-  ) { }
+  ) {
+    this.userType = this.userService.userRegisterData.userType;
+  }
 
   ngOnInit(): void {
-    this.dateRange = {
-      start: new Date(new Date().setDate(new Date().getDate() - 7)), // 7 days before today
-      end: new Date(new Date().setDate(new Date().getDate() + 1)), // Tomorrow
-    };
+
     this.getAllActiveUser();
     this.dataSource.paginator = this.paginator;
     this.loadLocalStorageData();
@@ -102,6 +103,7 @@ export class JoinScheduleComponent implements OnInit {
       } else {
         const formattedData: UserInfo[] = res.data.map((user: any) => ({
           id: user.id,
+          employeeNo: user.employeeNo,
           name: user.name,
           number: user.phoneNumber || 'N/A',
           email: user.email,
@@ -152,7 +154,6 @@ export class JoinScheduleComponent implements OnInit {
   }
 
   openMessageDialogue(classElement: any) {
-    console.log("classElement...", classElement);
 
     this.matdialog.open(MessageDialogueComponent, {
       width: '400px',
@@ -274,7 +275,7 @@ export class JoinScheduleComponent implements OnInit {
   }
 
   viewUserProfile(userId: any) {
-    
+
     this.userService.getUserProfile(userId, (response) => {
       if (!response.success) {
         return this.dialogService.open('Oops!', `${response.message}`)
@@ -345,6 +346,11 @@ export class JoinScheduleComponent implements OnInit {
     })
 
     dialogRef.afterClosed().subscribe((result: any) => {
+
+      if (!result?.data) {
+        this.dialogService.open("Oops!", `${result.message}`)
+      }
+
     })
 
   }

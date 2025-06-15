@@ -25,7 +25,7 @@ export class UserService {
   getTicketId: any
   userIdlogin: any;
 
-  redirectedCustomerId : any;
+  redirectedCustomerId: any;
 
   constructor(private apiService: ApiService, private dialogService: DialogService, private router: Router) { }
 
@@ -244,10 +244,15 @@ export class UserService {
   }
 
   getallcustomer(fromDate: any, toDate: any, onSuccess: (data: any) => void) {
-    const userId = this.userRegisterData.id
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
 
     this.apiService.get(
-      this.apiService.uri.GET_ALL_CUSTOMER(userId, fromDate, toDate),
+      this.apiService.uri.GET_ALL_CUSTOMER(adminId, fromDate, toDate),
       (response) => {
         this.loginData = response
         onSuccess(response);
@@ -274,9 +279,15 @@ export class UserService {
   }
 
   getalltrainer(fromDate: any, toDate: any, onSuccess: (data: any) => void) {
-    const userId = this.userRegisterData.id;
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
+
     this.apiService.get(
-      this.apiService.uri.GET_ALL_TRAINER(userId, fromDate, toDate),
+      this.apiService.uri.GET_ALL_TRAINER(adminId, fromDate, toDate),
       (response) => {
         this.loginData = response
         onSuccess(response);
@@ -287,10 +298,16 @@ export class UserService {
     );
   }
   getallTrainerByStatus(fromDate: any, toDate: any, status: any, searchTerm: any, onSuccess: (data: any) => void) {
-    const userId = this.userRegisterData.id;
-    console.log("userId.....", userId);
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
+
+
     this.apiService.get(
-      this.apiService.uri.SEARCH_TRAINER_BY_STATUS(userId, fromDate, toDate, status, searchTerm),
+      this.apiService.uri.SEARCH_TRAINER_BY_STATUS(adminId, fromDate, toDate, status, searchTerm),
       (response) => {
         this.loginData = response
         onSuccess(response);
@@ -617,8 +634,13 @@ export class UserService {
   }
 
   searchUserByType(userType: any, fromDate: any, toDate: any, onSuccess: (data: any) => void) {
-    const userId = this.userRegisterData.id;
-    this.apiService.get(this.apiService.uri.SEARCH_USER_BY_TYPE(userType, userId, fromDate, toDate), (response) => {
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
+    this.apiService.get(this.apiService.uri.SEARCH_USER_BY_TYPE(userType, adminId, fromDate, toDate), (response) => {
       onSuccess(response);
 
     })
@@ -633,13 +655,19 @@ export class UserService {
   }
 
   getStaffWithSalary(searchTerm: any, onSuccess: (data: any) => void) {
-    const userId = this.userRegisterData.id;
-    this.apiService.get(this.apiService.uri.GET_STAFF_WITH_SALARY(userId, searchTerm), (response) => {
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
+    this.apiService.get(this.apiService.uri.GET_STAFF_WITH_SALARY(adminId, searchTerm), (response) => {
       onSuccess(response);
 
     })
   }
-  
+
   getStaffSalaryInfo(userId: any, onSuccess: (data: any) => void) {
     this.apiService.get(this.apiService.uri.GET_STAFF_SALARY_INFO(userId), (response) => {
       onSuccess(response);
@@ -708,9 +736,9 @@ export class UserService {
 
   getMembershipPlan(onSuccess: (data: any) => void) {
     let adminId;
-    adminId = this.userRegisterData.id;
-
-    if (this.userRegisterData.userType === "Customer") {
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
       adminId = this.userRegisterData.createdByAdmin;
     }
     this.apiService.get(this.apiService.uri.GET_MEMBERSHIP_PLAN(adminId), (response) => {
@@ -719,7 +747,13 @@ export class UserService {
   }
 
   getVisitorPlan(onSuccess: (data: any) => void) {
-    const adminId = this.userRegisterData.id;
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
+
     this.apiService.get(this.apiService.uri.GET_VISITOR_PLAN(adminId), (response) => {
       onSuccess(response);
     })
@@ -727,7 +761,12 @@ export class UserService {
 
   getAllPlans(onSuccess: (data: any) => void) {
     let adminId;
-    adminId = this.userRegisterData.id;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
+
 
     if (this.userRegisterData.userType === "Customer") {
       adminId = this.userRegisterData.createdByAdmin;
@@ -739,11 +778,12 @@ export class UserService {
 
   viewPlansById(membershipPlanId: any, onSuccess: (data: any) => void) {
     let adminId;
-    adminId = this.userRegisterData.id;
-
-    if (this.userRegisterData.userType === "Customer") {
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
       adminId = this.userRegisterData.createdByAdmin;
     }
+
     this.apiService.get(this.apiService.uri.VIEW_PLANS_BY_ID(adminId, membershipPlanId), (response) => {
       onSuccess(response);
     })
@@ -766,7 +806,7 @@ export class UserService {
   }
 
 
-  getActiveCustomers(searchTerm: any, pageData:any,onSuccess: (data: any) => void) {
+  getActiveCustomers(searchTerm: any, pageData: any, onSuccess: (data: any) => void) {
     let userId;
     if (this.userRegisterData.userType === "Admin") {
       userId = this.userRegisterData.id;
@@ -774,12 +814,12 @@ export class UserService {
       userId = this.userRegisterData.createdByAdmin;
     }
 
-    this.apiService.get(this.apiService.uri.GET_ACTIVE_CUSTOMERS(userId, searchTerm, pageData.page,pageData.limit), (response) => {
+    this.apiService.get(this.apiService.uri.GET_ACTIVE_CUSTOMERS(userId, searchTerm, pageData.page, pageData.limit), (response) => {
       onSuccess(response);
     })
   }
 
-  getActiveCustomerById(customerId : any,onSuccess: (data: any) => void) {
+  getActiveCustomerById(customerId: any, onSuccess: (data: any) => void) {
     let userId;
     if (this.userRegisterData.userType === "Admin") {
       userId = this.userRegisterData.id;
@@ -787,7 +827,7 @@ export class UserService {
       userId = this.userRegisterData.createdByAdmin;
     }
 
-    this.apiService.get(this.apiService.uri.GET_ACTIVE_CUSTOMER_BY_ID(userId,customerId), (response) => {
+    this.apiService.get(this.apiService.uri.GET_ACTIVE_CUSTOMER_BY_ID(userId, customerId), (response) => {
       onSuccess(response);
     })
   }
@@ -838,7 +878,12 @@ export class UserService {
 
 
   assignSalary(obj: any, onSuccess: (data: any) => void) {
-    const adminId = this.userRegisterData.id;
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
     obj = {
       ...obj,
       adminId
@@ -847,9 +892,15 @@ export class UserService {
       onSuccess(response);
     })
   }
-  
+
   paySalary(obj: any, onSuccess: (data: any) => void) {
-    const adminId = this.userRegisterData.id;
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
+
     obj = {
       ...obj,
       adminId
@@ -860,7 +911,12 @@ export class UserService {
   }
 
   getSalaryHistory(searchTerm: any, fromDate: any, toDate: any, onSuccess: (data: any) => void) {
-    const adminId = this.userRegisterData.id;
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
     this.apiService.get(this.apiService.uri.GET_SALARY_HISTORY(adminId, searchTerm, fromDate, toDate), (response) => {
       onSuccess(response);
     })
@@ -872,40 +928,60 @@ export class UserService {
     })
   }
   getSubsPaymentHistory(searchTerm: any, fromDate: any, toDate: any, onSuccess: (data: any) => void) {
-    const adminId = this.userRegisterData.id;
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
     this.apiService.get(this.apiService.uri.GET_SUBSCRIPTON_PAYMENT_HISTORY(adminId, searchTerm, fromDate, toDate), (response) => {
       onSuccess(response);
     })
   }
 
   getSubsAmountReceived(searchTerm: any, fromDate: any, toDate: any, onSuccess: (data: any) => void) {
-    const adminId = this.userRegisterData.id;
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
     this.apiService.get(this.apiService.uri.GET_SUBSCRIPTON_INSTALLMENT_PAYMENTS(adminId, searchTerm, fromDate, toDate), (response) => {
       onSuccess(response);
     })
   }
   updateAmountDue(postObj: any, onSuccess: (data: any) => void) {
-    
-    this.apiService.post(this.apiService.uri.UPDATE_SUBSCRIPTON_AMOUNT_DUE(), postObj,(response) => {
+
+    this.apiService.post(this.apiService.uri.UPDATE_SUBSCRIPTON_AMOUNT_DUE(), postObj, (response) => {
       onSuccess(response);
     })
   }
-  getDueAmount(userId: any,purchaseDate:any,membershipPlansId : any, onSuccess: (data: any) => void) {
-    
-    this.apiService.get(this.apiService.uri.MEMBERSHIP_DUEAMOUNT(userId, purchaseDate,membershipPlansId),(response) => {
+  getDueAmount(userId: any, purchaseDate: any, membershipPlansId: any, onSuccess: (data: any) => void) {
+
+    this.apiService.get(this.apiService.uri.MEMBERSHIP_DUEAMOUNT(userId, purchaseDate, membershipPlansId), (response) => {
       onSuccess(response);
     })
   }
 
   getActiveStaffs(searchTerm: any, fromDate: any, toDate: any, onSuccess: (data: any) => void) {
-    const adminId = this.userRegisterData.id;
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
     this.apiService.get(this.apiService.uri.GET_ACTIVE_STAFFS(adminId, searchTerm, fromDate, toDate), (response) => {
       onSuccess(response);
     })
   }
 
   manageLeave(obj: any, onSuccess: (data: any) => void) {
-    const adminId = this.userRegisterData.id;
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
     const finalObj = {
       ...obj,
       adminId
@@ -916,14 +992,26 @@ export class UserService {
   }
 
   getDashboardUsersCount(onSuccess: (data: any) => void) {
-    const adminId = this.userRegisterData.id;
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
     this.apiService.get(this.apiService.uri.DASHBOARD_USERS_COUNT(adminId), (response) => {
       onSuccess(response);
     })
   }
 
   getExpiringUsersPlans(searchTerm: any, fromDate: any, toDate: any, onSuccess: (data: any) => void) {
-    const adminId = this.userRegisterData.id;
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
+
     this.apiService.get(this.apiService.uri.GET_EXPIRING_USERS_PLANS(adminId, searchTerm, fromDate, toDate), (response) => {
       onSuccess(response);
     })
@@ -937,7 +1025,13 @@ export class UserService {
   }
 
   calculateSalary(searchTerm: any, obj: any, onSuccess: (data: any) => void) {
-    const adminId = this.userRegisterData.id;
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
+
     const finalObj = {
       ...obj,
       adminId
@@ -948,7 +1042,12 @@ export class UserService {
   }
 
   getUserByAdmin(userId: any, onSuccess: (data: any) => void) {
-    const adminId = this.userRegisterData.id;
+       let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
 
     this.apiService.get(this.apiService.uri.GET_USER_BY_ADMIN(adminId, userId), (response) => {
       onSuccess(response);
@@ -956,7 +1055,12 @@ export class UserService {
   }
 
   updateUserByAdmin(obj: any, onSuccess: (data: any) => void) {
-    const adminId = this.userRegisterData.id;
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
     const finalObj = {
       ...obj,
       adminId
@@ -977,8 +1081,12 @@ export class UserService {
   }
 
   fetchDevice(onSuccess: (data: any) => void) {
-    const adminId = this.userRegisterData.id;
-
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
     this.apiService.get(this.apiService.uri.FETCH_DEVICES(adminId), (response) => {
       onSuccess(response);
     })
@@ -1004,7 +1112,7 @@ export class UserService {
     })
   }
 
-  getIndividualAttendance(adminId:any,userId : any,fromDate:any, toDate : any, onSuccess: (data: any) => void) {
+  getIndividualAttendance(adminId: any, userId: any, fromDate: any, toDate: any, onSuccess: (data: any) => void) {
     // const adminId = this.userRegisterData.createdByAdmin;
     this.apiService.get(this.apiService.uri.GET_INDIVIDUAL_ATTENDANCE(adminId, userId, fromDate, toDate), (response) => {
       onSuccess(response);
@@ -1012,14 +1120,26 @@ export class UserService {
   }
 
   getUsersTodaysAttendances(onSuccess: (data: any) => void) {
-    const adminId = this.userRegisterData.id;
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
+
     this.apiService.get(this.apiService.uri.GET_USER_TODAYS_ATTENDANCES(adminId), (response) => {
       onSuccess(response);
     })
   }
 
   getTodaysCollection(onSuccess: (data: any) => void) {
-    const adminId = this.userRegisterData.id;
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
+
     this.apiService.get(this.apiService.uri.GET_TODAYS_COLLECTION(adminId), (response) => {
       onSuccess(response);
     })

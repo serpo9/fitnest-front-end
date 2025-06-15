@@ -30,7 +30,11 @@ export class PostUserProgressDialogComponent {
     this.userService.postTrackUsers(obj, (response) => {
       if (!response.success) {
         console.log("Couldn't post!!");
+        this.dialogRef.close({ data: false, message: response.message });
+        return
       }
+
+      this.dialogRef.close({ data: true });
     })
   }
 }
