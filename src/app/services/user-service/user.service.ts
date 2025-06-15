@@ -1195,4 +1195,12 @@ export class UserService {
       onSuccess(response);
     })
   }
+
+  createdietplan(obj: any, onSuccess: (data: any) => void) {
+
+
+    this.apiService.post(this.apiService.uri.CREATE_DIET_PLAN(), obj, (response) => {
+      onSuccess(response);
+    })
+  }
 }

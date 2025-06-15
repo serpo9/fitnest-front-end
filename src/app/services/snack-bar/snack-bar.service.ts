@@ -28,6 +28,9 @@ import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/s
   providedIn: 'root'
 })
 export class SnackBarService {
+  show(arg0: string) {
+    throw new Error("Method not implemented.");
+  }
   private snackBarRef: MatSnackBarRef<SimpleSnackBar> | null = null;
 
   constructor(private snackBar: MatSnackBar) {}

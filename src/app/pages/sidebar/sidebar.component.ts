@@ -20,6 +20,7 @@ export class SidebarComponent {
   usersDropdownOpen = false;
   attendanceDropdownOpen = false;
   userType: any;
+  trainerPlansDropdownOpen: boolean = false;
 
   ActiveNavLink(link: string): void {
     this.activelink = link;
@@ -34,6 +35,12 @@ export class SidebarComponent {
     this.userType = this.userService.userDataObj?.userType
 
   }
+  
+
+toggleTrainerPlansDropdown() {
+  this.trainerPlansDropdownOpen = !this.trainerPlansDropdownOpen;
+}
+
   deactivateUser() {
     this.router.navigate(['/adduser', ""]);
   }

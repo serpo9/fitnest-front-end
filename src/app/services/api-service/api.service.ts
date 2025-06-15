@@ -220,6 +220,8 @@ export class ApiService {
       `${this.BASE_URL}${this.CLINT_API_URL}get-userprofile/${userId}`,
     GET_DIET_PLAN: (userId: any) =>
       `${this.BASE_URL}${this.CLINT_API_URL}get-dietplan/${userId}`,
+    CREATE_DIET_PLAN: () =>
+      `${this.BASE_URL}${this.CLINT_API_URL}create-plan`,
   }
 
   private loadingEnabled = false;
