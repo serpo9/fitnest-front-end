@@ -224,12 +224,27 @@
       <span *ngIf="sidenavOpen">Leave Management</span>
     </button>
 
-    <button (click)="getinfo('diet-plan')" [class.active]="activelink==='/diet-plan'" *ngIf="userType === 'Trainer'"
-      routerLinkActive="list-item-active" mat-button routerLink="/diet-plan" class="nav-link"
-      matTooltip="Diet Plan">
-      <mat-icon> fastfood</mat-icon>
+ <!-- Trainer Plans Dropdown -->
+<div class="dropdown-container" *ngIf="userType === 'Trainer'">
+  <button class="nav-link utility-btn" mat-button matTooltip="Plans" (click)="toggleTrainerPlansDropdown()">
+    <mat-icon>assignment</mat-icon>
+    <span *ngIf="sidenavOpen" class="utility-label">Plans</span>
+    <span class="arrow-container">
+      <mat-icon>{{ trainerPlansDropdownOpen ? 'expand_less' : 'expand_more' }}</mat-icon>
+    </span>
+  </button>
+
+  <div class="dropdown" *ngIf="trainerPlansDropdownOpen">
+    <button mat-button routerLink="/diet-plan" class="nav-link" (click)="getinfo('diet-plan')">
+      <mat-icon class="dropdown-icon">fastfood</mat-icon>
       <span *ngIf="sidenavOpen">Diet Plan</span>
     </button>
+    <button mat-button routerLink="/workout-plan" class="nav-link" (click)="getinfo('workout-plan')">
+      <mat-icon class="dropdown-icon">fitness_center</mat-icon>
+      <span *ngIf="sidenavOpen">Workout Plan</span>
+    </button>
+  </div>
+</div>
 
     <button mat-button routerLink="/logout" class="nav-link logout" matTooltip="Logout" (click)='logout()'>
       <mat-icon>logout</mat-icon>

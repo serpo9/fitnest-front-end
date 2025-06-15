@@ -48,7 +48,8 @@ export const ROUTES = {
   RECEPTIONLOGIN:'reception-login',
   RECEPTIONHOME: 'reception-home',
   ADDUSERBYRECEPTIONIST: 'add-user-by-receptionist',
-  RECEIVEDAMOUNTHISTORY: 'received-amount-history'
+  RECEIVEDAMOUNTHISTORY: 'received-amount-history',
+  CREATEPLAN : 'create-plan'
 };
 
 // Routes that shouldn't be accessed after login.
@@ -113,7 +114,9 @@ export const SECURE_ROUTES_FOR_TRAINER = [
   ROUTES.YOURSESSION,
   ROUTES.MAIN_PROFILE,
   ROUTES.ALLTRAINERS,
-  ROUTES.DIETPLAN
+  ROUTES.DIETPLAN,
+  ROUTES.CREATEPLAN
+
 ];
 
 export const SECURE_ROUTES_FOR_RECEPTIONIST = [
