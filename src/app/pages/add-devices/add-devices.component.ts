@@ -48,9 +48,9 @@ export class AddDevicesComponent {
   ];
 
   constructor(private http: HttpClient, private router: Router,
-      private userService: UserService,
-      private dialogService: DialogService,
-  ) {}
+    private userService: UserService,
+    private dialogService: DialogService,
+  ) { }
 
   onSidenavToggle(sidenavState: boolean): void {
     this.sidenavOpen = sidenavState;
@@ -59,34 +59,35 @@ export class AddDevicesComponent {
 
   onSubmit() {
     const selectedDoors = [];
-  if (this.door1) selectedDoors.push('Door 1');
-  if (this.door2) selectedDoors.push('Door 2');
+    if (this.door1) selectedDoors.push('Door 1');
+    if (this.door2) selectedDoors.push('Door 2');
     if (!this.deviceIp || !this.username || !this.password || !selectedDoors) {
       alert('Please fill out all required fields.');
       return;
     }
-   const  obj={
-      userId: this.userService.userDataObj.id,
-      ipAddress : this.deviceIp ,
-      username : this.username,
-      password : this.password,
-      purpose : selectedDoors  
-    }
-      this.userService.adddevice(obj, (res) => {
-          if (!res.success) {
-            this.dialogService.open('Sucess', res.message, '', false, 'Okay', (() => {
-              this.router.navigate([ROUTES.ADDSCHEDULING]);
-            }));
-          }
-          else {
-            // this.resetForm()
-            this.dialogService.open('Sucess', 'Device added successfully!', '', false, 'Okay');
-            this.router.navigate([ROUTES.REGISTEREDDEVICE]);
-          }
-        });
-        
-
     
+    const obj = {
+      ipAddress: this.deviceIp,
+      username: this.username,
+      password: this.password,
+      purpose: selectedDoors
+    }
+    
+    this.userService.adddevice(obj, (res) => {
+      if (!res.success) {
+        this.dialogService.open('Sucess', res.message, '', false, 'Okay', (() => {
+          this.router.navigate([ROUTES.ADDSCHEDULING]);
+        }));
+      }
+      else {
+        // this.resetForm()
+        this.dialogService.open('Sucess', 'Device added successfully!', '', false, 'Okay');
+        this.router.navigate([ROUTES.REGISTEREDDEVICE]);
+      }
+    });
+
+
+
     // Check if card exists in the local 'users' object
   }
   onPlanOrSessionChange() {
@@ -101,40 +102,40 @@ export class AddDevicesComponent {
       this.door2 = false;
     }
   }
- // Handle second form submission
-    onAssignSchedule() {
-      alert("Schedule Assigned Successfully!");
-    }
-  
-
-
-
-onCheckboxChange(selected: string) {
-  if (selected === 'door1' && this.door1) {
-    this.door2 = false;
-  } else if (selected === 'door2' && this.door2) {
-    this.door1 = false;
+  // Handle second form submission
+  onAssignSchedule() {
+    alert("Schedule Assigned Successfully!");
   }
-}
+
+
+
+
+  onCheckboxChange(selected: string) {
+    if (selected === 'door1' && this.door1) {
+      this.door2 = false;
+    } else if (selected === 'door2' && this.door2) {
+      this.door1 = false;
+    }
+  }
 
   toggleForm() {
     this.showNewForm = !this.showNewForm;  // Toggle the form when the button is clicked
   }
-  profile(){
+  profile() {
     this.router.navigate([ROUTES.PROFILE]);
   }
 
 
-// ✅ Add this method to reset input fields
-resetForm() {
-  this.deviceIp = '';
-  this.username = '';
-  this.password = '';
-  this.selectedPurpose = '';
-}
+  // ✅ Add this method to reset input fields
+  resetForm() {
+    this.deviceIp = '';
+    this.username = '';
+    this.password = '';
+    this.selectedPurpose = '';
+  }
 
 
- 
-  
+
+
 
 }

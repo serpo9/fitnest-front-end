@@ -212,6 +212,18 @@ export class UserService {
   }
 
   adddevice(obj: any, onSuccess: (data: any) => void) {
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
+
+    obj = {
+      ...obj,
+      userId: adminId
+    }
+
     this.apiService.post(this.apiService.uri.ADD_DEVICE(), obj, (response) => {
       if (response.success) {
         onSuccess(response);
@@ -319,9 +331,15 @@ export class UserService {
   }
 
   getpendingtrainer(onSuccess: (data: any) => void) {
-    const userId = this.userRegisterData.id
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
     this.apiService.get(
-      this.apiService.uri.GET_PENDING_TRAINER(userId),
+      this.apiService.uri.GET_PENDING_TRAINER(adminId),
       (response) => {
         this.loginData = response
         onSuccess(response);
@@ -333,9 +351,15 @@ export class UserService {
   }
 
   getallsession(onSuccess: (data: any) => void) {
-    const userId = this.userRegisterData.id
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
     this.apiService.get(
-      this.apiService.uri.GET_ALL_SESSIONS(userId),
+      this.apiService.uri.GET_ALL_SESSIONS(adminId),
       (response) => {
         this.loginData = response
         onSuccess(response);
@@ -347,9 +371,16 @@ export class UserService {
   }
 
   getActiveDevicessession(onSuccess: (data: any) => void) {
-    const userId = this.userRegisterData.id
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
+
     this.apiService.get(
-      this.apiService.uri.GET_ACTIVE_DEVICE(userId),
+      this.apiService.uri.GET_ACTIVE_DEVICE(adminId),
       (response) => {
         this.loginData = response
         onSuccess(response);
@@ -845,7 +876,12 @@ export class UserService {
   }
 
   buyMembershipPlan(obj: any, onSuccess: (data: any) => void) {
-    const adminId = this.userRegisterData.id;
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
     obj = {
       ...obj,
       adminId
@@ -855,7 +891,7 @@ export class UserService {
     })
   }
 
-  viewPurchasedPlan(onSuccess: (data: any) => void) {
+  viewPurchasedPlan(onSuccess: (data: any) => void) { // used for candidate
     const userId = this.userRegisterData.id;
     this.apiService.get(this.apiService.uri.VIEW_PURCHASED_PLANS(userId), (response) => {
       onSuccess(response);
@@ -1047,7 +1083,7 @@ export class UserService {
   }
 
   getUserByAdmin(userId: any, onSuccess: (data: any) => void) {
-       let adminId;
+    let adminId;
     if (this.userRegisterData.userType === "Admin") {
       adminId = this.userRegisterData.id;
     } else {

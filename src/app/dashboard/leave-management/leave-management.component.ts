@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 
 export interface UserInfo {
   select: string;
+  employeeNo: string;
   name: string;
   email: string;
   phone: string;
@@ -28,7 +29,7 @@ export class LeaveManagementComponent {
     end: new Date() // Today
   };
   sidenavOpen: boolean = true;
-  displayedColumns: string[] = ['select', 'name', 'email', 'phone', 'type'];
+  displayedColumns: string[] = ['select', 'employeeNo', 'name', 'email', 'phone', 'type'];
   dataSource = new MatTableDataSource<UserInfo>([]); // Users list
 
   selectedUsers: Set<string> = new Set();
