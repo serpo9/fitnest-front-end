@@ -206,7 +206,7 @@
     <button (click)="getinfo('received-amount-history')" [class.active]="activelink==='/received-amount-history'"
       routerLinkActive="list-item-active" mat-button routerLink="/received-amount-history" class="nav-link"
       matTooltip="Installment Payments"*ngIf="userType === 'Admin' || userType === 'Receptionist'">
-      <mat-icon>history</mat-icon>
+      <mat-icon>payment</mat-icon>
       <span *ngIf="sidenavOpen">Installment Payments</span>
     </button>
 

@@ -3,15 +3,15 @@
 
 		<div class="mainHistory">ALL SUBSCRIPTION REQUEST</div>
 
-		<div class="table-responsive" [ngClass]="{ 'no-data': getRequestedUserData.data.length === 0 }">
+		<div class="table-responsive" [ngClass]="{ 'no-data': dataSource.data.length === 0 }">
 			<div *ngIf="
-			!getRequestedUserData || getRequestedUserData.data.length === 0
+			!dataSource || dataSource.data.length === 0
 		  " class="no-data-message">
 				No schedules found.
 			</div>
 			<!-- Trainer Session Schedule Table -->
-			<table mat-table [dataSource]="getRequestedUserData" class="custom-table"
-				*ngIf="(getRequestedUserData?.data?.length || 0) > 0">
+			<table mat-table [dataSource]="dataSource" class="custom-table"
+				*ngIf="(dataSource?.data?.length || 0) > 0">
 				>
 				<ng-container matColumnDef="name">
 					<th mat-header-cell *matHeaderCellDef>Name</th>
@@ -45,7 +45,7 @@
 				<tr mat-header-row *matHeaderRowDef="requestColumns"></tr>
 				<tr mat-row *matRowDef="let row; columns: requestColumns"></tr>
 			</table>
-			<div class="table-footer" *ngIf="(dataSource?.data?.length || 0) > 0">
+			<div class="table-footer" [style.display]="dataSource.data.length > 0 ? 'flex' : 'none'">
 				<mat-paginator [pageSize]="6" class="custom-paginator"></mat-paginator>
 			</div>
 		</div>

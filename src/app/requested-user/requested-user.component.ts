@@ -33,7 +33,6 @@ export class RequestedUserComponent {
   sidenavOpen: boolean = true;
   requestColumns: string[] = ["name", "email", "phone", "plan", "buyPlan"];
   dataSource = new MatTableDataSource<getSubscriptionRequest>([]); // Users list
-  getRequestedUserData = new MatTableDataSource<getSubscriptionRequest>([]);
   searchTerm: string = '';
   dateRange = {
     start: new Date(new Date().setDate(new Date().getDate() - 7)), // 7 days before today
@@ -69,7 +68,7 @@ export class RequestedUserComponent {
           email: request.email,
           plan: request.planName,
         }));
-        this.getRequestedUserData.data = formattedData;
+        this.dataSource.data = formattedData;
       }
     })
   }
