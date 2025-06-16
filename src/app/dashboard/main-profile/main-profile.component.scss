@@ -13,23 +13,23 @@ h2 {
 	font-weight: 500;
 }
 
-::ng-deep .mat-mdc-paginator-range-label {
-	display: none !important;
-}
+// ::ng-deep .mat-mdc-paginator-range-label {
+// 	display: none !important;
+// }
 
-::ng-deep .mat-mdc-paginator-outer-container {
-	background: #352924 !important;
+// ::ng-deep .mat-mdc-paginator-outer-container {
+// 	background: #352924 !important;
 
-	.mat-mdc-paginator-page-size {
-		display: none !important;
-	}
-}
+// 	.mat-mdc-paginator-page-size {
+// 		display: none !important;
+// 	}
+// }
 
-::ng-deep .mat-mdc-paginator-icon {
-	display: inline-block;
-	width: 38px;
-	fill: rgb(255 255 255 / 94%) !important;
-}
+// ::ng-deep .mat-mdc-paginator-icon {
+// 	display: inline-block;
+// 	width: 38px;
+// 	fill: rgb(255 255 255 / 94%) !important;
+// }
 
 // ::ng-deep .mat-mdc-icon-button {
 // 	--mat-mdc-button-persistent-ripple-color: #322828 !important;

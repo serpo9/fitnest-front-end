@@ -135,12 +135,20 @@ export class UserService {
     this.apiService.get(
       this.apiService.uri.SILENT_LOGIN_URL(),
       (responseData) => {
-        this.loginData = responseData;
+        if (responseData.success) {
 
-        this.userRegisterData = responseData.data;
-        this.userDataObj = responseData.data
+          this.loginData = responseData;
 
-        onSuccess(responseData);
+          this.userRegisterData = responseData.data;
+          this.userDataObj = responseData.data
+
+          onSuccess(responseData);
+
+        } else {
+          localStorage.removeItem('userType'); // Remove userType
+          localStorage.removeItem('token');
+          onSuccess(false)
+        }
       },
       (err) => {
         onSuccess({ success: false });
@@ -425,10 +433,22 @@ export class UserService {
   }
 
   getClassByDays(days: any, onSuccess: (data: any) => void) {
-    let obj = {
-      adminId: this.userRegisterData.id,
-      weekdays: days
+
+    let obj;
+
+    if (this.userRegisterData.userType === "Admin") {
+      obj = {
+        adminId: this.userRegisterData.id,
+        weekdays: days
+      }
+    } else {
+      obj = {
+        adminId: this.userRegisterData.createdByAdmin,
+        weekdays: days
+      }
     }
+
+
     this.apiService.post(this.apiService.uri.GET_CLASS_BY_DAYS(), obj, (response) => {
       if (response.success) {
         onSuccess(response);
@@ -466,9 +486,14 @@ export class UserService {
 
 
   getSchedules(onSuccess: (data: any) => void) {
-    const userId = this.userRegisterData.id
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
     this.apiService.get(
-      this.apiService.uri.GET_SCHEDULES(userId),
+      this.apiService.uri.GET_SCHEDULES(adminId),
       (response) => {
         this.loginData = response
         onSuccess(response);
@@ -834,8 +859,10 @@ export class UserService {
   requestSubscription(membershipPlanId: any, onSuccess: (data: any) => void) {
     let obj = {
       userId: this.userRegisterData.id,
-      membershipPlansId: membershipPlanId
+      membershipPlansId: membershipPlanId,
+      adminId: this.userRegisterData.createdByAdmin
     }
+    
     this.apiService.post(this.apiService.uri.REQUEST_SUBSCRIPTION(), obj, (response) => {
       onSuccess(response);
     })
@@ -869,8 +896,13 @@ export class UserService {
   }
 
   getSubscriptionRequest(onSuccess: (data: any) => void) {
-    const userId = this.userRegisterData.id;
-    this.apiService.get(this.apiService.uri.GET_SUBSCRIPTION_REQUEST(), (response) => {
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
+    this.apiService.get(this.apiService.uri.GET_SUBSCRIPTION_REQUEST(adminId), (response) => {
       onSuccess(response);
     })
   }
@@ -1247,7 +1279,7 @@ export class UserService {
     }
 
     obj = {
-      ...obj, 
+      ...obj,
       adminId: adminId
     }
     this.apiService.post(this.apiService.uri.SEND_REQUEST_FOR_APPROVAL(), obj, (response) => {

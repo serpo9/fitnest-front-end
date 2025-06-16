@@ -1,30 +1,18 @@
-<!-- <h1 class="scheduleHeading">All Schedules</h1>
-<div class="schedule-container">
-	<div class="day-row" *ngFor="let day of daysOfWeek">
-	  <div class="day-name">{{ day }}</div>
-	  <div class="classes-container">
-		
-		<div class="class-box" *ngFor="let item of getClassesByDay(day)">
-			<strong>{{ item.className }} Class</strong><br>
-			<small>({{ item.startingTime }} - {{ item.endTime }})</small>
-		  </div>
-	  </div>
-	</div>
-  </div>
-   -->
-
-   <h1 class="scheduleHeading">All Schedules</h1>
+<h1 class="scheduleHeading">All Schedules</h1>
 <div class="schedule-container">
   <div class="day-row" *ngFor="let day of daysOfWeek">
     <div class="day-name">{{ day }}</div>
     <div class="classes-container">
-      <div class="class-box" *ngFor="let item of getClassesByDay(day)">
-        <strong>{{ item.className }}</strong><br>
-        <small>{{ item.startingTime }} - {{ item.endTime }}</small>
-      </div>
+      <ng-container *ngIf="getClassesByDay(day).length > 0; else noClass">
+        <div class="class-box" *ngFor="let item of getClassesByDay(day) || []">
+          <strong>{{ item.className }}</strong><br>
+          <small>{{ item.startingTime }} - {{ item.endTime }}</small>
+        </div>
+      </ng-container>
+      
+      <ng-template #noClass>
+        <div class="class-box no-class">No class</div>
+      </ng-template>
     </div>
   </div>
 </div>
-
-
-   

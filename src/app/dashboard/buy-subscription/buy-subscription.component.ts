@@ -6,6 +6,7 @@ import { DialogService } from "src/app/services/dialog-service/dialog.service";
 import { SnackBarService } from "src/app/services/snack-bar/snack-bar.service";
 import { LoadingService } from "src/app/services/loading-services/loading.service";
 import jsPDF from 'jspdf';
+import { Router } from "@angular/router";
 
 export interface UserInfo {
   select: string;
@@ -79,7 +80,8 @@ export class BuySubscriptionComponent {
     private userService: UserService,
     private dialogService: DialogService,
     private snackBarService: SnackBarService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private router: Router
   ) {
     this.userType = this.userService.userRegisterData.userType;
 
@@ -232,8 +234,6 @@ export class BuySubscriptionComponent {
     } else {
       this.selectedUsers.delete(selectedElement.id);
     }
-
-    console.log("slected user :", this.selectedUsers)
   }
 
   assignSubscription(type: any) {
@@ -305,7 +305,8 @@ export class BuySubscriptionComponent {
             this.snackBarService.showSnackBar(
               "Assigned subscription plan successfully!"
             );
-
+            this.router.navigate(['subscribed-users'])
+            this.userService.redirectedCustomerId = null;
             this.generateInvoicePDF(this.invoicePayload);
           }
         });
@@ -458,6 +459,7 @@ export class BuySubscriptionComponent {
             this.snackBarService.showSnackBar(
               "Request sent Successfully!"
             );
+            this.userService.redirectedCustomerId = null;
           }
         });
       })

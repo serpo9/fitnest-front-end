@@ -15,13 +15,11 @@ export class PricingPlanComponent {
 
   constructor(private dialogService: DialogService, private userService: UserService, private router: Router, private route: ActivatedRoute,) {
     this.userService.getGymName((response) => {
-      console.log(response.message, "here is got the gym name")
       this.gymname = response.gymName;
     });
 
     this.planId = this.route.snapshot.paramMap.get('id');
     this.userService.viewPlansById(this.planId, (response) => {
-      console.log("response....", response);
 
       this.gymPlans = response.data;
 

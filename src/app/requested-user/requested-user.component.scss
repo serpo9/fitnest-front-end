@@ -328,4 +328,15 @@
       }
     }
   }
+
+  button:disabled {
+    background-color: #ccc; /* Your desired color */
+    cursor: not-allowed; /* Optional: show a disabled cursor */
+    opacity: 0.6;         /* Optional: reduce opacity */
+  
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
+  
   

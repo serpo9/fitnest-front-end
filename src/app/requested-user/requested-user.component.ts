@@ -12,11 +12,13 @@ import { EditScheduleComponent } from 'src/app/dashboard/edit-schedule/edit-sche
 import { TrainerSelectionDialogComponent } from 'src/app/components/trainer-selection-dialog/trainer-selection-dialog.component';
 import { ROUTES } from 'src/app/app-routes.config';
 import { duration } from 'moment';
+
 export interface getSubscriptionRequest {
   name: any;
   email: string;
   plan: string;
   phone: string;
+  buyPlan: string
 }
 
 @Component({
@@ -29,46 +31,45 @@ export interface getSubscriptionRequest {
 export class RequestedUserComponent {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   sidenavOpen: boolean = true;
-  requestColumns: string[] = [  "name","email","phone","plan" ];
+  requestColumns: string[] = ["name", "email", "phone", "plan", "buyPlan"];
   getRequestedUserData = new MatTableDataSource<getSubscriptionRequest>([]);
   searchTerm: string = '';
   dateRange = {
     start: new Date(new Date().setDate(new Date().getDate() - 7)), // 7 days before today
     end: new Date(), // Today
-  };  
-
+  };
+  userType: any;
   constructor(
-    private userService:UserService
-  ){
-
-  }
+    private userService: UserService,
+    private router: Router
+  ) {
+    this.userType = this.userService.userRegisterData.userType;
+   }
 
   ngOnInit(): void {
     this.getRequestedUser();
-    
+
   }
 
-  getRequestedUser(){
-    this.userService.getSubscriptionRequest((response)=>{
-      console.log("response",response);
-      if(!response.success){
+  getRequestedUser() {
+    this.userService.getSubscriptionRequest((response) => {
+      if (!response.success) {
 
-      }else{
+      } else {
         const formattedData: getSubscriptionRequest[] = response.data.map((request: any) => ({
-          name : request.username,
-          phone:request.phoneNumber,
-          email:request.email,
-          plan:request.planName,
+          userId: request.userId,
+          name: request.username,
+          phone: request.phoneNumber,
+          email: request.email,
+          plan: request.planName,
         }));
         this.getRequestedUserData.data = formattedData;
       }
     })
   }
-  onSearchChange(){
 
+  navigate(element: any) {
+    this.userService.redirectedCustomerId = element.userId;
+    this.router.navigate(['/buy-subscription-plans'])
   }
-  searchSchedules(){
-    
-  }
-
 }

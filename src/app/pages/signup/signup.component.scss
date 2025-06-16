@@ -4,7 +4,7 @@
     background: url('/assets/images/signup_bg.png') no-repeat center center;
     width: 100%;
     background-size: cover;
-    height: 95vh;
+    height: 100vh;
     
     
 
@@ -237,7 +237,7 @@
 
 @media screen and (max-width: 768px) {
     .sign-up{
-        height : 66vh;
+        height : 100vh;
         .sign-up-content-container{
             .welcome-page{
                 font-size: 51px;
@@ -249,7 +249,7 @@
 }
 @media screen and (max-width: 480px) {
     .sign-up{
-        height : 51vh;
+        height : 100vh;
         .sign-up-content-container{
             .welcome-page{
                 font-size: 28px;
