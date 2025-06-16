@@ -134,7 +134,7 @@ export class ApiService {
     ${this.BASE_URL}${this.CLINT_API_URL}edit-schedule/${scheduleId}`,
     ASSIGN_CLASS_TO_USER: (scheduleId: any) => `${this.BASE_URL}${this.CLINT_API_URL}assign-userToSchedule/${scheduleId}
     `,
-    GET_CLASS_BY_DAYS: () => `${this.BASE_URL}${this.CLINT_API_URL}/get-scheduleByDays
+    GET_CLASS_BY_DAYS: () => `${this.BASE_URL}${this.CLINT_API_URL}get-scheduleByDays
     `,
     GET_TRAINERSCHDULE_BY_DAYS: () => `${this.BASE_URL}${this.CLINT_API_URL}/get-trainerScheduleByDays
     `,
@@ -146,7 +146,7 @@ export class ApiService {
     `,
     GET_TRAINER_CLASSES: (trainerId: any) => `${this.BASE_URL}${this.CLINT_API_URL}trainer-schedule/?trainerId=${trainerId}
     `,
-    GET_SUBSCRIPTION_REQUEST: () => `${this.BASE_URL}${this.CLINT_API_URL}get-subscription-request
+    GET_SUBSCRIPTION_REQUEST: (adminId: any) => `${this.BASE_URL}${this.CLINT_API_URL}get-subscription-request/${adminId}
     `,
     GET_ATTENDANCE: (searchTerm: any, fromDate: any, toDate: any) =>
       `${this.BASE_URL}${this.CLINT_API_URL}device-attendance?searchTerm=${searchTerm}&fromDate=${fromDate}&toDate= ${toDate}`,

@@ -371,8 +371,6 @@ submitWeight() {
 }
 
 getIndividualAttendance(element: any) {
-  console.log('element:', element);
-  console.log('element:', this.userId);
 
   const toDate = this.dateRange.end;
   const fromDate = new Date(toDate); 

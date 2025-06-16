@@ -277,7 +277,6 @@ export class HomeComponent implements OnInit {
       if (response.success) {
         this.snackbar.showSnackBar(response.message, 3000);
       } else {
-        console.log(response, "response");
         this.snackbar.showSnackBar(response.message, 3000);
       }
     })
@@ -285,7 +284,6 @@ export class HomeComponent implements OnInit {
   }
 
   //  calander
-
   goToPage(pagename: any) {
     this.router.navigateByUrl(pagename);
   }
@@ -293,6 +291,7 @@ export class HomeComponent implements OnInit {
   viewPlan(planId: any) {
     this.router.navigate([`/plan-details`, planId]);
   }
+
   logout() {
     localStorage.removeItem('userType'); // Remove userType
     localStorage.removeItem('token');

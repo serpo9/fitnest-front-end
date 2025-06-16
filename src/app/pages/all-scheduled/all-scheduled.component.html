@@ -197,6 +197,7 @@
               color="primary"
               style="color: black"
               (click)="deleteSchedule(element)"
+              [disabled]="this.userType === 'Receptionist'"
             >
               Delete
             </button>
