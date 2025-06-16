@@ -60,8 +60,8 @@ export class AllScheduledComponent {
   displayedColumns: string[] = ['name', 'number', 'email', 'gender', 'userStatus'];
   trainerDetailsColumns: string[] = ['trainername', 'trainernumber', 'traineremail', 'specialization', 'status'];
   dateRange = {
-    start: new Date(new Date().setDate(new Date().getDate() - 7)), // 7 days before today
-    end: new Date(new Date().setDate(new Date().getDate() + 1)), // Tomorrow
+    start: '', // 7 days before today
+    end: '', // Tomorrow
   };
   searchTerm: string = '';
   cachedData: getTrainerSchedules[] = []; // Store cached

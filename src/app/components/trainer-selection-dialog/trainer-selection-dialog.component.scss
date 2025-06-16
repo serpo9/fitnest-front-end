@@ -1,95 +1,92 @@
+// .custom-dialog-title {
+// 	font-size: 24px;
+// 	font-weight: bold;
+// 	color: #2e3a59;
+// 	margin-bottom: 8px;
+// }
 
- 
-
-.custom-dialog-title {
-	font-size: 24px;
-	font-weight: bold;
-	color: #2e3a59;
-	margin-bottom: 8px;
-  }
-  
-  .custom-dialog-content {
+.custom-dialog-content {
 	padding: 12px 0;
-  }
-  
-  .custom-form-field {
+}
+
+.custom-form-field {
 	width: 100%;
-  
+
 	::ng-deep .mat-form-field-flex {
-	  background-color: #f9fbfc;
-	  border-radius: 10px;
+		background-color: #f9fbfc;
+		border-radius: 10px;
 	}
-  
+
 	::ng-deep .mat-form-field-outline {
-	  border-color: #cfd8dc;
-	  border-radius: 10px;
+		border-color: #cfd8dc;
+		border-radius: 10px;
 	}
-  
+
 	::ng-deep .mat-select-trigger {
-	  padding: 12px 8px;
-	  font-size: 16px;
-	  font-weight: 500;
+		padding: 12px 8px;
+		font-size: 16px;
+		font-weight: 500;
 	}
-  }
-  
-  ::ng-deep .custom-select-panel {
+}
+
+::ng-deep .custom-select-panel {
 	border-radius: 12px;
 	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  }
-  
-  ::ng-deep .mat-optgroup-label {
+}
+
+::ng-deep .mat-optgroup-label {
 	font-weight: 600;
 	font-size: 14px;
 	color: #455a64;
 	padding-top: 8px;
-  }
-  
-  ::ng-deep .mat-option {
+}
+
+::ng-deep .mat-option {
 	padding: 10px 16px;
 	font-size: 15px;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
 	border-bottom: 1px solid #f0f0f0;
-  
+
 	&:hover {
-	  background-color: #e3f2fd;
+		background-color: #e3f2fd;
 	}
-  }
-  
-  .trainer-option {
+}
+
+.trainer-option {
 	display: flex;
 	flex-direction: column;
-  
+
 	.trainer-name {
-	  font-weight: 600;
-	  font-size: 15px;
+		font-weight: 600;
+		font-size: 15px;
 	}
-  
+
 	.trainer-specialization {
-	  font-size: 12px;
-	  color: #78909c;
+		font-size: 12px;
+		color: #78909c;
 	}
-  }
-  
-  .custom-dialog-actions {
+}
+
+.custom-dialog-actions {
 	padding-top: 16px;
 	display: flex;
 	justify-content: flex-end;
 	gap: 12px;
-  }
-  
-  .btn-cancel {
+}
+
+.btn-cancel {
 	color: #757575;
 	font-weight: 500;
 	transition: color 0.2s ease;
-  
+
 	&:hover {
-	  color: #424242;
+		color: #424242;
 	}
-  }
-  
-  .btn-assign {
+}
+
+.btn-assign {
 	background: rgb(43 35 31);
 	color: #fff;
 	font-weight: 600;
@@ -97,8 +94,6 @@
 	border-radius: 10px;
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 	transition: background 0.3s ease;
-  
-	
-  }
-  
-  
+
+
+}
