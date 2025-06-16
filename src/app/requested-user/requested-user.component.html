@@ -45,7 +45,7 @@
 				<tr mat-header-row *matHeaderRowDef="requestColumns"></tr>
 				<tr mat-row *matRowDef="let row; columns: requestColumns"></tr>
 			</table>
-			<div class="table-footer" *ngIf="(getRequestedUserData?.data?.length || 0) > 0">
+			<div class="table-footer" *ngIf="(dataSource?.data?.length || 0) > 0">
 				<mat-paginator [pageSize]="6" class="custom-paginator"></mat-paginator>
 			</div>
 		</div>

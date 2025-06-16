@@ -32,6 +32,7 @@ export class RequestedUserComponent {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   sidenavOpen: boolean = true;
   requestColumns: string[] = ["name", "email", "phone", "plan", "buyPlan"];
+  dataSource = new MatTableDataSource<getSubscriptionRequest>([]); // Users list
   getRequestedUserData = new MatTableDataSource<getSubscriptionRequest>([]);
   searchTerm: string = '';
   dateRange = {
@@ -47,8 +48,13 @@ export class RequestedUserComponent {
    }
 
   ngOnInit(): void {
+    this.dataSource.paginator = this.paginator;
     this.getRequestedUser();
 
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator; // Set paginator after view is initialized
   }
 
   getRequestedUser() {
