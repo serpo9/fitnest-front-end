@@ -1233,10 +1233,17 @@ export class UserService {
   }
 
   createdietplan(obj: any, onSuccess: (data: any) => void) {
+    console.log(obj , "here is the reponse we got ")
     this.apiService.post(this.apiService.uri.CREATE_DIET_PLAN(), obj, (response) => {
       onSuccess(response);
     })
   }
+  uploadPlan(formData: FormData, onSuccess: (data: any) => void) {
+    this.apiService.post(this.apiService.uri.UPLOADDIETPLAN(), formData, (response) => {
+      onSuccess(response);
+    });
+  }
+  
 
   sendReqForApproval(obj: any, onSuccess: (data: any) => void) {
     let adminId;
