@@ -18,8 +18,10 @@ export class ApiService {
   apiurl = 'http://localhost:8000/';
   public BASE_URL = this.apiurl;
   public CLINT_API_URL = this.base_url;
+  
 
   public uri = {
+    
     TOKEN: () => localStorage.getItem('token'),
     SIGNUP_URL: () =>
       `${this.BASE_URL}${this.CLINT_API_URL}register`,
@@ -224,6 +226,12 @@ export class ApiService {
       `${this.BASE_URL}${this.CLINT_API_URL}create-plan`,
     SEND_REQUEST_FOR_APPROVAL: () =>
       `${this.BASE_URL}${this.CLINT_API_URL}send-request-for-approval`,
+    UPLOADDIETPLAN: (type: string = 'dietplan', trainerId = 1) =>
+      `${this.BASE_URL}${this.CLINT_API_URL}upload-file?type=${type}&trainerId=${trainerId}`,
+    GET_PDF_FILES: () =>
+      `${this.BASE_URL}${this.CLINT_API_URL}get-trainer-pdfs/1`,
+    
+    
   }
 
   private loadingEnabled = false;

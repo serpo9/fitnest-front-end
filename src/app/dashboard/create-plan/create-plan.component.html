@@ -1,22 +1,24 @@
 <div class="main-container">
     <!-- Content Area -->
-    <div class="content" [class.full-width]="sidenavOpen === false" [class.translucent]="sidenavOpen">
+    <div class="content" [class.full-width]="!sidenavOpen" [class.translucent]="sidenavOpen">
       <div class="content-container">
+  
+        <!-- Tabs -->
         <div class="nav-tab-container">
-          <button class="custom-btn" [ngClass]="{'active-btn': activeTab}">Create Diet</button>
-          <button class="custom-btn" [ngClass]="{'active-btn': !activeTab}">View Diet Plan</button>
+          <button class="custom-btn" [ngClass]="{'active-btn': activeTab}" (click)="activeTab = true">Create Diet</button>
+          <button class="custom-btn" [ngClass]="{'active-btn': !activeTab}" (click)="activeTab = false">View Diet Plan</button>
         </div>
   
+        <!-- Diet Creation Section -->
         <div class="plans-container" *ngIf="activeTab">
           <div class="mainHistory">Diet Entry</div>
   
           <div class="diet-input-container">
-       
   
             <!-- Purpose Select -->
             <div class="form-group">
               <label for="purpose">Purpose:</label>
-              <mat-form-field appearance="fill">
+              <mat-form-field appearance="fill" style="width: 100%;">
                 <mat-label>Select Purpose</mat-label>
                 <mat-select [(ngModel)]="purpose" name="purpose">
                   <mat-option *ngFor="let p of purposeOptions" [value]="p">
@@ -27,16 +29,22 @@
             </div>
   
             <!-- PDF Upload -->
-          <!-- PDF Upload -->
-<div class="form-group file-upload">
-    <label for="pdf">Upload PDF:</label>
-    <input type="file" (change)="onFileSelected($event)" accept="application/pdf" />
-  </div>
-  
+            <div class="upload-container">
+              <label for="pdf-upload"><strong>Upload Diet PDF:</strong></label>
+              <input id="pdf-upload" type="file" (change)="onFileSelected($event)" accept=".pdf" />
+              
+            
+            </div>
+          </div>
+          <div class="upload-container" >
+
+              <button class="custom-btn" style="margin-inline: auto;" (click)="uploadResume()" [disabled]="!selectedFile">
+                Upload PDF
+              </button>
           </div>
   
           <!-- Submit Button -->
-          <button class="custom-btn" (click)="createDiet()">Submit</button>
+          <!-- <button class="custom-btn submit-btn" (click)="createDiet()">Submit</button> -->
         </div>
       </div>
     </div>

@@ -63,37 +63,36 @@
   
   .main-container {
     display: flex;
+    flex-direction: column;
     height: 100vh;
     width: 100%;
-    flex-direction: column;
   
-    .time-red {
-      color: red !important;
-      font-weight: bold !important;
-    }
-  
+    .time-red,
     .time-negative {
       color: red;
-      /* Example of styling negative time */
-      font-weight: bold
+      font-weight: bold;
     }
   
     .content {
       flex-grow: 1;
       display: flex;
       flex-direction: column;
-      margin-left: 0;
-      transition: all 0.3s ease;
       padding: 1rem;
       text-align: center;
-      background-color: rgb(44 37 32 / 81%);
+      margin-left: 0;
+      transition: all 0.3s ease;
+      background-color: rgba(44, 37, 32, 0.81);
       overflow-x: hidden;
   
+      &.full-width {
+        margin-left: 0;
+      }
+  
       .nav-tab-container {
-        padding-bottom: 2rem;
         display: flex;
-        gap: 20px;
         justify-content: center;
+        gap: 20px;
+        padding-bottom: 2rem;
   
         button {
           width: 180px;
@@ -106,55 +105,180 @@
         }
       }
   
-      /* Style the container to align items to the right */
-      .filter-btn {
-        padding: 8px 10px;
-        background-color: #cfcfcfe6;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 13px;
-        cursor: pointer;
-        width: 140px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        margin-bottom: 1rem;
-        margin-left: auto;
-        transition: all 0.3s ease;
-        font-weight: 500;
-  
-        &:hover {
-          background-color: #ffffffe6;
-        }
-  
-        &.active {
-          background-color: #40342c;
-          color: #fff;
-          border-color: #40342c;
-        }
-      }
-      
-  
-  
-      &.full-width {
-        margin-left: 0;
-      }
-  
       .mainHistory {
         color: white;
-        margin-top: 1rem;
-        margin-bottom: 1rem;
+        margin: 1rem 0;
         font-size: 22px;
         font-weight: bold;
         text-align: start;
       }
   
+      .diet-input-container {
+        display: flex;
+        gap: 20px;
+        justify-content: space-between;
+        padding: 20px 0;
+  
+        @media (max-width: 768px) {
+          flex-direction: column;
+        }
+      }
+  
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+  
+        label {
+          margin-bottom: 6px;
+          font-size: 14px;
+          font-weight: 500;
+          color: white;
+        }
+      }
+  
+      .file-upload input[type="file"] {
+        padding: 15px 22px;
+        background: #fafafa;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+        font-family: inherit;
+        cursor: pointer;
+        transition: border-color 0.3s ease;
+  
+        &:hover {
+          border-color: #1976d2;
+        }
+  
+        &::-webkit-file-upload-button {
+          background-color: #1976d2;
+          color: white;
+          border: none;
+          padding: 6px 14px;
+          border-radius: 4px;
+          cursor: pointer;
+          font-weight: 500;
+          transition: background 0.3s ease;
+  
+          &:hover {
+            background-color: #1565c0;
+          }
+        }
+      }
+  
+      .upload-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        color: white;
+  
+        input[type="file"] {
+          border: 1px solid #ccc;
+          border-radius: 6px;
+          padding: 10px;
+          background: white;
+        }
+  
+        button {
+          margin-top: 10px;
+          padding: 10px;
+          background-color: #ffc978;
+          color: #000;
+          border: none;
+          border-radius: 6px;
+          font-weight: bold;
+          cursor: pointer;
+  
+          &:disabled {
+            background-color: #ddd;
+            color: #999;
+            cursor: not-allowed;
+          }
+        }
+      }
+  
+      .custom-btn {
+        margin-top: 2rem;
+      }
+  
       .buttoncolor {
-        background-color: #111111 !important;
+        background-color: #111 !important;
         color: white;
         padding: 22px;
+      }
   
+      .table-responsive {
+        overflow-x: auto;
+        background: #40342c;
+        border-radius: 5px;
+  
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          font-size: 14px;
+          background: #40342c;
+  
+          th,
+          td {
+            padding: 12px 8px;
+            text-align: start;
+            white-space: nowrap;
+            color: #c9bbbb;
+          }
+  
+          th {
+            background-color: #f0f0f0e6;
+            font-weight: 500;
+          }
+        }
+  
+        .no-data-message {
+          margin-top: 3rem;
+        }
+  
+        .table-footer {
+          display: flex;
+          justify-content: flex-end;
+          margin-top: 1rem;
+  
+          .custom-paginator {
+            display: flex;
+            align-items: center;
+          }
+        }
+  
+        @media (max-width: 768px) {
+          table th,
+          table td {
+            padding: 10px 6px;
+            font-size: 12px;
+          }
+  
+          .table-footer {
+            justify-content: center;
+          }
+        }
+  
+        @media (max-width: 480px) {
+          table th,
+          table td {
+            font-size: 10px;
+            padding: 8px 6px;
+          }
+        }
+  
+        @media (max-width: 340px) {
+          table th,
+          table td {
+            font-size: 12px;
+            padding: 6px 4px;
+          }
+  
+          .table-footer {
+            justify-content: center;
+          }
+        }
       }
   
       .header {
@@ -162,9 +286,6 @@
         flex-wrap: wrap;
         align-items: center;
         justify-content: space-between;
-        // background-color: #40342c;
-        border-radius: 5px;
-        // padding: 1rem;
         gap: 1rem;
         margin-bottom: 2rem;
   
@@ -172,9 +293,6 @@
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          //   background-color: #111111;
-          border-radius: 5px;
-          // padding: 0.5rem;
           flex-grow: 1;
   
           .search-field {
@@ -184,7 +302,7 @@
             border-radius: 5px;
             padding: 0.5rem;
             font-size: 1rem;
-            background-color: rgba(240, 240, 240, 0.9019607843);
+            background-color: rgba(240, 240, 240, 0.9);
   
             &:focus {
               outline: none;
@@ -208,8 +326,8 @@
           }
   
           .searchbtn {
-            background-color: #111111;
-            color: #ffffff;
+            background-color: #111;
+            color: #fff;
           }
         }
   
@@ -221,155 +339,11 @@
             font-size: 1rem;
           }
         }
-      }
   
-      .table-responsive {
-        overflow-x: auto;
-        background: #40342c;
-        border-radius: 5px;
-  
-        .no-data-message {
-          margin-top: 3rem;
-        }
-  
-        table {
-          width: 100%;
-          border-collapse: collapse;
-          font-size: 14px;
-          background: #40342c;
-  
-          bord th,
-          td {
-            padding: 12px 8px;
-            text-align: start;
-            white-space: nowrap;
-            color: #c9bbbb;
-          }
-  
-          th {
-            background-color: #f0f0f0e6;
-            font-weight: 500;
-          }
-        }
-  
-  
-  
-        .table-footer {
-          display: flex;
-          justify-content: flex-end;
-          margin-top: 1rem;
-  
-          .custom-paginator {
-            display: flex;
-            align-items: center;
-          }
-        }
-      }
-  
-      .diet-input-container {
-        display: flex;
-        flex-direction: row;
-        gap: 20px;
-        justify-content: space-between;
-
-        padding: 20px 0;
-      }
-      
-      /* Common Form Group Styling */
-      .form-group {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-      }
-      
-      .form-group label {
-        margin-bottom: 6px;
-        font-size: 14px;
-        font-weight: 500;
-        color: white;
-      }
-      
-      /* File Upload Specific Styling */
-      .file-upload input[type="file"] {
-        padding: 15px 22px;
-        background: #fafafa;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        font-size: 14px;
-        font-family: inherit;
-        cursor: pointer;
-        transition: border-color 0.3s ease;
-      }
-      
-      .file-upload input[type="file"]:hover {
-        border-color: #1976d2;
-      }
-      
-      .file-upload input[type="file"]::-webkit-file-upload-button {
-        background-color: #1976d2;
-        color: white;
-        border: none;
-        padding: 6px 14px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-weight: 500;
-        transition: background 0.3s ease;
-      }
-      
-      .file-upload input[type="file"]::-webkit-file-upload-button:hover {
-        background-color: #1565c0;
-      }
-      
-  
-      .d-flex {
-        margin-bottom: 2rem;
-        gap: 20px;
-  
-        button {
-          background-color: #fff;
-          border: 2px solid #fff;
-  
-          &:hover {
-            background-color: #ffc978;
-            border: 2px solid #ffc978;
-            color: #000;
-          }
-        }
-  
-        .active {
-          background-color: #ffc978;
-          border: 2px solid #ffc978;
-          color: #000;
-        }
-      }
-  
-      .custom-btn {
-        margin-top: 2rem;
-      }
-    }
-  }
-  
-  /* Media Queries */
-  @media screen and (max-width: 1300px) {
-    .main-container {}
-  }
-  
-  @media (max-width: 768px) {
-
-    .main-container {
-      //flex-direction: column;
-  
-      .content {
-        padding: 0.5rem;
-  
-        .header {
-          // flex-direction: column;
+        @media (max-width: 768px) {
           gap: 0.5rem;
   
           .search-box {
-            // flex-direction: column;
-            // align-items: stretch;
-  
             .search-field {
               font-size: 0.9rem;
               height: 2rem;
@@ -381,70 +355,20 @@
             }
           }
         }
-        .diet-input-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            justify-content: space-between;
-    
-            padding: 20px 0;
-          }
-          
   
-        .table-responsive {
-          table {
+        @media (max-width: 480px) {
+          .search-box {
+            .search-field {
+              font-size: 0.8rem;
+            }
   
-            th,
-            td {
-              padding: 10px 6px;
-              font-size: 12px;
+            .searchbtn {
+              font-size: 0.7rem;
             }
           }
-  
-          .table-footer {
-            justify-content: center;
-          }
         }
-      }
-    }
-  }
   
-  @media (max-width: 480px) {
-    .content {
-      .header {
-        // padding: 0.5rem;
-  
-        .search-box {
-          .search-field {
-            font-size: 0.8rem;
-          }
-  
-          .searchbtn {
-            font-size: 0.7rem;
-          }
-        }
-      }
-  
-      .table-responsive {
-        table {
-  
-          th,
-          td {
-            font-size: 10px;
-            padding: 8px 6px;
-          }
-        }
-      }
-    }
-  }
-  
-  @media (max-width: 340px) {
-    .main-container {
-      display: flex;
-      flex-direction: column;
-  
-      .content {
-        .header {
+        @media (max-width: 340px) {
           gap: 0.5rem;
   
           .search-box {
@@ -458,132 +382,8 @@
             }
           }
         }
-  
-        .table-responsive {
-          table {
-  
-            th,
-            td {
-              font-size: 12px;
-              padding: 6px 4px;
-            }
-          }
-  
-          .table-footer {
-            justify-content: center;
-          }
-        }
       }
     }
   }
   
   
-  .table-responsive {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: auto; // Enables scrolling
-    display: block;
-  
-    .custom-table {
-      min-width: 1200px; // Ensures the table does not shrink
-      width: 100%; // Allows it to be responsive but not smaller than min-width
-      border-collapse: collapse;
-      background-color: white;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-  
-  
-      /* Set Fixed Column Widths */
-      .mat-column-select {
-        width: 50px;
-        /* Checkbox column */
-      }
-  
-      .mat-column-name {
-        width: 50px;
-      }
-  
-      .mat-column-email {
-        width: 140px;
-      }
-  
-      .mat-column-phoneno {
-        width: 50px;
-      }
-  
-      .mat-column-plan {
-        width: 50px;
-      }
-  
-      .mat-column-expired {
-        width: 100px;
-      }
-      .mat-column-mealType {
-        width: 100px;
-      }
-      .mat-column-quantity {
-        width: 100px;
-      }
-      .mat-column-time {
-        width:50px;
-      }
-      .mat-column-notes {
-        width: 300px;
-        overflow-x: auto;
-        word-break: break-word;
-      }
-  
-      .ellipsis-text {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        
-        display: inline-block;
-      }
-    }
-  
-    th.mat-header-cell,
-    td.mat-cell {
-      text-align: center !important;
-      padding: 12px;
-      white-space: nowrap;
-    }
-  
-    th.mat-header-cell {
-      background-color: #3f51b5;
-      color: white;
-      font-weight: bold;
-    }
-  
-    td.mat-cell {
-      font-size: 14px;
-      color: #333;
-    }
-  
-    tr.mat-header-row {
-      height: 50px;
-      text-align: center;
-    }
-  
-    tr.mat-row:hover {
-      background-color: #f5f5f5;
-    }
-  
-    button {
-      padding: 6px 12px;
-      font-size: 14px;
-      cursor: pointer;
-    }
-  }
-  
-  // Prevent Angular Material Table Shrinking
-  .mat-table {
-    table-layout: fixed; // Ensures consistent column width
-  }
-  
-  // Center paginator
-  .custom-paginator {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-  }
