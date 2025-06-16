@@ -62,6 +62,7 @@ export class DietPlanComponent {
   ngOnInit() {
     // Set the paginator after view initialization
     this.dataSource.paginator = this.paginator;
+    this.viewdietplans()
   }
 
   ngAfterViewInit() {
@@ -235,6 +236,12 @@ export class DietPlanComponent {
       }
 
       this.updateTableData(response.data);
+    })
+  }
+
+  viewdietplans(){
+    this.userService.getplanspdf((response) =>{
+      console.log(response  , "here  i got the response")
     })
   }
 }

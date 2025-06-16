@@ -2,117 +2,100 @@ import { Component } from "@angular/core";
 import { UserService } from "src/app/services/user-service/user.service";
 import { DialogService } from "src/app/services/dialog-service/dialog.service";
 import { SnackBarService } from "src/app/services/snack-bar/snack-bar.service";
+import { HttpParams } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-plan',
   templateUrl: './create-plan.component.html',
   styleUrls: ['./create-plan.component.scss']
 })
-
-
 export class CreatePlanComponent {
   sidenavOpen: boolean = true;
-    base_url = "api/fitnest/"
 
   purposeOptions = ['Weight Loss', 'Muscle Gain', 'Maintenance', 'General Health'];
   mealTime: string = '';
   foodName: string = '';
   foodQty: string = '';
   notes: string = '';
+  purpose: string = '';
   activeTab = true;
-  purpose = this.purposeOptions[0];
-
-  selectedFile: any;
-
-  adminId: string | null = null;
-  userId: string | null = null;
+  // purpose = this.purposeOptions[0];
+  selectedFile: File | null = null;
   trainerId: any;
 
 
   constructor(
     private userService: UserService,
     private dialogService: DialogService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private http: HttpClient
   ) {}
-
-
   ngOnInit(): void {
-    // You can adjust how these values are assigned
-    this.adminId = localStorage.getItem('adminId');
-    this.userId = localStorage.getItem('userId');
-    this.trainerId = localStorage.getItem('trainerId');
+    // This is where you'd typically get the trainerId
+    this.trainerId = localStorage.getItem('trainerId') || 'defaultTrainer'; // Provide a fallback
   }
 
   onSidenavToggle(sidenavState: boolean): void {
     this.sidenavOpen = sidenavState;
   }
-
-
-
-  
+  // Method to capture the selected file from the input
   onFileSelected(event: any): void {
-    const file = event.target.files[0];
-    console.log(file , "here i got pdf file ")
-    
+    const file: File = event.target.files[0];
+    const trainerId = this.userService.userRegisterData.id;
+     const planpurpose = this.purpose
+    // this.purpose = 'weightloss'; // <-- set or bind dynamically based on your form
+  
     if (file && file.type === 'application/pdf') {
-      this.selectedFile = file;
-      console.log( this.selectedFile , "here i got the response  ")
+      const customFileName = `${trainerId}-${planpurpose}.pdf`;
   
-      const formData = new FormData();
-      formData.append('file', this.selectedFile); // Make sure backend expects 'file' key
+      // Create a new file with the custom name
+      const renamedFile = new File([file], customFileName, { type: file.type });
   
-      this.userService.uploadPlan(formData, (response) => {
-        console.log("API response:", response);
-  
-        if (response.success) {
-          this.dialogService.open('', 'Diet plan has been created!');
-          this.resetForm();
-        } else {
-          this.snackBarService.show('Failed to create diet plan.');
-        }
-  
-        console.log(this.selectedFile, "→ PDF file uploaded");
-      });
-  
+      this.selectedFile = renamedFile;
+      console.log('Renamed file:', this.selectedFile.name);
     } else {
-      this.snackBarService.show('Please select a valid PDF file.');
-      this.selectedFile = null;
+      alert('Only PDF files are allowed.');
+      event.target.value = null;
     }
   }
   
-  
-
-  createDiet(): void {
-    // Correct assignment using semicolons
-    this.adminId = this.userService.userRegisterData.createdByAdmin || 2;
-    this.trainerId = this.userService.userRegisterData.id;
-    console.log("Form inputs:", {
-      adminId: this.adminId,
-      trainerId: this.trainerId,
-      purpose: this.purpose,
-      selectedFile: this.selectedFile
-    });
-  
-    if (!this.adminId || !this.trainerId || !this.purpose || !this.selectedFile) {
-      this.dialogService.open('Missing Field', 'Please fill all required fields and upload a PDF.');
+  uploadResume(): void {
+    if (!this.selectedFile) {
+      alert('Please select a PDF file first.');
       return;
     }
   
     const formData = new FormData();
-    formData.append('adminId', this.adminId);
-    formData.append('trainerId', this.trainerId);
+    formData.append('file', this.selectedFile, this.selectedFile.name);
+  
+    this.http.post('http://localhost:8000/api/fitnest/upload-pdf', formData).subscribe({
+      next: (response: any) => {
+        alert('File uploaded successfully!');
+        console.log(response);
+        this.selectedFile = null;
+      },
+      error: (error: HttpErrorResponse) => {
+        alert(error.error.message || 'Upload failed.');
+        console.error('Upload error:', error);
+      }
+    });
+  }
+  
+  
+  
+
+  createDiet() {
+    if (!this.purpose || !this.selectedFile) {
+      this.dialogService.open('Missing Field', 'Please select a purpose and upload a PDF file.');
+      return;
+    }
+  
+    const formData = new FormData();
     formData.append('purpose', this.purpose);
     formData.append('pdf', this.selectedFile);
-
-    console.log(this.selectedFile , "here is t")
-    // Convert FormData to plain object for console logging
-    const debugObject: { [key: string]: any } = {};
-    formData.forEach((value, key) => {
-      debugObject[key] = value;
-    });
-    console.log("FormData being sent to backend:", debugObject);
-    this.userService.createdietplan(debugObject, (response) => {
-      console.log("API response:", response);
+  
+    this.userService.createDietChart(formData, (response) => {
       if (response.success) {
         this.dialogService.open('', 'Diet plan has been created!');
         this.resetForm();
@@ -121,11 +104,45 @@ export class CreatePlanComponent {
       }
     });
   }
-
   
-  resetForm(): void {
-    this.purpose = this.purposeOptions[0];
-    this.selectedFile = null;
+  uploadPdfAndCreateDiet(): void {
+    if (!this.selectedFile) {
+      this.dialogService.open('No File', 'Please select a PDF file to upload.');
+      return;
+    }
+  
+    if (!this.trainerId) {
+      this.snackBarService.show('Trainer ID is missing. Cannot upload file.');
+      return;
+    }
+  
+    // Prepare FormData and append 'file' (as required by backend)
+    const formData = new FormData();
+    formData.append('file', this.selectedFile, this.selectedFile.name);
+  
+    // Call the service method
+    this.userService.uploadPlan(formData,
+      (response) => {
+        console.log('PDF uploaded successfully:', response);
+        this.dialogService.open('Success', 'PDF file uploaded!');
+        this.selectedFile = null;
+  
+        // Reset the file input
+        const fileInput = document.getElementById('pdfFileInput') as HTMLInputElement;
+        if (fileInput) {
+          fileInput.value = '';
+        }
+      },
+   
+    );
   }
   
+
+  
+
+resetForm(): void {
+  this.purpose = this.purposeOptions[0];
+  this.selectedFile = null;
+}
+
 }

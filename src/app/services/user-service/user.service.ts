@@ -1264,17 +1264,25 @@ export class UserService {
     })
   }
 
-  createdietplan(obj: any, onSuccess: (data: any) => void) {
+  createdietplan(obj: any, onSuccess: (data: any) => void, p0: (error: any) => void) {
     console.log(obj , "here is the reponse we got ")
     this.apiService.post(this.apiService.uri.CREATE_DIET_PLAN(), obj, (response) => {
       onSuccess(response);
     })
   }
   uploadPlan(formData: FormData, onSuccess: (data: any) => void) {
-    this.apiService.post(this.apiService.uri.UPLOADDIETPLAN(), formData, (response) => {
+    const url = this.apiService.uri.UPLOADDIETPLAN('dietplan', 1);
+    this.apiService.post(url, formData, (response) => {
       onSuccess(response);
     });
   }
+
+  getplanspdf(onSuccess: (data: any) => void) {
+    this.apiService.get(this.apiService.uri.GET_PDF_FILES(), (response) => {
+      onSuccess(response);
+    })
+  }
+
   
 
   sendReqForApproval(obj: any, onSuccess: (data: any) => void) {
