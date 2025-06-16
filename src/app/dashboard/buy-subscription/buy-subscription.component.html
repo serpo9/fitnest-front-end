@@ -42,13 +42,14 @@
             <ng-container matColumnDef="select">
               <th mat-header-cell *matHeaderCellDef class="mat-column-select">Select</th>
               <td mat-cell *matCellDef="let element" (click)="toggleRowSelection(element)" class="mat-column-select">
-                <mat-checkbox [(ngModel)]="element.selected"  (change)="toggleRowSelection(element)">
+                <mat-checkbox [(ngModel)]="element.selected" (change)="toggleRowSelection(element)">
                 </mat-checkbox>
               </td>
             </ng-container>
             <ng-container matColumnDef="employeeNo">
               <th mat-header-cell *matHeaderCellDef class="mat-column-employeeNo">EmployeeNo</th>
-              <td mat-cell *matCellDef="let element" (click)="toggleRowSelection(element)" class="mat-column-employeeNoa">{{
+              <td mat-cell *matCellDef="let element" (click)="toggleRowSelection(element)"
+                class="mat-column-employeeNoa">{{
                 element.employeeNo }}</td>
             </ng-container>
             <ng-container matColumnDef="name">
@@ -80,15 +81,10 @@
           </table>
 
           <div class="table-footer" [style.display]="dataSource.data.length > 0 ? 'flex' : 'none'">
-            <mat-paginator #paginator
-                 [length]="totalRecords"
-                 [pageSize]="pageSize"
-                 [pageIndex]="pageIndex"
-                 (page)="loadPage($event)"
-                 class="custom-paginator"
-             > </mat-paginator>
+            <mat-paginator #paginator [length]="totalRecords" [pageSize]="pageSize" [pageIndex]="pageIndex"
+              (page)="loadPage($event)" class="custom-paginator"> </mat-paginator>
           </div>
-          
+
         </div>
       </div>
 
@@ -140,9 +136,9 @@
 
             <div class="form-group">
               <label for="plan">Plan Price:</label>
-              <mat-form-field >
+              <mat-form-field>
                 <mat-label>Amount</mat-label>
-                <input [disabled]="planprice"  matInput placeholder="1" [(ngModel)]="planprice" min="1" type="number">
+                <input [disabled]="planprice" matInput placeholder="1" [(ngModel)]="planprice" min="1" type="number">
               </mat-form-field>
             </div>
 
@@ -150,7 +146,8 @@
               <label for="plan">Admission Fee:</label>
               <mat-form-field>
                 <mat-label>Fee</mat-label>
-                <input matInput placeholder="1" (change)="setTotalAmount($event)" [(ngModel)]="admissionFee" min="1" type="number" required>
+                <input matInput placeholder="1" (change)="setTotalAmount($event)" [(ngModel)]="admissionFee" min="1"
+                  type="number" required>
               </mat-form-field>
             </div>
 
@@ -158,17 +155,19 @@
               <label for="plan">Received Amount:</label>
               <mat-form-field>
                 <mat-label>Amount</mat-label>
-                <input matInput placeholder="1"  [(ngModel)]="receivedAmount" min="1" type="number" required>
+                <input matInput placeholder="1" [(ngModel)]="receivedAmount" min="1" type="number" required>
               </mat-form-field>
             </div>
 
-             <div class="total-amount">
-            <h2>Total amount: Rs. {{totalAmount}}</h2>
+            <div class="total-amount">
+              <h2>Total amount: Rs. {{totalAmount}}</h2>
             </div>
 
           </div>
 
-          <button class="custom-btn" (click)="assignSubscription('subs-plan')">Assign plan</button>
+          <button class="custom-btn" *ngIf="userType === 'Admin'" (click)="assignSubscription('subs-plan')">Assign
+            plan</button>
+          <button class="custom-btn" *ngIf="userType === 'Receptionist'" (click)="sendReqApproval('subs-plan')">Request Admin</button>
         </div>
 
         <div class="visitor-tab" *ngIf="activeTab === 'visitor-plan'">
@@ -202,8 +201,10 @@
             </div>
           </div>
 
-          <button class="custom-btn" (click)="assignSubscription('visitor-plan')">Assign plan</button>
-          
+          <button class="custom-btn" *ngIf="userType==='Admin'" (click)="assignSubscription('visitor-plan')">Assign
+            plan</button>
+          <button class="custom-btn" *ngIf="userType=== 'Receptionist'" (click)="sendReqApproval('visitor-plan')">Request Admin</button>
+
         </div>
         <!-- <button  class="custom-btn" (click)="generateInvoicePDF(invoicePayload)">Download Invoice</button> -->
 

@@ -72,6 +72,8 @@ export class BuySubscriptionComponent {
   isFilterOn: boolean = false;
   invoicePayload: any;
   tableData: any;
+  userType: any;
+  reqObj: any;
 
   constructor(
     private userService: UserService,
@@ -79,6 +81,8 @@ export class BuySubscriptionComponent {
     private snackBarService: SnackBarService,
     private loadingService: LoadingService
   ) {
+    this.userType = this.userService.userRegisterData.userType;
+
     if (this.userService.redirectedCustomerId) {
       this.redirectedCustomerId = this.userService.redirectedCustomerId;
       this.loadOneUser();
@@ -393,5 +397,69 @@ export class BuySubscriptionComponent {
 
   activatePlanTab(tabName: string) {
     this.activeTab = tabName;
+  }
+
+  sendReqApproval(type: any) {
+    const userId = Array.from(this.selectedUsers);
+
+
+    if (type === "subs-plan") {
+      this.reqObj = {
+        planType: "subs-plan",
+        userId: userId[0],
+        name: this.name,
+        phoneNo: this.phoneNo,
+        membershipPlansId: this.selectedPlan.id,
+        selectedDuration: this.selectedDuration,
+        amountPaid: this.receivedAmount,
+        monthQty: this.monthQty,
+        paymentStatus: "true",
+        email: this.email,
+        admissionFee: this.admissionFee,
+        requestedBy: this.userService.userRegisterData.id
+      };
+    }
+
+    if (type === "visitor-plan") {
+
+
+      this.reqObj = {
+        name: this.name,
+        phoneNo: this.phoneNo,
+        email: this.email,
+        planType: "visitor-plan",
+        userId: userId[0],
+        membershipPlansId: this.visitorSelectedPlan.id,
+        amountPaid: this.visitorAmountPaid,
+        daysQty: this.daysQty,
+        paymentStatus: "true",
+        requestedBy: this.userService.userRegisterData.id
+      };
+    }
+
+    this.dialogService.open(
+      "Confirmation!",
+      "Are you sure you want to assign the plan ?",
+      "",
+      true,
+      "Yes",
+      () => {
+        this.loadingService.open();
+        this.userService.sendReqForApproval(this.reqObj, (response) => {
+          if (!response.success) {
+            this.dialogService.open(`Oops!`, `${response.message}`);
+            this.loadingService.close();
+            return
+          }
+
+          if (response.success) {
+            this.invoicePayload = response.invoice;
+            this.loadingService.close();
+            this.snackBarService.showSnackBar(
+              "Request sent Successfully!"
+            );
+          }
+        });
+      })
   }
 }

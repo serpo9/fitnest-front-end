@@ -1233,9 +1233,24 @@ export class UserService {
   }
 
   createdietplan(obj: any, onSuccess: (data: any) => void) {
-
-
     this.apiService.post(this.apiService.uri.CREATE_DIET_PLAN(), obj, (response) => {
+      onSuccess(response);
+    })
+  }
+
+  sendReqForApproval(obj: any, onSuccess: (data: any) => void) {
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
+
+    obj = {
+      ...obj, 
+      adminId: adminId
+    }
+    this.apiService.post(this.apiService.uri.SEND_REQUEST_FOR_APPROVAL(), obj, (response) => {
       onSuccess(response);
     })
   }

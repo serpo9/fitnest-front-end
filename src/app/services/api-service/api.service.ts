@@ -222,6 +222,8 @@ export class ApiService {
       `${this.BASE_URL}${this.CLINT_API_URL}get-dietplan/${userId}`,
     CREATE_DIET_PLAN: () =>
       `${this.BASE_URL}${this.CLINT_API_URL}create-plan`,
+    SEND_REQUEST_FOR_APPROVAL: () =>
+      `${this.BASE_URL}${this.CLINT_API_URL}send-request-for-approval`,
   }
 
   private loadingEnabled = false;
