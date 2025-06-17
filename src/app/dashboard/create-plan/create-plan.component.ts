@@ -14,6 +14,16 @@ export class CreatePlanComponent {
   sidenavOpen: boolean = true;
 
   purposeOptions = ['Weight Loss', 'Muscle Gain', 'Maintenance', 'General Health'];
+  workoutPurposeOptions = [
+    'Strength Training',
+    'Cardio Endurance',
+    'Flexibility & Mobility',
+    'Fat Burn',
+    'Bodybuilding',
+    'Rehabilitation',
+    'General Fitness'
+  ];
+  workoutPurpose: string = '';
   mealTime: string = '';
   foodName: string = '';
   foodQty: string = '';
@@ -71,7 +81,7 @@ export class CreatePlanComponent {
   
     this.http.post('http://localhost:8000/api/fitnest/upload-pdf', formData).subscribe({
       next: (response: any) => {
-        alert('File uploaded successfully!');
+        this.dialogService.open('Yeah!', 'File uploaded successfully!');
         console.log(response);
         this.selectedFile = null;
       },

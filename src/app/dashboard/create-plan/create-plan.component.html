@@ -6,7 +6,7 @@
         <!-- Tabs -->
         <div class="nav-tab-container">
           <button class="custom-btn" [ngClass]="{'active-btn': activeTab}" (click)="activeTab = true">Create Diet</button>
-          <button class="custom-btn" [ngClass]="{'active-btn': !activeTab}" (click)="activeTab = false">View Diet Plan</button>
+          <button class="custom-btn" [ngClass]="{'active-btn': !activeTab}" (click)="activeTab = false">Create Workout Plan</button>
         </div>
   
         <!-- Diet Creation Section -->
@@ -46,6 +46,42 @@
           <!-- Submit Button -->
           <!-- <button class="custom-btn submit-btn" (click)="createDiet()">Submit</button> -->
         </div>
+        <div class="plans-container" *ngIf="!activeTab">
+            <div class="mainHistory">Diet Entry</div>
+    
+            <div class="diet-input-container">
+    
+                <!-- Workout Purpose Select -->
+            <div class="form-group">
+                <label for="workoutPurpose">Workout Goal:</label>
+                <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Select Workout Goal</mat-label>
+                <mat-select [(ngModel)]="workoutPurpose" name="workoutPurpose">
+                    <mat-option *ngFor="let w of workoutPurposeOptions" [value]="w">
+                    {{ w }}
+                    </mat-option>
+                </mat-select>
+                </mat-form-field>
+            </div>
+  
+              <!-- PDF Upload -->
+              <div class="upload-container">
+                <label for="pdf-upload"><strong>Upload Workout PDF:</strong></label>
+                <input id="pdf-upload" type="file" (change)="onFileSelected($event)" accept=".pdf" />
+                
+              
+              </div>
+            </div>
+            <div class="upload-container" >
+  
+                <button class="custom-btn" style="margin-inline: auto;" (click)="uploadResume()" [disabled]="!selectedFile">
+                  Upload PDF
+                </button>
+            </div>
+    
+            <!-- Submit Button -->
+            <!-- <button class="custom-btn submit-btn" (click)="createDiet()">Submit</button> -->
+          </div>
       </div>
     </div>
   </div>
