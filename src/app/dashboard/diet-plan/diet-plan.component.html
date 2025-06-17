@@ -131,33 +131,27 @@
 
             <div class="pdf-section" *ngIf="pdfFiles.length > 0">
                 <h3>Trainer Diet Plans (PDF)</h3>
-              
                 <div class="pdf-list">
                   <div *ngFor="let pdf of pdfFiles" class="pdf-card">
-                    
-                    <!-- 1. Checkbox -->
                     <div class="pdf-checkbox">
                       <mat-checkbox [(ngModel)]="pdf.selected"></mat-checkbox>
                     </div>
-              
-                    <!-- 2. PDF Name with Icon -->
                     <div class="pdf-info">
                       <mat-icon>picture_as_pdf</mat-icon>
                       <span class="pdf-name">{{ pdf.name }}</span>
                     </div>
-              
-                    <!-- 3. View Button -->
                     <div class="pdf-actions">
-                      <button mat-button color="primary" (click)="openPDF(pdf.url)">View</button>
+                      <button mat-raised-button style="color: rgb(101, 45, 17);" (click)="openPDF(pdf.url)">View</button>
                     </div>
+                      <!-- Send Button -->
+                <!-- <div class="pdf-send-btn"> -->
+                    <button mat-raised-button style="color: black;" (click)="sendSelectedPDFs()">Send</button>
+                  <!-- </div> -->
               
                   </div>
                 </div>
               
-                <!-- Send Button -->
-                <div class="pdf-send-btn">
-                  <button mat-raised-button color="accent" (click)="sendSelectedPDFs()">Send</button>
-                </div>
+              
               </div>
               
               

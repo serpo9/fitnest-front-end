@@ -1,13 +1,13 @@
-::ng-deep .mat-checkbox .mat-checkbox-frame {
+::ng-deep .mdc-checkbox:not(.mdc-checkbox--selected) .mdc-checkbox__background {
+  border-color: black !important;
+}
+::ng-deep .mdc-checkbox__background {
   border-color: black !important;
 }
 
-::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+::ng-deep .mdc-checkbox--selected .mdc-checkbox__background {
   background-color: black !important;
-}
-
-::ng-deep .mat-checkbox-checkmark-path {
-  stroke: white !important;  // white checkmark on black background
+  border-color: black !important;
 }
 
 
