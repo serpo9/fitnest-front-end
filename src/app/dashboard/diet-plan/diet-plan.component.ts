@@ -29,6 +29,7 @@ export class DietPlanComponent {
     // end: null, // Today
   };
   sidenavOpen: boolean = true;
+  pdfFiles: any[] = [];
   displayedColumns: string[] = [
     "select",
     "employeeNo",
@@ -238,10 +239,37 @@ export class DietPlanComponent {
       this.updateTableData(response.data);
     })
   }
-
-  viewdietplans(){
-    this.userService.getplanspdf((response) =>{
-      console.log(response  , "here  i got the response")
-    })
+  viewdietplans() {
+    this.userService.getplanspdf((response) => {
+      if (!response.error && response.data) {
+        this.pdfFiles = response.data.map((file: any) => ({
+          ...file,
+          name: file.name.replace(/^\d+-/, '')  // Removes "1-" or any digits followed by "-"
+        }));
+      }
+      console.log(this.pdfFiles, "Cleaned PDF file names");
+    });
   }
+  
+  openPDF(url: string): void {
+    const fullUrl = `http://localhost:8000${url}`;
+    window.open(fullUrl, '_blank');
+  }
+
+  // sendSelectedPDFs(){
+  //   console.log("hi ")
+  // }
+  sendSelectedPDFs() {
+    const selectedPDFs = this.pdfFiles.filter(pdf => pdf.selected);
+    if (selectedPDFs.length === 0) {
+      alert('Please select at least one PDF to send.');
+      return;
+    }
+  
+    console.log('Selected PDFs to send:', selectedPDFs);
+  
+    // TODO: Replace this with actual send logic (e.g., API call to backend)
+    // this.userService.sendSelectedPDFs(selectedPDFs).subscribe(...)
+  }
+  
 }
