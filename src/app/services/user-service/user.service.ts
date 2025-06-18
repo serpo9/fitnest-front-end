@@ -862,7 +862,7 @@ export class UserService {
       membershipPlansId: membershipPlanId,
       adminId: this.userRegisterData.createdByAdmin
     }
-    
+
     this.apiService.post(this.apiService.uri.REQUEST_SUBSCRIPTION(), obj, (response) => {
       onSuccess(response);
     })
@@ -1265,7 +1265,7 @@ export class UserService {
   }
 
   createdietplan(obj: any, onSuccess: (data: any) => void, p0: (error: any) => void) {
-    console.log(obj , "here is the reponse we got ")
+    console.log(obj, "here is the reponse we got ")
     this.apiService.post(this.apiService.uri.CREATE_DIET_PLAN(), obj, (response) => {
       onSuccess(response);
     })
@@ -1283,7 +1283,6 @@ export class UserService {
     })
   }
 
-  
 
   sendReqForApproval(obj: any, onSuccess: (data: any) => void) {
     let adminId;
@@ -1298,6 +1297,24 @@ export class UserService {
       adminId: adminId
     }
     this.apiService.post(this.apiService.uri.SEND_REQUEST_FOR_APPROVAL(), obj, (response) => {
+      onSuccess(response);
+    })
+  }
+
+  getSubReqListByReceptionist(onSuccess: (data: any) => void) {
+    let adminId = this.userRegisterData.id;
+    this.apiService.get(this.apiService.uri.GET_SUBS_APPROVAL_LIST(adminId), (response) => {
+      onSuccess(response);
+    })
+  }
+
+  approveRequestedSubsByReceptionist(requestedId: any, onSuccess: (data: any) => void) {
+    let adminId = this.userRegisterData.id;
+    const obj = {
+      requestId: requestedId,
+      requestAdminId: adminId
+    }
+    this.apiService.post(this.apiService.uri.APPROVE_REQUESTED_SUB_BY_RECEPTIONIST(), obj, (response) => {
       onSuccess(response);
     })
   }
