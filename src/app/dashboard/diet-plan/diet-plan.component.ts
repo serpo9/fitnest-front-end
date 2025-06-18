@@ -259,17 +259,19 @@ export class DietPlanComponent {
   // sendSelectedPDFs(){
   //   console.log("hi ")
   // }
-  sendSelectedPDFs() {
-    const selectedPDFs = this.pdfFiles.filter(pdf => pdf.selected);
-    if (selectedPDFs.length === 0) {
-      alert('Please select at least one PDF to send.');
-      return;
-    }
+
+
+  sendSelectedPDFs(): void {
+    // Get selected users from the dataSource
+    const selectedUsers = this.dataSource.data.filter((user: any) => user.selected);
   
-    console.log('Selected PDFs to send:', selectedPDFs);
-  
-    // TODO: Replace this with actual send logic (e.g., API call to backend)
-    // this.userService.sendSelectedPDFs(selectedPDFs).subscribe(...)
+    // Get selected PDFs from the pdfFiles array
+    const selectedPDFs = this.pdfFiles.filter((pdf: any) => pdf.selected);
+    // Log both to console
+    console.log('Selected Users:', selectedUsers);
+    console.log('Selected PDFs:', selectedPDFs);
+
   }
+  
   
 }
