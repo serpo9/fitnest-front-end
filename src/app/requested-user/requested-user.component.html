@@ -1,7 +1,7 @@
 <div class="main-container">
 	<div class="content" [class.full-width]="sidenavOpen === false" [class.translucent]="sidenavOpen">
 
-		<div class="mainHistory">ALL SUBSCRIPTION REQUEST</div>
+		<div class="mainHistory">User subscription request</div>
 
 		<div class="table-responsive" [ngClass]="{ 'no-data': dataSource.data.length === 0 }">
 			<div *ngIf="
@@ -10,8 +10,7 @@
 				No schedules found.
 			</div>
 			<!-- Trainer Session Schedule Table -->
-			<table mat-table [dataSource]="dataSource" class="custom-table"
-				*ngIf="(dataSource?.data?.length || 0) > 0">
+			<table mat-table [dataSource]="dataSource" class="custom-table" *ngIf="(dataSource?.data?.length || 0) > 0">
 				>
 				<ng-container matColumnDef="name">
 					<th mat-header-cell *matHeaderCellDef>Name</th>
@@ -46,11 +45,61 @@
 				<tr mat-row *matRowDef="let row; columns: requestColumns"></tr>
 			</table>
 			<div class="table-footer" [style.display]="dataSource.data.length > 0 ? 'flex' : 'none'">
-				<mat-paginator [pageSize]="6" class="custom-paginator"></mat-paginator>
+				<mat-paginator [pageSize]="4" class="custom-paginator"></mat-paginator>
 			</div>
 		</div>
 
-		<!-- <div   class="pdf"> <button mat-raised-button color="primary" (click)="exportPDF()"><mat-icon>download</mat-icon> Pdf</button></div>
-		 -->
+		<div class="mainHistory">Receptionist subscription request</div>
+
+		<div class="table-responsive" [ngClass]="{ 'no-data': receptionistDataSource.data.length === 0 }">
+			<div *ngIf="
+			!receptionistDataSource || receptionistDataSource.data.length === 0
+		  " class="no-data-message">
+				No schedules found.
+			</div>
+			<!-- Trainer Session Schedule Table -->
+			<table mat-table [dataSource]="receptionistDataSource" class="custom-table"
+				*ngIf="(receptionistDataSource?.data?.length || 0) > 0">
+				>
+				<ng-container matColumnDef="name">
+					<th mat-header-cell *matHeaderCellDef>Name</th>
+					<td mat-cell *matCellDef="let element">{{ element.name }}</td>
+				</ng-container>
+				<ng-container matColumnDef="email">
+					<th mat-header-cell *matHeaderCellDef>Email</th>
+					<td mat-cell *matCellDef="let element">{{ element.email }}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="phone">
+					<th mat-header-cell *matHeaderCellDef>Number</th>
+					<td mat-cell *matCellDef="let element">{{ element.phone }}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="plan">
+					<th mat-header-cell *matHeaderCellDef>Plan</th>
+					<td mat-cell *matCellDef="let element">{{ element.plan }}</td>
+				</ng-container>
+				<ng-container matColumnDef="amountPaid">
+					<th mat-header-cell *matHeaderCellDef>Paid Amount</th>
+					<td mat-cell *matCellDef="let element">{{ element.amountPaid }}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="buyPlan">
+					<th mat-header-cell *matHeaderCellDef>Plan</th>
+					<td mat-cell *matCellDef="let element">
+						<button mat-raised-button color=#fff style="color: #000; background-color: white;"
+							(click)="approve(element.id)" [disabled]="this.userType === 'Receptionist'">Approve
+						</button>
+					</td>
+				</ng-container>
+
+
+				<tr mat-header-row *matHeaderRowDef="receptionistColumns"></tr>
+				<tr mat-row *matRowDef="let row; columns: receptionistColumns"></tr>
+			</table>
+			<div class="table-footer" [style.display]="receptionistDataSource.data.length > 0 ? 'flex' : 'none'">
+				<mat-paginator #receptionistPaginator [pageSize]="4" class="custom-paginator"></mat-paginator>
+			</div>
+		</div>
 	</div>
 </div>

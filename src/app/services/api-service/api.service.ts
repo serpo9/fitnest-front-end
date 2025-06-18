@@ -231,6 +231,11 @@ export class ApiService {
     GET_PDF_FILES: () =>
       `${this.BASE_URL}${this.CLINT_API_URL}get-trainer-pdfs/1`,
     
+    GET_SUBS_APPROVAL_LIST: (adminId: any) =>
+      `${this.BASE_URL}${this.CLINT_API_URL}get-subs-approval-list/${adminId}`,
+    APPROVE_REQUESTED_SUB_BY_RECEPTIONIST: () =>
+      `${this.BASE_URL}${this.CLINT_API_URL}approve-subs-approval-list`,
+    
     
   }
 
