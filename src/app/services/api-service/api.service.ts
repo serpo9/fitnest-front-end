@@ -228,13 +228,19 @@ export class ApiService {
       `${this.BASE_URL}${this.CLINT_API_URL}send-request-for-approval`,
     UPLOADDIETPLAN: (type: string = 'dietplan', trainerId = 1) =>
       `${this.BASE_URL}${this.CLINT_API_URL}upload-file?type=${type}&trainerId=${trainerId}`,
-    GET_PDF_FILES: () =>
-      `${this.BASE_URL}${this.CLINT_API_URL}get-trainer-pdfs/1`,
+    GET_PDF_FILES: (id : any) =>
+      `${this.BASE_URL}${this.CLINT_API_URL}get-trainer-pdfs/${id}`,
     
     GET_SUBS_APPROVAL_LIST: (adminId: any) =>
       `${this.BASE_URL}${this.CLINT_API_URL}get-subs-approval-list/${adminId}`,
     APPROVE_REQUESTED_SUB_BY_RECEPTIONIST: () =>
       `${this.BASE_URL}${this.CLINT_API_URL}approve-subs-approval-list`,
+    GET_PLAN_FOR_USERS: (id: any) =>
+      `${this.BASE_URL}${this.CLINT_API_URL}get-plan-for-users/${id}`,
+    ASSIGN_PLAN_TO_USERS: () =>
+      `${this.BASE_URL}${this.CLINT_API_URL}assign-plan-to-users`,
+    
+    
     
     
   }

@@ -50,6 +50,7 @@ import { ReceptionHomeComponent } from './dashboard/reception-home/reception-hom
 import { AddUserByReceptionistComponent } from './dashboard/add-user-by-receptionist/add-user-by-receptionist.component';
 import { ReceivedAmountsComponent } from './pages/received-amounts/received-amounts.component';
 import { CreatePlanComponent } from './dashboard/create-plan/create-plan.component';
+import { AssignedUsersComponent } from './pages/assigned-users/assigned-users.component';
 
 const routes: Routes = [
   { path: ROUTES.WELCOME, component: SignupComponent, canActivate: [AuthGuard] },
@@ -99,6 +100,7 @@ const routes: Routes = [
   { path: ROUTES.ADDUSERBYRECEPTIONIST, component: AddUserByReceptionistComponent, canActivate: [AuthGuard] },
   { path: ROUTES.RECEIVEDAMOUNTHISTORY, component: ReceivedAmountsComponent, canActivate: [AuthGuard] },
   { path: ROUTES.CREATEPLAN, component: CreatePlanComponent, canActivate: [AuthGuard] },
+  { path: ROUTES.ASSIGNEDUSERS, component: AssignedUsersComponent, canActivate: [AuthGuard] },
 
 
   { path: "**", component: HomeComponent }

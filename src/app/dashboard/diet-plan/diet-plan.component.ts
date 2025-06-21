@@ -6,11 +6,15 @@ import { DialogService } from "src/app/services/dialog-service/dialog.service";
 import { SnackBarService } from "src/app/services/snack-bar/snack-bar.service";
 
 export interface UserInfo {
+  id: any;
+  createdByAdmin: any;
+  username: any;
   employeeNo: string;
   select: string;
   name: string;
   email: string;
   phoneno: string;
+  
 }
 
 @Component({
@@ -30,6 +34,8 @@ export class DietPlanComponent {
   };
   sidenavOpen: boolean = true;
   pdfFiles: any[] = [];
+  userTypeFilter = 'active'
+
   displayedColumns: string[] = [
     "select",
     "employeeNo",
@@ -51,6 +57,7 @@ export class DietPlanComponent {
   foodName: any;
   foodQty: any;
   notes: any;
+  userRegisterData: any;
 
   constructor(
     private userService: UserService,
@@ -64,6 +71,7 @@ export class DietPlanComponent {
     // Set the paginator after view initialization
     this.dataSource.paginator = this.paginator;
     this.viewdietplans()
+    this.getSubscribedUsers
   }
 
   ngAfterViewInit() {
@@ -261,17 +269,58 @@ export class DietPlanComponent {
   // }
 
 
-  sendSelectedPDFs(): void {
-    // Get selected users from the dataSource
-    const selectedUsers = this.dataSource.data.filter((user: any) => user.selected);
+  // sendSelectedPDFs(): void {
+  //   // Get selected users from the dataSource
+  //   const selectedUsers = this.dataSource.data.filter((user: any) => user.selected);
   
-    // Get selected PDFs from the pdfFiles array
-    const selectedPDFs = this.pdfFiles.filter((pdf: any) => pdf.selected);
-    // Log both to console
-    console.log('Selected Users:', selectedUsers);
-    console.log('Selected PDFs:', selectedPDFs);
+  //   // Get selected PDFs from the pdfFiles array
+  //   const selectedPDFs = this.pdfFiles.filter((pdf: any) => pdf.selected);
+  //   // Log both to console
+  //   console.log('Selected Users:', selectedUsers);
+  //   console.log('Selected PDFs:', selectedPDFs);
 
+  // }
+  sendSelectedPDFs(): void {
+    const selectedUsers = this.dataSource.data.filter((user: any) => user.selected);
+    console.log(selectedUsers ,"here i got response ")
+    const selectedPDFs = this.pdfFiles.filter((pdf: any) => pdf.selected);
+  
+    // Just send first PDF and first user (for now)
+    if (selectedUsers.length === 0 || selectedPDFs.length === 0) {
+      //  alert('Please select a user and PDF');
+       return  this.dialogService.open('Oops!', `Please select a user and PDF`);
+    }
+    
+    const selectedUser = selectedUsers[0];
+    const selectedPDF = selectedPDFs[0];
+    const formattedPdfName = selectedPDF.name.replace(/\s+/g, '-');
+  
+    this.userService.assignPlanToUsers({
+      trainerId: selectedUser.id,
+      adminId: selectedUser.createdByAdmin,
+      username: selectedUser.name,
+      userid: selectedUser.id,
+      pdfname: formattedPdfName
+    }, (response: any) => {
+      if(!response.success){
+        this.dialogService.open('Oops!', response.message);
+      }
+      else{
+        this.dialogService.open('Yeah!', response.message);
+      }
+    });
   }
+  
+  getSubscribedUsers() {
+    const formattedDateRange = {
+      dateFrom: this.formatDate(this.dateRange.start),
+      dateTo: this.formatDate(this.dateRange.end),
+    };
+    this.userService.viewSubsUsers(this.searchTerm, formattedDateRange.dateFrom, formattedDateRange.dateTo,this.userTypeFilter, (response) => {
+      this.updateTableData(response.data)
+    })
+  }
+  
   
   
 }

@@ -13,16 +13,23 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 export class CreatePlanComponent {
   sidenavOpen: boolean = true;
 
-  purposeOptions = ['Weight Loss', 'Muscle Gain', 'Maintenance', 'General Health'];
-  workoutPurposeOptions = [
-    'Strength Training',
-    'Cardio Endurance',
-    'Flexibility & Mobility',
-    'Fat Burn',
-    'Bodybuilding',
-    'Rehabilitation',
-    'General Fitness'
+  purposeOptions = [
+    { label: 'Weight Loss', value: 'Weight-Loss' },
+    { label: 'Muscle Gain', value: 'Muscle-Gain' },
+    { label: 'Maintenance', value: 'Maintenance' },
+    { label: 'General Health', value: 'General-Health' }
   ];
+  
+  workoutPurposeOptions = [
+    { label: 'Strength Training', value: 'Strength-Training' },
+    { label: 'Cardio Endurance', value: 'Cardio-Endurance' },
+    { label: 'Flexibility & Mobility', value: 'Flexibility-Mobility' },
+    { label: 'Fat Burn', value: 'Fat-Burn' },
+    { label: 'Bodybuilding', value: 'Bodybuilding' },
+    { label: 'Rehabilitation', value: 'Rehabilitation' },
+    { label: 'General Fitness', value: 'General-Fitness' }
+  ];
+  
   workoutPurpose: string = '';
   mealTime: string = '';
   foodName: string = '';
@@ -52,16 +59,25 @@ export class CreatePlanComponent {
   // Method to capture the selected file from the input
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
-    const trainerId = this.userService.userRegisterData.id;
-     const planpurpose = this.purpose
-    // this.purpose = 'weightloss'; // <-- set or bind dynamically based on your form
+    const userData = this.userService.userRegisterData;
+    const userType = userData?.userType;
+    const planPurpose = this.activeTab ? this.purpose : this.workoutPurpose; // Diet or Workout
+    
+    let trainerId: number;
+    if (userType === 'Trainer') {
+      trainerId = userData?.createdByAdmin;
+    } else if (userType === 'Admin') {
+      trainerId = userData?.id;
+    } else {
+      alert('Unknown user type. Cannot assign trainer ID.');
+      return;
+    }
   
     if (file && file.type === 'application/pdf') {
-      const customFileName = `${trainerId}-${planpurpose}.pdf`;
+      const typePrefix = this.activeTab ? 'Diet' : 'Workout'; // to distinguish
+      const customFileName = `${trainerId}-${typePrefix}-${planPurpose}.pdf`;
   
-      // Create a new file with the custom name
       const renamedFile = new File([file], customFileName, { type: file.type });
-  
       this.selectedFile = renamedFile;
       console.log('Renamed file:', this.selectedFile.name);
     } else {
@@ -69,6 +85,8 @@ export class CreatePlanComponent {
       event.target.value = null;
     }
   }
+  
+  
   
   uploadResume(): void {
     if (!this.selectedFile) {
@@ -150,9 +168,14 @@ export class CreatePlanComponent {
 
   
 
-resetForm(): void {
-  this.purpose = this.purposeOptions[0];
-  this.selectedFile = null;
-}
-
+  resetForm(): void {
+    if (this.activeTab) {
+      this.purpose = this.purposeOptions[0].value;
+    } else {
+      this.workoutPurpose = this.workoutPurposeOptions[0].value;
+    }
+    this.selectedFile = null;
+  }
+  
+  
 }

@@ -179,13 +179,17 @@
       </button>
     
       <div class="dropdown" *ngIf="planDropdownOpen">
-        <button mat-button routerLink="/create-diet-plan" class="nav-link" (click)="getinfo('create-diet-plan')">
+        <button mat-button routerLink="/diet-plan" class="nav-link" (click)="getinfo('diet-plan')">
           <mat-icon class="dropdown-icon">restaurant</mat-icon>
-          <span *ngIf="sidenavOpen">Diet Plan</span>
+          <span *ngIf="sidenavOpen">Assign Plan</span>
         </button>
-        <button mat-button routerLink="/create-workout-plan" class="nav-link" (click)="getinfo('create-workout-plan')">
+        <button mat-button routerLink="/create-plan" class="nav-link" (click)="getinfo('create-plan')">
           <mat-icon class="dropdown-icon">fitness_center</mat-icon>
-          <span *ngIf="sidenavOpen">Workout Plan</span>
+          <span *ngIf="sidenavOpen">Create Plan</span>
+        </button>
+        <button mat-button routerLink="/assigned-users" class="nav-link" (click)="getinfo('assigned-users')">
+          <mat-icon class="dropdown-icon">restaurant</mat-icon>
+          <span *ngIf="sidenavOpen">Assigned User</span>
         </button>
       </div>
     </div>
@@ -239,11 +243,15 @@
   <div class="dropdown" *ngIf="trainerPlansDropdownOpen">
     <button mat-button routerLink="/diet-plan" class="nav-link" (click)="getinfo('diet-plan')">
       <mat-icon class="dropdown-icon">fastfood</mat-icon>
-      <span *ngIf="sidenavOpen">Diet Plan</span>
+      <span *ngIf="sidenavOpen">Assign Plan</span>
     </button>
-    <button mat-button routerLink="/workout-plan" class="nav-link" (click)="getinfo('workout-plan')">
+    <button mat-button routerLink="/workout-plan" class="nav-link" (click)="getinfo('create-plan')">
       <mat-icon class="dropdown-icon">fitness_center</mat-icon>
-      <span *ngIf="sidenavOpen">Workout Plan</span>
+      <span *ngIf="sidenavOpen">Create Plan</span>
+    </button>
+    <button mat-button routerLink="/assigned-users" class="nav-link" (click)="getinfo('assigned-users')">
+      <mat-icon class="dropdown-icon">restaurant</mat-icon>
+      <span *ngIf="sidenavOpen">Assigned User</span>
     </button>
   </div>
 </div>

@@ -49,7 +49,8 @@ export const ROUTES = {
   RECEPTIONHOME: 'reception-home',
   ADDUSERBYRECEPTIONIST: 'add-user-by-receptionist',
   RECEIVEDAMOUNTHISTORY: 'received-amount-history',
-  CREATEPLAN : 'create-plan'
+  CREATEPLAN : 'create-plan',
+  ASSIGNEDUSERS : 'assigned-users'
 };
 
 // Routes that shouldn't be accessed after login.
@@ -102,7 +103,8 @@ export const SECURE_ROUTES_FOR_ADMIN = [
   ROUTES.ADDSTAFF,
   ROUTES.DIETPLAN,
   ROUTES.RECEIVEDAMOUNTHISTORY,
-  ROUTES.CREATEPLAN
+  ROUTES.CREATEPLAN,
+  ROUTES.ASSIGNEDUSERS
 ];
 
 export const SECURE_ROUTES_FOR_SUPER_ADMIN = [
@@ -116,7 +118,8 @@ export const SECURE_ROUTES_FOR_TRAINER = [
   ROUTES.MAIN_PROFILE,
   ROUTES.ALLTRAINERS,
   ROUTES.DIETPLAN,
-  ROUTES.CREATEPLAN
+  ROUTES.CREATEPLAN,
+  ROUTES.ASSIGNEDUSERS
 
 ];
 
