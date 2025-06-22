@@ -17,27 +17,28 @@
   
             <!-- Purpose Select -->
             <div class="form-group">
-              <label for="purpose">Purpose:</label>
+              <!-- <label for="purpose">Purpose:</label> -->
               <mat-form-field appearance="fill" style="width: 100%;">
                 <mat-label>Select Purpose</mat-label>
                 <mat-select [(ngModel)]="purpose" name="purpose">
-                  <mat-option *ngFor="let p of purposeOptions" [value]="p">
-                    {{ p }}
-                  </mat-option>
+                    <mat-option *ngFor="let p of purposeOptions" [value]="p.value">
+                        {{ p.label }}
+                      </mat-option>
+                      
                 </mat-select>
               </mat-form-field>
             </div>
   
             <!-- PDF Upload -->
-            <div class="upload-container">
-              <label for="pdf-upload"><strong>Upload Diet PDF:</strong></label>
-              <input id="pdf-upload" type="file" (change)="onFileSelected($event)" accept=".pdf" />
-              
-            
-            </div>
+            <div class="custom-upload ">
+                <label for="pdf-upload" class="upload-btn">
+                  <mat-icon>upload</mat-icon> Upload PDF Plan
+                </label>
+                <input id="pdf-upload" type="file" (change)="onFileSelected($event)" accept=".pdf" />
+                <span *ngIf="selectedFile" class="file-name">{{ selectedFile.name }}</span>
+              </div>
           </div>
           <div class="upload-container" >
-
               <button class="custom-btn" style="margin-inline: auto;" (click)="uploadResume()" [disabled]="!selectedFile">
                 Upload PDF
               </button>
@@ -46,42 +47,43 @@
           <!-- Submit Button -->
           <!-- <button class="custom-btn submit-btn" (click)="createDiet()">Submit</button> -->
         </div>
-        <div class="plans-container" *ngIf="!activeTab">
-            <div class="mainHistory">Diet Entry</div>
-    
-            <div class="diet-input-container">
-    
-                <!-- Workout Purpose Select -->
-            <div class="form-group">
-                <label for="workoutPurpose">Workout Goal:</label>
-                <mat-form-field appearance="fill" style="width: 100%;">
-                <mat-label>Select Workout Goal</mat-label>
-                <mat-select [(ngModel)]="workoutPurpose" name="workoutPurpose">
-                    <mat-option *ngFor="let w of workoutPurposeOptions" [value]="w">
-                    {{ w }}
-                    </mat-option>
-                </mat-select>
-                </mat-form-field>
-            </div>
+       <!-- Workout Plan Section -->
+<div class="plans-container" *ngIf="!activeTab">
+    <div class="mainHistory">Workout Plan Entry</div>
   
-              <!-- PDF Upload -->
-              <div class="upload-container">
-                <label for="pdf-upload"><strong>Upload Workout PDF:</strong></label>
-                <input id="pdf-upload" type="file" (change)="onFileSelected($event)" accept=".pdf" />
-                
-              
-              </div>
-            </div>
-            <div class="upload-container" >
+    <div class="diet-input-container">
+      <div class="form-group">
+        <!-- <label for="workoutPurpose">Workout Goal:</label> -->
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Select Workout Goal</mat-label>
+          <mat-select [(ngModel)]="workoutPurpose" name="workoutPurpose">
+            <mat-option *ngFor="let w of workoutPurposeOptions" [value]="w.value">
+              {{ w.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
   
-                <button class="custom-btn" style="margin-inline: auto;" (click)="uploadResume()" [disabled]="!selectedFile">
-                  Upload PDF
-                </button>
-            </div>
-    
-            <!-- Submit Button -->
-            <!-- <button class="custom-btn submit-btn" (click)="createDiet()">Submit</button> -->
-          </div>
+      <!-- Upload button/input is same as diet, since file name is adjusted -->
+      <div class="custom-upload ">
+        <label for="pdf-upload" class="upload-btn">
+          <mat-icon>upload</mat-icon> Upload PDF Plan
+        </label>
+        <input id="pdf-upload" type="file" (change)="onFileSelected($event)" accept=".pdf" />
+        <span *ngIf="selectedFile" class="file-name">{{ selectedFile.name }}</span>
+      </div>
+      
+      <!-- <input type="file" id="pdfFileInput" (change)="onFileSelected($event)" accept=".pdf" /> -->
+    </div>
+    <div class="upload-container" >
+       
+      <button class="custom-btn" style="margin-inline: auto;" (click)="uploadResume()" [disabled]="!selectedFile">
+        Upload PDF
+      </button>
+      <!-- <button class="custom-btn"  mat-raised-button color="primary" (click)="uploadResume()">Upload PDF</button> -->
+    </div>
+  </div>
+  
       </div>
     </div>
   </div>

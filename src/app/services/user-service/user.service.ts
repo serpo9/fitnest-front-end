@@ -628,9 +628,13 @@ export class UserService {
     })
   }
 
-  getGymName(onSuccess: (data: any) => void) {
+  getGymName(onSuccess: (data: any) => void , userIdforadmin?:string) {
 
-    const userId = this.userRegisterData?.createdByAdmin
+    let userId = this.userRegisterData?.createdByAdmin
+    if(this.userRegisterData.userType !== "Customer" && userIdforadmin) {
+      userId =  this.userRegisterData?.id;
+      console.log(userId , "here i got customeruserid")
+  }
 
     this.apiService.get(
       this.apiService.uri.GET_GYMNAME(userId),
@@ -923,8 +927,12 @@ export class UserService {
     })
   }
 
-  viewPurchasedPlan(onSuccess: (data: any) => void) { // used for candidate
-    const userId = this.userRegisterData.id;
+  viewPurchasedPlan(onSuccess: (data: any) => void ,userIdforadmin?:string) { // used for candidate
+    let userId = this.userRegisterData.id;
+    if(this.userRegisterData.userType !== "Customer" && userIdforadmin) {
+      userId = userIdforadmin;
+  }
+
     this.apiService.get(this.apiService.uri.VIEW_PURCHASED_PLANS(userId), (response) => {
       onSuccess(response);
     })
@@ -1165,21 +1173,29 @@ export class UserService {
     })
   }
 
-  postTrackUsers(obj: any, onSuccess: (data: any) => void) {
+  postTrackUsers(obj: any, onSuccess: (data: any) => void , userIdforadmin?: string) {
+   
     this.apiService.post(this.apiService.uri.POST_TRACK(), obj, (response) => {
       onSuccess(response);
     })
   }
 
-  fetchTrackUsers(userId: any, onSuccess: (data: any) => void) {
+  fetchTrackUsers(userId: any, onSuccess: (data: any) => void , userIdforadmin?: string) {
+    if(this.userRegisterData.userType !== "Customer" && userIdforadmin) {
+      userId = userIdforadmin;
+  }
     this.apiService.get(this.apiService.uri.FETCH_TRACK_USERS(userId), (response) => {
       onSuccess(response);
     })
   }
 
-  getUsersAttendances(onSuccess: (data: any) => void) {
-    const userId = this.userRegisterData.id;
+  getUsersAttendances(onSuccess: (data: any) => void , userIdforadmin?: string) {
+    console.log(userIdforadmin , "here user id for admin we got ")
+    let userId = this.userRegisterData.id;
     const adminId = this.userRegisterData?.createdByAdmin
+    if(this.userRegisterData.userType !== "Customer" && userIdforadmin) {
+        userId = userIdforadmin;
+    }
     this.apiService.get(this.apiService.uri.GET_USER_ATTENDANCES(adminId, userId), (response) => {
       onSuccess(response);
     })
@@ -1257,8 +1273,14 @@ export class UserService {
     })
   }
 
-  getDietPlan(onSuccess: (data: any) => void) {
-    const userId = this.userRegisterData.id;
+  getDietPlan(onSuccess: (data: any) => void , userIdforadmin?:string) {
+   
+    let userId = this.userRegisterData.id;
+    if(this.userRegisterData.userType !== "Customer" && userIdforadmin)
+      {
+      userId = userIdforadmin;
+
+    }
     this.apiService.get(this.apiService.uri.GET_DIET_PLAN(userId), (response) => {
       onSuccess(response);
     })
@@ -1278,10 +1300,23 @@ export class UserService {
   }
 
   getplanspdf(onSuccess: (data: any) => void) {
-    this.apiService.get(this.apiService.uri.GET_PDF_FILES(), (response) => {
+    const user = this.userRegisterData;
+    let id: number;
+  
+    if (user.userType === 'Admin') {
+      id = user.id;
+    } else if (user.userType === 'Trainer') {
+      id = user.createdByAdmin;
+    } else {
+      console.error('Unknown userType');
+      return;
+    }
+  
+    this.apiService.get(this.apiService.uri.GET_PDF_FILES(id), (response) => {
       onSuccess(response);
-    })
+    });
   }
+  
 
 
   sendReqForApproval(obj: any, onSuccess: (data: any) => void) {
@@ -1318,4 +1353,31 @@ export class UserService {
       onSuccess(response);
     })
   }
+
+
+  assignPlanToUsers(payload: any, onSuccess: (data: any) => void) {
+    this.apiService.post(this.apiService.uri.ASSIGN_PLAN_TO_USERS(), payload, (response) => {
+      onSuccess(response);
+    });
+  }
+
+  // getPlanForUsers(getdata: any, onSuccess: (data: any) => void): void {
+  //   this.apiService.get(this.apiService.uri.GET_PLAN_FOR_USERS(), getdata, (response) => {
+  //     onSuccess(response);
+  //   });
+  // }
+
+  getPlanForUsers(onSuccess: (data: any) => void ,userId?: string) {
+    let useremailID = this.userRegisterData.id;
+    if(this.userRegisterData.userType !== "Customer" && userId)
+      {
+      useremailID = userId;
+
+    }
+    this.apiService.get(this.apiService.uri.GET_PLAN_FOR_USERS(useremailID), (response) => {
+      onSuccess(response);
+    })
+  }
+  
+  
 }

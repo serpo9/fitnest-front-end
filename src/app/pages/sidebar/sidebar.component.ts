@@ -19,6 +19,7 @@ export class SidebarComponent {
   deviceDropdownOpen = false;
   usersDropdownOpen = false;
   attendanceDropdownOpen = false;
+  planDropdownOpen = false;
   userType: any;
   trainerPlansDropdownOpen: boolean = false;
 
@@ -35,7 +36,10 @@ export class SidebarComponent {
     this.userType = this.userService.userDataObj?.userType
 
   }
-  
+
+  togglePlanDropdown() {
+    this.planDropdownOpen = !this.planDropdownOpen;
+  }
 
 toggleTrainerPlansDropdown() {
   this.trainerPlansDropdownOpen = !this.trainerPlansDropdownOpen;

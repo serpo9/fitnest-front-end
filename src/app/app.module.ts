@@ -107,6 +107,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { AttendanceDialogComponent } from './utils/attendance-dialog/attendance-dialog.component';
 import { SalaryDataDialogComponent } from './utils/salary-data-dialog/salary-data-dialog.component';
 import { CreatePlanComponent } from './dashboard/create-plan/create-plan.component';
+import { AssignedUsersComponent } from './pages/assigned-users/assigned-users.component';
+import { ViewUserProfileComponent } from './dashboard/view-user-profile/view-user-profile.component';
 
 @NgModule({
   declarations: [
@@ -188,6 +190,8 @@ import { CreatePlanComponent } from './dashboard/create-plan/create-plan.compone
     AttendanceDialogComponent,
     SalaryDataDialogComponent,
     CreatePlanComponent,
+    AssignedUsersComponent,
+    ViewUserProfileComponent,
 
   ],
   imports: [

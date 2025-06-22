@@ -33,12 +33,12 @@ export interface TrackProgress {
 }
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  selector: 'app-assigned-users',
+  templateUrl: './assigned-users.component.html',
+  styleUrls: ['./assigned-users.component.scss']
 })
-export class ProfileComponent implements OnInit {
-  UserName: any;
+export class AssignedUsersComponent {
+ UserName: any;
   emailId: any;
   phone: any;
   userId: any;
@@ -79,6 +79,7 @@ export class ProfileComponent implements OnInit {
   dialogOpen: boolean = false;
   bmiForm : any;
 
+  userDetails: any;
   // heightInFt: any  ;
   // heightInInch: any; 
   // weight: any ;
@@ -94,8 +95,8 @@ export class ProfileComponent implements OnInit {
       private router: Router,
       private fb : FormBuilder
     ) {
-    this.getAttendances();
-    this.getDietPlan();
+    
+  
     
       this.bmiForm = this.fb.group({
         heightInFt : ['',Validators.required],
@@ -105,9 +106,26 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // here we got that users detials
+
+    this.userDetails = history.state['userData'];
+    console.log(this.userDetails , "here i got state")
+    this.username.name = this.userDetails.name;
+    this.username.email = this.userDetails.email;
+    this.username.id = this.userDetails.id;
+    this.username.phone = this.userDetails.number;
+
+
+    if (!this.userDetails) {
+      console.log('No user data found!');
+      // this.router.navigate(['/your-fallback-route']);
+    }
+    this.getAttendances();
+    this.getDietPlan();
+
     this.userService.getPlanForUsers((response) => {
       console.log(response, "here I got pdf data");
-      const userData = this.userService.userRegisterData;
+      const userData = this.userDetails; // From passed state
     
       if (response.success && response.data.length > 0) {
         this.dietPlans = response.data.map((item: any) => ({
@@ -116,9 +134,10 @@ export class ProfileComponent implements OnInit {
           url: `http://localhost:8000/fitnest/.pdf/${userData.createdByAdmin}-${encodeURIComponent(item.pdfname)}`
         }));
       } else {
-        this.dietPlans = []; // No data
+        this.dietPlans = [];
       }
-    });
+    }, this.userDetails.id); // 👈 Pass user ID dynamically here
+    
     
 
     this.dataSource.paginator = this.paginatorOne;
@@ -126,20 +145,21 @@ export class ProfileComponent implements OnInit {
     this.dataSourceTwo.paginator = this.paginatorTwo;
     this.dataSourceThree.paginator = this.paginatorThree;
 
-    this.logindata = this.userService.userDataObj;
-    this.username.name = this.logindata.name;
-    this.username.email = this.logindata.email;
-    this.username.id = this.logindata.id;
-    this.username.phone = this.logindata.phoneNumber;
+    // this.logindata = this.userService.userDataObj;
+    // this.username.name = this.logindata.name;
+    // this.username.email = this.logindata.email;
+    // this.username.id = this.logindata.id;
+    // this.username.phone = this.logindata.phoneNumber;
 
     this.userService.getGymName((response) => {
       this.gymName = response.gymName;
-    });
+    },this.userDetails.id);
 
-    this.userType = this.logindata.userType;
+    this.userType = this.userDetails.type;
 
     if (this.userType === "Customer") {
-      this.userService.getProfileDetails(this.logindata.id, (response) => {
+      console.log("here is the admin details")
+      this.userService.getProfileDetails(this.userDetails.id, (response) => {
         this.moreCustomerInfo = response.data;
 
         if (response.data.length === 0) {
@@ -281,7 +301,7 @@ export class ProfileComponent implements OnInit {
   viewPurchasedPlan() {
     this.userService.viewPurchasedPlan((response) => {
       this.plansData = response.data
-    })
+    },this.userDetails.id)
   }
 
   viewPlan() {
@@ -302,8 +322,9 @@ export class ProfileComponent implements OnInit {
       if (response.success) {
         this.updateTableData(response.data);
       }
-    })
+    }, this.userDetails.id); // 👈 pass target user's ID
   }
+  
 
 
   updateTableData(data: UserInfo[]): void {
@@ -315,7 +336,7 @@ export class ProfileComponent implements OnInit {
       if (response.success) {
         this.dataSourceTwo.data = response.data;
       }
-    })
+    }, this.userDetails.id)
   }
 
   getUserProfile() {
@@ -326,7 +347,7 @@ export class ProfileComponent implements OnInit {
 
         this.dataSourceThree.data = response.data;
       }
-    })
+    }, this.userDetails.id)
   }
 
   selectedDate: Date | null = null;
@@ -395,7 +416,7 @@ submitWeight() {
         {month: monthStr, weight: obj.weight.toString()}];
 
       }
-    })
+    } , this.userDetails.id)
     this.newWeight = null; 
   } 
 }
@@ -422,3 +443,8 @@ getIndividualAttendance(element: any) {
 }
 
 }
+  
+
+  
+  
+  

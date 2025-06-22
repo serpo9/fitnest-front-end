@@ -273,21 +273,8 @@ export class JoinScheduleComponent implements OnInit {
       })
     })
   }
-
-  viewUserProfile(userId: any) {
-
-    this.userService.getUserProfile(userId, (response) => {
-      if (!response.success) {
-        return this.dialogService.open('Oops!', `${response.message}`)
-      }
-
-      const mainData = response.data;
-
-      this.matdialog.open(ViewUserProfileDialogComponent, {
-        width: '500px',
-        data: mainData
-      })
-    })
+  viewUserProfile(user: any) {
+    this.router.navigate(['assigned-users'], { state: { userData: user } });
   }
 
   exportToExcel(): void {
