@@ -193,7 +193,27 @@
         </button>
       </div>
     </div>
-    
+
+    <div class="dropdown-container" *ngIf="userType === 'Admin' || userType === 'Receptionist'">
+      <button class="nav-link utility-btn" mat-button matTooltip="Attendance" (click)="toggleAttendanceDropdown()">
+        <mat-icon>widgets</mat-icon>
+        <span *ngIf="sidenavOpen" class="utility-label">Attendance</span>
+        <span class="arrow-container">
+          <mat-icon>{{ attendanceDropdownOpen ? 'expand_less' : 'expand_more' }}</mat-icon>
+        </span>
+      </button>
+
+      <div class="dropdown" *ngIf="attendanceDropdownOpen">
+        <button mat-button routerLink="/users-attendence" class="nav-link" (click)="getinfo('users-attendence')">
+          <mat-icon class="dropdown-icon">panorama_fish_eye</mat-icon>
+          <span *ngIf="sidenavOpen">Users</span>
+        </button>
+        <button mat-button routerLink="/trainer-attendence" class="nav-link" (click)="getinfo('trainer-attendence')">
+          <mat-icon class="dropdown-icon">panorama_fish_eye</mat-icon>
+          <span *ngIf="sidenavOpen">Staff</span>
+        </button>
+      </div>
+    </div>
 
     <button (click)="getinfo('message')" [class.active]="activelink==='/message'" routerLinkActive="list-item-active"
       mat-button routerLink="/message" class="nav-link" matTooltip="Message" *ngIf="userType === 'Admin' || userType === 'Receptionist'">
