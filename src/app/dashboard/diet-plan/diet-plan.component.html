@@ -3,12 +3,12 @@
     <div class="content" [class.full-width]="sidenavOpen === false" [class.translucent]="sidenavOpen">
         <div class="content-container">
 
-            <div class="nav-tab-container">
+            <!-- <div class="nav-tab-container">
                 <button class="custom-btn" [ngClass]="{'active-btn': activeTab}"
                     (click)="activeForm('createDiet')">Diet Plan</button>
                 <button class="custom-btn" [ngClass]="{'active-btn': !activeTab}"
                     (click)="activeForm('salaryTillNow')">Workout Plan</button>
-            </div>
+            </div> -->
 
             <div class="mainHistory">All Users</div>
 
@@ -32,7 +32,7 @@
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-date-range-picker #picker></mat-date-range-picker>
                 </mat-form-field>
-                <button mat-raised-button class="buttoncolor" (click)="loadUsers()">Search</button>
+                <button mat-raised-button class="buttoncolor" (click)="applyFilter()">Search</button>
             </div>
 
             <div class="table-responsive" [ngClass]="{'no-data': dataSource.data.length === 0}">
@@ -134,7 +134,8 @@
                 <div class="pdf-list">
                   <div *ngFor="let pdf of pdfFiles" class="pdf-card">
                     <div class="pdf-checkbox">
-                      <mat-checkbox [(ngModel)]="pdf.selected"></mat-checkbox>
+                        <mat-checkbox [checked]="pdf.selected" (change)="selectSinglePDF(pdf)"></mat-checkbox>
+                      <!-- <mat-checkbox [(ngModel)]="pdf.selected"></mat-checkbox> -->
                     </div>
                     <div class="pdf-info">
                       <mat-icon>picture_as_pdf</mat-icon>
@@ -160,61 +161,6 @@
               </div>
               
 
-            <!-- <div class="plans-container" *ngIf="activeTab">
-                <div class="mainHistory">Diet Entry</div>
-
-                <div class="diet-input-container">
-                    <div class="form-group">
-                        <label for="mealType">Meal Type:</label>
-                        <mat-form-field appearance="fill">
-                            <mat-label>Meal</mat-label>
-                            <mat-select [(ngModel)]="mealType" name="mealType">
-                                <mat-option *ngFor="let type of mealTypeOptions" [value]="type">
-                                    {{ type | titlecase }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="plan">Meal Time:</label>
-                        <mat-form-field>
-                            <mat-label>Time</mat-label>
-                            <input matInput [(ngModel)]="mealTime" type="time">
-                        </mat-form-field>
-                    </div>
-                </div>
-
-                <div class="diet-input-container">
-                    <div class="form-group">
-                        <label for="plan">Food name:</label>
-                        <mat-form-field>
-                            <mat-label>Food</mat-label>
-                            <input matInput [(ngModel)]="foodName" type="text">
-                        </mat-form-field>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="plan">Food Qty:</label>
-                        <mat-form-field>
-                            <mat-label>Qty</mat-label>
-                            <input matInput [(ngModel)]="foodQty" type="text">
-                        </mat-form-field>
-                    </div>
-                </div>
-
-                <div class="diet-input-container">
-                    <div class="form-group">
-                        <label for="plan">Notes:</label>
-                        <mat-form-field class="example-full-width">
-                            <mat-label>Leave a note</mat-label>
-                            <textarea matInput [(ngModel)]="notes"></textarea>
-                        </mat-form-field>
-                    </div>
-                </div>
-
-                <button class="custom-btn" (click)="createDiet()">Submit</button>
-            </div> -->
         </div>
     </div>
 </div>
