@@ -57,8 +57,9 @@ export class ActiveUsersComponent implements OnInit {
   ];
 
   dateRange = {
-    start: new Date(new Date().setDate(new Date().getDate())), 
-    end: new Date(new Date().setDate(new Date().getDate())), 
+    // start: new Date(new Date().setDate(new Date().getDate())), 
+    start: null, 
+    end: null, 
   };
 
   dataSource = new MatTableDataSource<UserInfo>([]);
@@ -152,6 +153,7 @@ export class ActiveUsersComponent implements OnInit {
   }
 
   activeOrExpiredUser(userType: any) {
+    
     const formattedDateRange = {
       dateFrom: this.formatDate(this.dateRange.start),
       dateTo: this.formatDate(this.dateRange.end),
@@ -203,9 +205,10 @@ export class ActiveUsersComponent implements OnInit {
 
   getSubscribedUsers() {
     const formattedDateRange = {
-      dateFrom: this.formatDate(this.dateRange.start),
-      dateTo: this.formatDate(this.dateRange.end),
+      dateFrom: null,
+      dateTo: null,
     };
+
     this.userService.viewSubsUsers(this.searchTerm, formattedDateRange.dateFrom, formattedDateRange.dateTo,this.userTypeFilter, (response) => {
       this.updateTableData(response.data)
     })
