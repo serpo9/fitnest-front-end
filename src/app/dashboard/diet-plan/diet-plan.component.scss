@@ -1,6 +1,7 @@
 ::ng-deep .mdc-checkbox:not(.mdc-checkbox--selected) .mdc-checkbox__background {
   border-color: black !important;
 }
+
 ::ng-deep .mdc-checkbox__background {
   border-color: black !important;
 }
@@ -27,9 +28,12 @@
 ::ng-deep .mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background,
 .mdc-checkbox .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background,
 .mdc-checkbox .mdc-checkbox__native-control[data-indeterminate=true]:enabled~.mdc-checkbox__background {
-  border-color: #ffc978 !important;
-  background-color: #ffc978 !important;
+  // border-color: #ffc978 !important;
+  border-color: #000 !important;
+  // background-color: #ffc978 !important;
+  background-color: #000 !important;
 }
+
 
 ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
   display: none !important;
@@ -102,6 +106,15 @@
     text-align: center;
     background-color: rgb(44 37 32 / 81%);
     overflow-x: hidden;
+
+    .no-plan {
+      margin-top: 3rem;
+      color: #fff;
+      font-size: 24px;
+      border-radius: 14px;
+      background-color: #4d494738;
+      padding: 50px;
+    }
 
     .nav-tab-container {
       padding-bottom: 2rem;
@@ -390,7 +403,7 @@ $gap: 12px;
     font-weight: 600;
     font-size: 20px;
     color: white;
-    
+
   }
 
   .pdf-list {
@@ -612,15 +625,19 @@ $gap: 12px;
     .mat-column-expired {
       width: 100px;
     }
+
     .mat-column-mealType {
       width: 100px;
     }
+
     .mat-column-quantity {
       width: 100px;
     }
+
     .mat-column-time {
-      width:50px;
+      width: 50px;
     }
+
     .mat-column-notes {
       width: 300px;
       overflow-x: auto;
@@ -631,7 +648,7 @@ $gap: 12px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      
+
       display: inline-block;
     }
   }

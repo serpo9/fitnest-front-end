@@ -14,8 +14,10 @@ export interface UserInfo {
   name: string;
   email: string;
   phoneno: string;
+  planStatus?: string | null;
   
 }
+
 
 @Component({
   selector: 'app-diet-plan',
@@ -25,17 +27,17 @@ export interface UserInfo {
 export class DietPlanComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  searchTerm: any;
+  searchTerm: string = '';
   dateRange = {
-    // start: null,
-    start: new Date(new Date().setDate(new Date().getDate() - 1)), 
-    end: new Date() // Today
-    // end: null, // Today
+    // start: new Date(new Date().setDate(new Date().getDate())), 
+    start: null, 
+    end: null, 
   };
   sidenavOpen: boolean = true;
   pdfFiles: any[] = [];
   userTypeFilter = 'active'
 
+  
   displayedColumns: string[] = [
     "select",
     "employeeNo",
@@ -64,14 +66,14 @@ export class DietPlanComponent {
     private dialogService: DialogService,
     private snackBarService: SnackBarService
   ) {
-    this.loadUsers();
+    // this.loadUsers();
   }
 
   ngOnInit() {
     // Set the paginator after view initialization
     this.dataSource.paginator = this.paginator;
     this.viewdietplans()
-    this.getSubscribedUsers
+    this.getSubscribedUsers()
   }
 
   ngAfterViewInit() {
@@ -82,9 +84,7 @@ export class DietPlanComponent {
     this.sidenavOpen = sidenavState;
   }
 
-  updateTableData(data: UserInfo[]): void {
-    this.dataSource.data = data;
-  }
+  
   pageIndex : number = 1;
   loadUsers() {
     const pageData = {
@@ -132,24 +132,24 @@ export class DietPlanComponent {
     }
   }
 
-  applyFilter() {
-    const pageData = {
-        page : this.pageIndex,
-        limit : 7
-       }
-    const formattedFromDate = this.dateRange.start
-      ? this.formatDate(this.dateRange.start)
-      : null;
-    const formattedToDate = this.dateRange.end
-      ? this.formatDate(this.dateRange.end)
-      : null;
-    this.userService.getActiveCustomers(
-      this.searchTerm,pageData,
-      (response) => {
-        this.dataSource.data = response.data;
-      }
-    );
-  }
+  // applyFilter() {
+  //   const pageData = {
+  //       page : this.pageIndex,
+  //       limit : 7
+  //      }
+  //   const formattedFromDate = this.dateRange.start
+  //     ? this.formatDate(this.dateRange.start)
+  //     : null;
+  //   const formattedToDate = this.dateRange.end
+  //     ? this.formatDate(this.dateRange.end)
+  //     : null;
+  //   this.userService.getActiveCustomers(
+  //     this.searchTerm,pageData,
+  //     (response) => {
+  //       this.dataSource.data = response.data;
+  //     }
+  //   );
+  // }
 
   toggleRowSelection(element: any) {
     element.selected = !element.selected; // Toggle the selected state of the clicked row
@@ -161,14 +161,14 @@ export class DietPlanComponent {
     }
   }
 
-  formatDate(date: any): string {
-    const d = new Date(date);
-    const day = String(d.getDate()).padStart(2, "0");
-    const month = String(d.getMonth() + 1).padStart(2, "0"); // Months are 0-based
-    const year = String(d.getFullYear()).slice(-2); // Get last 2 digits of year
+  // formatDate(date: any): string {
+  //   const d = new Date(date);
+  //   const day = String(d.getDate()).padStart(2, "0");
+  //   const month = String(d.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+  //   const year = String(d.getFullYear()).slice(-2); // Get last 2 digits of year
 
-    return `${day}-${month}-${year}`;
-  }
+  //   return `${day}-${month}-${year}`;
+  // }
 
   createDiet() {
     const userId = Array.from(this.selectedUsers);
@@ -311,15 +311,47 @@ export class DietPlanComponent {
     });
   }
   
+  formatDate(date: any): string {
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const year = d.getFullYear(); // Full year
+
+    return `${year}-${month}-${day}`;
+  }
+
   getSubscribedUsers() {
     const formattedDateRange = {
-      dateFrom: this.formatDate(this.dateRange.start),
-      dateTo: this.formatDate(this.dateRange.end),
+      dateFrom: null,
+      dateTo: null,
     };
-    this.userService.viewSubsUsers(this.searchTerm, formattedDateRange.dateFrom, formattedDateRange.dateTo,this.userTypeFilter, (response) => {
-      this.updateTableData(response.data)
-    })
+    
+    const filterValue = this.searchTerm?.trim() || '';
+  
+    this.userService.viewSubsUsers(
+      filterValue,
+      formattedDateRange.dateFrom,
+      formattedDateRange.dateTo,
+      this.userTypeFilter,
+      (response) => {
+        this.updateTableData(response.data);
+      }
+    );
   }
+  applyFilter(): void {
+    this.getSubscribedUsers()
+  
+  }
+  selectSinglePDF(selectedPdf: any) {
+    this.pdfFiles.forEach(pdf => {
+      pdf.selected = (pdf === selectedPdf);
+    });
+  }
+  
+
+    updateTableData(data: UserInfo[]): void {
+      this.dataSource.data = data;
+    }
   
   
   

@@ -1,30 +1,30 @@
 <div class="conatiner">
-      <mat-card class="calendar-card">
-  <div class="title">Attendance Calendar</div>
+  <mat-card class="calendar-card">
+    <div class="title">Attendance Calendar</div>
 
-  <div class="filter-section">
-    <mat-form-field appearance="outline" class="date-range-field">
-      <mat-label>Date Range</mat-label>
-      <mat-date-range-input [rangePicker]="rangePicker">
-        <input matStartDate [(ngModel)]="fromDate" placeholder="From date" />
-        <input matEndDate [(ngModel)]="toDate" placeholder="To date" />
-      </mat-date-range-input>
-      <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
-      <mat-date-range-picker #rangePicker></mat-date-range-picker>
-    </mat-form-field>
+    <div class="filter-section">
+      <mat-form-field appearance="outline" class="date-range-field">
+        <mat-label>Date Range</mat-label>
+        <mat-date-range-input [rangePicker]="rangePicker">
+          <input matStartDate [(ngModel)]="fromDate" placeholder="From date" />
+          <input matEndDate [(ngModel)]="toDate" placeholder="To date" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
+        <mat-date-range-picker #rangePicker></mat-date-range-picker>
+      </mat-form-field>
 
-    <button mat-flat-button color="primary" (click)="getIndividualAttendance(userId)">Filter</button>
-  </div>
+      <button mat-flat-button color="primary" (click)="getIndividualAttendance(userId)">Filter</button>
+    </div>
 
- <div class="calendar-legend">
-  <span class="legend-item present"></span> Present
-  <span class="legend-item absent"></span> Absent
-  <span class="legend-item no"></span> No Data
-</div>
+    <div class="calendar-legend">
+      <span class="legend-item present"></span> Present
+      <span class="legend-item absent"></span> Absent
+      <span class="legend-item no"></span> No Data
+    </div>
 
 
-  <mat-calendar [dateClass]="dateClass"></mat-calendar>
-</mat-card>
+    <mat-calendar [dateClass]="dateClass"></mat-calendar>
+  </mat-card>
 
 
 </div>

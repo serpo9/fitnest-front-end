@@ -1,20 +1,11 @@
-::ng-deep .mat-mdc-paginator-page-size {
-    display: none !important;
-  }
-  
-  ::ng-deep .mat-mdc-paginator-icon {
-    fill: rgb(255 255 255) !important;
-  }
-  
-  ::ng-deep .mat-mdc-icon-button[disabled] .mat-mdc-paginator-icon {
-    fill: rgb(181 171 171 / 65%) !important;
-  }
   
   ::ng-deep .mdc-checkbox .mdc-checkbox__native-control:enabled:checked~.mdc-checkbox__background,
   .mdc-checkbox .mdc-checkbox__native-control:enabled:indeterminate~.mdc-checkbox__background,
   .mdc-checkbox .mdc-checkbox__native-control[data-indeterminate=true]:enabled~.mdc-checkbox__background {
-    border-color: #ffc978 !important;
-    background-color: #ffc978 !important;
+    // border-color: #ffc978 !important;
+    border-color: #000 !important;
+    // background-color: #ffc978 !important;
+    background-color: #000 !important;
   }
   
   ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before {

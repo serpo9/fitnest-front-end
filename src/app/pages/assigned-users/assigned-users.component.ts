@@ -19,6 +19,21 @@ export interface UserInfo {
   date: string,
   status: string
 }
+export interface UserInfo {
+  id: number | string;
+  cardId: string
+  name: number;
+  number: any;
+  selectedFilter: 'all';
+  // employeeNo: string;
+  email: string;
+  plan: string;
+  startdate: string;
+  endDate: string;
+  payamount: any;
+  duration: string;
+  sendMessage: string;
+}
 
 export interface DietPlan {
   mealType: string,
@@ -59,7 +74,7 @@ export class AssignedUsersComponent {
   attendanceTab : boolean = false;
   newWeight: number | null = null;
 
-  displayedColumns: string[] = ['date', 'status'];
+  // displayedColumns: string[] = ['date', 'status'];
   displayedColumnsTwo: string[] = ['mealType', 'foodName', 'quantity', 'notes'];
   displayedColumnsThree: string[] = ['month', 'weight'];
   dietPlans: { title: string; fileName: string; url: string }[] = [];
@@ -68,6 +83,22 @@ export class AssignedUsersComponent {
   dataSource = new MatTableDataSource<UserInfo>();
   dataSourceTwo = new MatTableDataSource<DietPlan>();
   dataSourceThree = new MatTableDataSource<TrackProgress>();
+
+  displayedColumns: string[] = [
+    // 'employeeNo',
+    "cardId",
+    'name',
+    'number',
+    'email',
+    'plan',
+    'startdate',
+    'endDate',
+    'duration',
+    'payamount',
+    'sendMessage',
+    'assign',
+    'view',
+  ];
 
   // @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 

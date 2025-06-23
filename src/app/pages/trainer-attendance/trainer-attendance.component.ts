@@ -17,7 +17,7 @@ export interface UserInfo {
   employeeNum: string;
   date: string;
   status: string;
-  viewCalender : string
+  viewCalender: string
 }
 
 
@@ -45,7 +45,7 @@ export class TrainerAttendanceComponent {
     start: new Date(new Date().setDate(new Date().getDate())), // Current data
     end: new Date(new Date().setDate(new Date().getDate())),   // tomorrow
   };
-  
+
   dataSource = new MatTableDataSource<UserInfo>([]);
   presentCount: any;
 
@@ -55,7 +55,7 @@ export class TrainerAttendanceComponent {
   selectedDeviceId: number | null = null;
   filterValue: any;
 
-  userType : any = 'Trainer';
+  userType: any = 'Trainer';
 
   viewDate: Date = new Date();
   presentDates: Date[] = [];
@@ -89,25 +89,27 @@ export class TrainerAttendanceComponent {
     this.sidenavOpen = sidenavState;
   }
 
-getIndividualAttendance(element: any) {
-  console.log('element:', element);
+  getIndividualAttendance(element: any) {
+    console.log('element:', element);
 
-  const toDate = this.dateRange.end;
-  const fromDate = new Date(toDate); 
-  fromDate.setMonth(fromDate.getMonth() - 1); 
+    const toDate = this.dateRange.end;
+    const fromDate = new Date(toDate);
+    fromDate.setMonth(fromDate.getMonth());
 
-  const formattedFromDate = fromDate.toISOString().split('T')[0];
-  const formattedToDate = toDate.toISOString().split('T')[0];
-  const adminId = this.userService.userRegisterData.id;
-  this.userService.getIndividualAttendance(adminId,element.userId, formattedFromDate, formattedToDate, response => {
-    console.log("response:", response);
+    const formattedFromDate = fromDate.toISOString().split('T')[0];
+    const formattedToDate = toDate.toISOString().split('T')[0];
+    const adminId = this.userService.userRegisterData.id;
+    
 
-    this.matdialog.open(AttendanceDialogComponent, {
-      data: response.data,
-      width: '500px',
+    this.userService.getIndividualAttendance(adminId, element.userId, formattedFromDate, formattedToDate, response => {
+      console.log("response:", response);
+
+      this.matdialog.open(AttendanceDialogComponent, {
+        data: response.data,
+        width: '500px',
+      });
     });
-  });
-}
+  }
 
 
   updateTableData(data: UserInfo[]): void {
@@ -133,15 +135,15 @@ getIndividualAttendance(element: any) {
       this.updateTableData(response.data);
     })
   }
-  userTypeSelection(userType : any){
-    this.userType = userType; 
+  userTypeSelection(userType: any) {
+    this.userType = userType;
     this.getAttendance();
   }
 
   getAttendance() {
     console.log("dateRange : ", this.dateRange);
     const obj = {
-      userType:  this.userType,
+      userType: this.userType,
       deviceId: this.selectedDeviceId
     };
 
@@ -160,7 +162,7 @@ getIndividualAttendance(element: any) {
   searchAttendanceByDate() {
 
     const obj = {
-      userType:  this.userType,
+      userType: this.userType,
       deviceId: this.selectedDeviceId
     }
 
