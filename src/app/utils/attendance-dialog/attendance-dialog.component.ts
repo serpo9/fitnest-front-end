@@ -33,11 +33,11 @@ export class AttendanceDialogComponent {
 
     const today = new Date();
 
-    // First day is today
-    this.fromDate = today;
 
-    // Last day of this month
-    this.toDate = new Date(today.getFullYear(), today.getMonth() + 1, 0); // last day of current month
+    this.fromDate = new Date(today.getFullYear(), today.getMonth(), 1);
+
+    // Today as the toDate
+    this.toDate = today;
 
     // Show the mat-calendar on the first day (so the current month is displayed)
     this.calendarActiveDate = new Date(today.getFullYear(), today.getMonth(), 1);
@@ -48,104 +48,77 @@ export class AttendanceDialogComponent {
     this.userId = data[0].userId;
     this.adminId = data[0].adminId;
 
+    this.getIndividualAttendance();
   }
 
   manageDates(data: any) {
     this.presentDates = [];
     this.absentDates = [];
     this.noData = [];
-
+  
+    // Fill presentDates
     data.forEach((entry: any) => {
-      const dateStr = new Date(entry.time).toDateString();
       if (entry.status === 'Present') {
+        const dateStr = new Date(entry.time).toDateString();
         this.presentDates.push(dateStr);
-      } else if (entry.status === 'Absent') {
-        this.absentDates.push(dateStr);
-      } else {
-        this.noData.push(dateStr);
       }
     });
+  
+    // Use toDate as the end of the loop
+    const endDate = new Date(this.toDate); 
+    let current = new Date(this.fromDate); 
+    
+    while (current <= endDate) {
+      const dateStr = current.toDateString();
+  
+      if (!this.presentDates.includes(dateStr)) {
+        this.absentDates.push(dateStr); // mark red
+      }
+  
+      current.setDate(current.getDate() + 1); // increment by one day
+    }
+  
+    console.log('this.absentDates:', this.absentDates);
   }
-  // getIndividualAttendance(userId: any) {
-  //   const formatLocalDate = (date: Date): string => {
-  //     const year = date.getFullYear();
-  //     const month = (`0${date.getMonth() + 1}`).slice(-2);
-  //     const day = (`0${date.getDate()}`).slice(-2);
-  //     return `${year}-${month}-${day}`;
-  //   };
-
-  //   this.userService.getIndividualAttendance(
-  //     this.adminId, this.userId,
-  //     formatLocalDate(this.fromDate),
-  //     formatLocalDate(this.toDate),
-  //     response => {
-  //       this.manageDates(response.data);
-  //       this.data = response.data;
 
 
-  //       if (this.calendar) {
-  //         this.calendar.updateTodaysDate();
-  //       }
 
-  //       this.cdr.detectChanges();
-  //     }
-  //   );
-  // }
+  getIndividualAttendance() {
+    const formatLocalDate = (date: Date): string => {
+      const year = date.getFullYear();
+      const month = (`0${date.getMonth() + 1}`).slice(-2);
+      const day = (`0${date.getDate()}`).slice(-2);
+      return `${year}-${month}-${day}`;
+    };
 
-  // getIndividualAttendance() {
-  //   console.log("clicked...");
+    console.log("this.fromDate...", this.fromDate);
+    console.log("this.toDate...", this.toDate);
 
-  //   const formatLocalDate = (date: Date): string => {
-  //     const year = date.getFullYear();
-  //     const month = (`0${date.getMonth() + 1}`).slice(-2);
-  //     const day = (`0${date.getDate()}`).slice(-2);
-  //     return `${year}-${month}-${day}`;
-  //   };
-
-  //   if (this.fromDate) {
-  //     this.calendarActiveDate = new Date(
-  //       this.fromDate.getFullYear(),
-  //       this.fromDate.getMonth(),
-  //       1
-  //     );
-  //   }
-
-  //   // Force a view update:
-  //   setTimeout(() => this.cdr.detectChanges(), 0); // forces re-render
-  //   console.log("calendarActiveDate...", this.calendarActiveDate);
+    this.userService.getIndividualAttendance(
+      this.adminId, this.userId,
+      formatLocalDate(this.fromDate),
+      formatLocalDate(this.toDate),
+      response => {
+        this.manageDates(response.data);
+        this.data = response.data;
 
 
-  //   // this.userService.getIndividualAttendance(
-  //   //   this.adminId,
-  //   //   this.userId,
-  //   //   formatLocalDate(this.fromDate),
-  //   //   formatLocalDate(this.toDate),
+        if (this.calendar) {
+          this.calendar.updateTodaysDate();
+        }
 
-  //   //   (response) => {
-  //   //     this.manageDates(response.data); // mark present/absent dates
-
-  //   //     this.cdr.detectChanges();
-  //   //   }
-  //   // );
-  // }
-
-  getIndividualAttendance(): void {
-    this.calendarActiveDate = new Date(
-      this.fromDate.getFullYear(),
-      this.fromDate.getMonth(),
-      1
+        this.cdr.detectChanges();
+      }
     );
-
-    // Force detect
-    this.cdr.detectChanges();
   }
+
+
 
   dateClass = (date: Date) => {
-    console.log("date..", date);
+    // console.log("date..", date);
 
     const dateStr = date.toDateString();
     // console.log("dateStr..", dateStr);
-
 
     if (this.presentDates.includes(dateStr)) {
       return 'present-date';

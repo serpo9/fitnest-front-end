@@ -19,17 +19,15 @@
     <div class="calendar-legend">
       <span class="legend-item present"></span> Present
       <span class="legend-item absent"></span> Absent
-      <span class="legend-item no"></span> No Data
+      <!-- <span class="legend-item no"></span> No Data -->
     </div>
 
 
-    <ng-container *ngIf="calendarActiveDate as currentDate">
+    <ng-container *ngIf="calendarActiveDate as currentDate" class="custom-calendar">
       <mat-calendar
         [dateClass]="dateClass"
         [activeDate]="currentDate">
       </mat-calendar>
     </ng-container>
   </mat-card>
-
-
 </div>
