@@ -939,7 +939,12 @@ export class UserService {
   }
 
   viewSubsUsers(searchTerm: any, fromDate: any, toDate: any, userTypeFilter: any, onSuccess: (data: any) => void) {
-    const adminId = this.userRegisterData.id;
+    let adminId = this.userRegisterData.id;
+      if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
     this.apiService.get(this.apiService.uri.VIEW_SUBS_PLANS(adminId, searchTerm, fromDate, toDate, userTypeFilter), (response) => {
       onSuccess(response);
     })
@@ -1381,6 +1386,11 @@ export class UserService {
 
   getAssignedUsers(onSuccess: (data: any) => void ,userId?: string) {
     let adminId = this.userRegisterData.id;
+      if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
   
     this.apiService.get(this.apiService.uri.GET_ASSIGNED_USERS(adminId), (response) => {
       onSuccess(response);
