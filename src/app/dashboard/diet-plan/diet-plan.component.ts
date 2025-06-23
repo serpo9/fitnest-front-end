@@ -86,35 +86,7 @@ export class DietPlanComponent {
 
   
   pageIndex : number = 1;
-  loadUsers() {
-    const pageData = {
-        page : this.pageIndex,
-        limit : 7
-       }
-    const formattedFromDate = this.dateRange.start
-      ? this.formatDate(this.dateRange.start)
-      : null;
-    const formattedToDate = this.dateRange.end
-      ? this.formatDate(this.dateRange.end)
-      : null;
 
-      console.log("formattedFromDate...", formattedFromDate);
-      
-      console.log("formattedToDate...", formattedToDate);
-      
-
-    this.userService.getActiveCustomers(
-      "", pageData,
-      (response) => {
-        if (response.success) {
-          if (this.cachedData?.length === 0) {
-            this.cachedData = response.data;
-          }
-          this.updateTableData(response.data)
-        }
-      }
-    );
-  }
 
   resetFilters() {
     this.dataSource.data = this.cachedData;
@@ -132,24 +104,7 @@ export class DietPlanComponent {
     }
   }
 
-  // applyFilter() {
-  //   const pageData = {
-  //       page : this.pageIndex,
-  //       limit : 7
-  //      }
-  //   const formattedFromDate = this.dateRange.start
-  //     ? this.formatDate(this.dateRange.start)
-  //     : null;
-  //   const formattedToDate = this.dateRange.end
-  //     ? this.formatDate(this.dateRange.end)
-  //     : null;
-  //   this.userService.getActiveCustomers(
-  //     this.searchTerm,pageData,
-  //     (response) => {
-  //       this.dataSource.data = response.data;
-  //     }
-  //   );
-  // }
+
 
   toggleRowSelection(element: any) {
     element.selected = !element.selected; // Toggle the selected state of the clicked row
@@ -161,14 +116,7 @@ export class DietPlanComponent {
     }
   }
 
-  // formatDate(date: any): string {
-  //   const d = new Date(date);
-  //   const day = String(d.getDate()).padStart(2, "0");
-  //   const month = String(d.getMonth() + 1).padStart(2, "0"); // Months are 0-based
-  //   const year = String(d.getFullYear()).slice(-2); // Get last 2 digits of year
-
-  //   return `${day}-${month}-${year}`;
-  // }
+ 
 
   createDiet() {
     const userId = Array.from(this.selectedUsers);
@@ -206,35 +154,7 @@ export class DietPlanComponent {
 
   activeTab = true;
 
-  activeForm(planName: any) {
-    if (planName === "createDiet") {
-      this.activeTab = true;
-      this.displayedColumns = [
-        "select",
-        "employeeNo",
-        "name",
-        "email",
-        "phoneno",
-      ];
-      this.cachedData = [];
-      this.loadUsers();
-
-    } else {
-      this.activeTab = false;
-      this.displayedColumns = [
-        "employeeNo",
-        "name",
-        "email",
-        "phoneno",
-        "mealType",
-        "quantity",
-        "time",
-        "notes"
-      ]; // <-- 'assign' excluded when activeTab is false
-      this.cachedData = [];
-      this.viewDiet();
-    }
-  }
+ 
 
   viewDiet() {
     this.userService.viewDiet((response) => {
@@ -264,22 +184,6 @@ export class DietPlanComponent {
     window.open(fullUrl, '_blank');
   }
 
-  // sendSelectedPDFs(){
-  //   console.log("hi ")
-  // }
-
-
-  // sendSelectedPDFs(): void {
-  //   // Get selected users from the dataSource
-  //   const selectedUsers = this.dataSource.data.filter((user: any) => user.selected);
-  
-  //   // Get selected PDFs from the pdfFiles array
-  //   const selectedPDFs = this.pdfFiles.filter((pdf: any) => pdf.selected);
-  //   // Log both to console
-  //   console.log('Selected Users:', selectedUsers);
-  //   console.log('Selected PDFs:', selectedPDFs);
-
-  // }
   sendSelectedPDFs(): void {
     const selectedUsers = this.dataSource.data.filter((user: any) => user.selected);
     console.log(selectedUsers ,"here i got response ")

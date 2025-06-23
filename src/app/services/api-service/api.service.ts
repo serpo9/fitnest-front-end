@@ -239,6 +239,8 @@ export class ApiService {
       `${this.BASE_URL}${this.CLINT_API_URL}get-plan-for-users/${id}`,
     ASSIGN_PLAN_TO_USERS: () =>
       `${this.BASE_URL}${this.CLINT_API_URL}assign-plan-to-users`,
+    GET_ASSIGNED_USERS: (id: any) =>
+      `${this.BASE_URL}${this.CLINT_API_URL}get-asssigned-users/${id}`,
     
     
     
