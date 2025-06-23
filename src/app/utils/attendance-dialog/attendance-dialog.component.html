@@ -13,7 +13,7 @@
         <mat-date-range-picker #rangePicker></mat-date-range-picker>
       </mat-form-field>
 
-      <button mat-flat-button color="primary" (click)="getIndividualAttendance(userId)">Filter</button>
+      <button mat-flat-button color="primary" (click)="getIndividualAttendance()">Filter</button>
     </div>
 
     <div class="calendar-legend">
@@ -23,7 +23,12 @@
     </div>
 
 
-    <mat-calendar [dateClass]="dateClass"></mat-calendar>
+    <ng-container *ngIf="calendarActiveDate as currentDate">
+      <mat-calendar
+        [dateClass]="dateClass"
+        [activeDate]="currentDate">
+      </mat-calendar>
+    </ng-container>
   </mat-card>
 
 

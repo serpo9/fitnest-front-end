@@ -141,7 +141,6 @@ export class TrainerAttendanceComponent {
   }
 
   getAttendance() {
-    console.log("dateRange : ", this.dateRange);
     const obj = {
       userType: this.userType,
       deviceId: this.selectedDeviceId
@@ -181,7 +180,6 @@ export class TrainerAttendanceComponent {
 
   fetchAttendanceAccordingToDevice() {
     this.userService.fetchDevice((response) => {
-      console.log("fetchDevice..", response);
       this.deviceData = response.data;
 
       // Auto-select Door-1 if available
