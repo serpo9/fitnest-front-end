@@ -165,8 +165,6 @@ export class AssignedUsersComponent {
  
    getSubscribedUsers() {
     this.userService.getAssignedUsers((response) => {
-      console.log("here we got assigned users data", response);
-  
       if (response?.success) {
         this.dataSource.data = response.data;
       }

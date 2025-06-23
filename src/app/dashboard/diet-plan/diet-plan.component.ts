@@ -16,7 +16,7 @@ export interface UserInfo {
   email: string;
   phoneno: string;
   planStatus?: string | null;
-  
+
 }
 
 
@@ -31,14 +31,14 @@ export class DietPlanComponent {
   searchTerm: string = '';
   dateRange = {
     // start: new Date(new Date().setDate(new Date().getDate())), 
-    start: null, 
-    end: null, 
+    start: null,
+    end: null,
   };
   sidenavOpen: boolean = true;
   pdfFiles: any[] = [];
   userTypeFilter = 'active'
 
-  
+
   displayedColumns: string[] = [
     "select",
     "employeeNo",
@@ -85,8 +85,8 @@ export class DietPlanComponent {
     this.sidenavOpen = sidenavState;
   }
 
-  
-  pageIndex : number = 1;
+
+  pageIndex: number = 1;
 
 
   resetFilters() {
@@ -117,7 +117,7 @@ export class DietPlanComponent {
     }
   }
 
- 
+
 
   createDiet() {
     const userId = Array.from(this.selectedUsers);
@@ -155,12 +155,10 @@ export class DietPlanComponent {
 
   activeTab = true;
 
- 
+
 
   viewDiet() {
     this.userService.viewDiet((response) => {
-      console.log("response..", response);
-
       if (!response.success) {
         return this.dialogService.open('Oops!', `${response.message}`);
       }
@@ -176,10 +174,9 @@ export class DietPlanComponent {
           name: file.name.replace(/^\d+-/, '')  // Removes "1-" or any digits followed by "-"
         }));
       }
-      console.log(this.pdfFiles, "Cleaned PDF file names");
     });
   }
-  
+
   openPDF(url: string): void {
     const fullUrl = `http://localhost:8000${url}`;
     window.open(fullUrl, '_blank');
@@ -187,37 +184,36 @@ export class DietPlanComponent {
 
   sendSelectedPDFs(): void {
     const selectedUsers = this.dataSource.data.filter((user: any) => user.selected);
-    console.log(selectedUsers ,"here i got response ")
     const selectedPDFs = this.pdfFiles.filter((pdf: any) => pdf.selected);
-  
+
     // Just send first PDF and first user (for now)
     if (selectedUsers.length === 0 || selectedPDFs.length === 0) {
       //  alert('Please select a user and PDF');
-       return  this.dialogService.open('Oops!', `Please select a user and PDF`);
+      return this.dialogService.open('Oops!', `Please select a user and PDF`);
     }
-    
+
     const selectedUser = selectedUsers[0];
     const selectedPDF = selectedPDFs[0];
     const formattedPdfName = selectedPDF.name.replace(/\s+/g, '-');
-  
- this.userService.assignPlanToUsers({
-  trainerId: selectedUser.id,
-  adminId: this.userService.userRegisterData.userType === "Admin" 
-    ? this.userService.userRegisterData.id 
-    : selectedUser.createdByAdmin,
-  username: selectedUser.name,
-  userid: selectedUser.userId,
-  pdfname: formattedPdfName
-}, (response: any) => {
-  if (!response.success) {
-    this.dialogService.open('Oops!', response.message);
-  } else {
-    this.dialogService.open('Yeah!', response.message);
-  }
-});
+
+    this.userService.assignPlanToUsers({
+      trainerId: selectedUser.id,
+      adminId: this.userService.userRegisterData.userType === "Admin"
+        ? this.userService.userRegisterData.id
+        : selectedUser.createdByAdmin,
+      username: selectedUser.name,
+      userid: selectedUser.userId,
+      pdfname: formattedPdfName
+    }, (response: any) => {
+      if (!response.success) {
+        this.dialogService.open('Oops!', response.message);
+      } else {
+        this.dialogService.open('Yeah!', response.message);
+      }
+    });
 
   }
-  
+
   formatDate(date: any): string {
     const d = new Date(date);
     const day = String(d.getDate()).padStart(2, '0');
@@ -232,9 +228,9 @@ export class DietPlanComponent {
       dateFrom: null,
       dateTo: null,
     };
-    
+
     const filterValue = this.searchTerm?.trim() || '';
-  
+
     this.userService.viewSubsUsers(
       filterValue,
       formattedDateRange.dateFrom,
@@ -247,19 +243,19 @@ export class DietPlanComponent {
   }
   applyFilter(): void {
     this.getSubscribedUsers()
-  
+
   }
   selectSinglePDF(selectedPdf: any) {
     this.pdfFiles.forEach(pdf => {
       pdf.selected = (pdf === selectedPdf);
     });
   }
-  
 
-    updateTableData(data: UserInfo[]): void {
-      this.dataSource.data = data;
-    }
-  
-  
-  
+
+  updateTableData(data: UserInfo[]): void {
+    this.dataSource.data = data;
+  }
+
+
+
 }
