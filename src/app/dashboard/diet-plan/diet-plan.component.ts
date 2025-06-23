@@ -6,6 +6,7 @@ import { DialogService } from "src/app/services/dialog-service/dialog.service";
 import { SnackBarService } from "src/app/services/snack-bar/snack-bar.service";
 
 export interface UserInfo {
+  userId: any;
   id: any;
   createdByAdmin: any;
   username: any;
@@ -199,20 +200,22 @@ export class DietPlanComponent {
     const selectedPDF = selectedPDFs[0];
     const formattedPdfName = selectedPDF.name.replace(/\s+/g, '-');
   
-    this.userService.assignPlanToUsers({
-      trainerId: selectedUser.id,
-      adminId: selectedUser.createdByAdmin,
-      username: selectedUser.name,
-      userid: selectedUser.id,
-      pdfname: formattedPdfName
-    }, (response: any) => {
-      if(!response.success){
-        this.dialogService.open('Oops!', response.message);
-      }
-      else{
-        this.dialogService.open('Yeah!', response.message);
-      }
-    });
+ this.userService.assignPlanToUsers({
+  trainerId: selectedUser.id,
+  adminId: this.userService.userRegisterData.userType === "Admin" 
+    ? this.userService.userRegisterData.id 
+    : selectedUser.createdByAdmin,
+  username: selectedUser.name,
+  userid: selectedUser.userId,
+  pdfname: formattedPdfName
+}, (response: any) => {
+  if (!response.success) {
+    this.dialogService.open('Oops!', response.message);
+  } else {
+    this.dialogService.open('Yeah!', response.message);
+  }
+});
+
   }
   
   formatDate(date: any): string {
