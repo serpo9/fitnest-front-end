@@ -1378,6 +1378,15 @@ export class UserService {
       onSuccess(response);
     })
   }
+
+  getAssignedUsers(onSuccess: (data: any) => void ,userId?: string) {
+    let adminId = this.userRegisterData.id;
+  
+    this.apiService.get(this.apiService.uri.GET_ASSIGNED_USERS(adminId), (response) => {
+      onSuccess(response);
+    })
+  }
+  
   
   
 }
