@@ -274,7 +274,7 @@ export class JoinScheduleComponent implements OnInit {
     })
   }
   viewUserProfile(user: any) {
-    this.router.navigate(['assigned-users'], { state: { userData: user } });
+    this.router.navigate(['view-profile'], { state: { userData: user } });
   }
 
   exportToExcel(): void {

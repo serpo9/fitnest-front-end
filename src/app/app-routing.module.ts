@@ -51,6 +51,7 @@ import { AddUserByReceptionistComponent } from './dashboard/add-user-by-receptio
 import { ReceivedAmountsComponent } from './pages/received-amounts/received-amounts.component';
 import { CreatePlanComponent } from './dashboard/create-plan/create-plan.component';
 import { AssignedUsersComponent } from './pages/assigned-users/assigned-users.component';
+import { ViewUserProfileComponent } from './dashboard/view-user-profile/view-user-profile.component';
 
 const routes: Routes = [
   { path: ROUTES.WELCOME, component: SignupComponent, canActivate: [AuthGuard] },
@@ -101,6 +102,7 @@ const routes: Routes = [
   { path: ROUTES.RECEIVEDAMOUNTHISTORY, component: ReceivedAmountsComponent, canActivate: [AuthGuard] },
   { path: ROUTES.CREATEPLAN, component: CreatePlanComponent, canActivate: [AuthGuard] },
   { path: ROUTES.ASSIGNEDUSERS, component: AssignedUsersComponent, canActivate: [AuthGuard] },
+  { path: ROUTES.VIEWPROFILE, component: ViewUserProfileComponent, canActivate: [AuthGuard] },
 
 
   { path: "**", component: HomeComponent }
