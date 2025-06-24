@@ -1,8 +1,8 @@
 <div class="conatiner">
   <mat-card class="calendar-card">
-    <div class="title">Attendance Calendar</div>
+    <!-- <div class="title">Attendance Calendar</div> -->
 
-    <div class="filter-section">
+    <!-- <div class="filter-section">
       <mat-form-field appearance="outline" class="date-range-field">
         <mat-label>Date Range</mat-label>
         <mat-date-range-input [rangePicker]="rangePicker">
@@ -14,7 +14,7 @@
       </mat-form-field>
 
       <button mat-flat-button color="primary" (click)="getIndividualAttendance()">Filter</button>
-    </div>
+    </div> -->
 
     <div class="calendar-legend">
       <span class="legend-item present"></span> Present
@@ -23,10 +23,10 @@
     </div>
 
 
-    <ng-container *ngIf="calendarActiveDate as currentDate" class="custom-calendar">
+    <ng-container class="custom-calendar">
       <mat-calendar
         [dateClass]="dateClass"
-        [activeDate]="currentDate">
+        [activeDate]="calendarActiveDate">
       </mat-calendar>
     </ng-container>
   </mat-card>

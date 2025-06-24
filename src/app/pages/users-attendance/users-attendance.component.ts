@@ -8,12 +8,14 @@ import { UserService } from 'src/app/services/user-service/user.service';
 import { DialogService } from 'src/app/services/dialog-service/dialog.service';
 import { ROUTES } from 'src/app/app-routes.config';
 import { LoadingService } from 'src/app/services/loading-services/loading.service';
+import { AttendanceDialogComponent } from 'src/app/utils/attendance-dialog/attendance-dialog.component';
 
 export interface UserInfo {
   name: string;
   employeeNum: string;
   date: string;
   status: string;
+  viewCalendar: string;
 }
 
 @Component({
@@ -26,11 +28,12 @@ export class UsersAttendanceComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   sidenavOpen: boolean = true;
-  displayedColumns: string[] = ['employeeNum', 'name', 'date', 'status'];
+  displayedColumns: string[] = ['employeeNum', 'name', 'date', 'status', 'viewCalendar'];
   searchTerm: string = '';
 
   dateRange = {
     start: new Date(new Date().setDate(new Date().getDate())), // Current data
+    end: new Date(new Date().setDate(new Date().getDate()))
   };
 
   dataSource = new MatTableDataSource<UserInfo>([]);
@@ -52,6 +55,8 @@ export class UsersAttendanceComponent {
   ) {
     // this.getAttendance();
     this.fetchAttendanceAccordingToDevice();
+    console.log("this.daterange...", this.dateRange);
+
   }
 
   ngOnInit(): void {
@@ -79,7 +84,7 @@ export class UsersAttendanceComponent {
       deviceId: this.selectedDeviceId,
     };
 
-    this.userService.getAttendance(this.filterValue, this.dateRange.start, this.dateRange.start, obj, (response) => {
+    this.userService.getAttendance(this.filterValue, this.dateRange.start, this.dateRange.end, obj, (response) => {
 
       if (!response.success) {
         this.loadingService.close();
@@ -101,7 +106,7 @@ export class UsersAttendanceComponent {
       deviceId: this.selectedDeviceId
     };
 
-    this.userService.getAttendance(this.filterValue, this.dateRange.start, this.dateRange.start, obj, (response) => {
+    this.userService.getAttendance(this.filterValue, this.dateRange.start, this.dateRange.end, obj, (response) => {
 
       if (!response.success) {
         this.updateTableData([]);
@@ -125,7 +130,7 @@ export class UsersAttendanceComponent {
       deviceId: this.selectedDeviceId
     }
 
-    this.userService.getAttendance(this.filterValue, this.dateRange.start, this.dateRange.start, obj, (response) => {
+    this.userService.getAttendance(this.filterValue, this.dateRange.start, this.dateRange.end, obj, (response) => {
 
       if (!response.success) {
         this.loadingService.close();
@@ -142,7 +147,6 @@ export class UsersAttendanceComponent {
 
   fetchAttendanceAccordingToDevice() {
     this.userService.fetchDevice((response) => {
-      console.log("fetchDevice..", response);
       this.deviceData = response.data;
 
       // Auto-select Door-1 if available
@@ -176,5 +180,45 @@ export class UsersAttendanceComponent {
   getPurposeById(id: number): string | null {
     const device = this.deviceData.find(d => d.id === id);
     return device ? device.purpose : null;
+  }
+
+  getIndividualAttendance(element: any) {
+    console.log('element:', element);
+
+    const toDate = this.dateRange.end;
+    const pickedDate = new Date(this.dateRange.start); 
+  
+    // Jump to first of pickedDate's month
+    const fromDate = new Date(pickedDate.getFullYear(), pickedDate.getMonth(), 1); 
+  
+    const formattedFromDate = this.formatDate(fromDate);
+    const formattedToDate = this.formatDate(toDate);
+    const adminId = this.userService.userRegisterData.id;
+
+    console.log("formattedFromDate..", formattedFromDate);
+    console.log("formattedToDate..", formattedToDate);
+
+
+    this.userService.getIndividualAttendance(adminId, element.userId, formattedFromDate, formattedToDate, response => {
+      console.log("response:", response);
+
+      this.matdialog.open(AttendanceDialogComponent, {
+        data: {
+          attendance: response.data,
+          fromDate: formattedFromDate,  // pass as string
+          toDate: formattedToDate,
+        },
+        width: '500px',
+      });
+    });
+  }
+
+  formatDate(date: any): string {
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const year = d.getFullYear(); // Full year
+
+    return `${year}-${month}-${day}`;
   }
 }

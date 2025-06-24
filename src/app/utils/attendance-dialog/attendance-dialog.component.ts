@@ -34,28 +34,33 @@ export class AttendanceDialogComponent {
     const today = new Date();
 
 
-    this.fromDate = new Date(today.getFullYear(), today.getMonth(), 1);
+    this.fromDate = data.fromDate;
 
     // Today as the toDate
-    this.toDate = today;
+    this.toDate = data.toDate;
 
+    // 📅 Parse passed fromDate
     // Show the mat-calendar on the first day (so the current month is displayed)
-    this.calendarActiveDate = new Date(today.getFullYear(), today.getMonth(), 1);
+    // this.calendarActiveDate = new Date(today.getFullYear(), today.getMonth(), 1);
 
-    this.manageDates(data);
+    this.calendarActiveDate = new Date(data.fromDate); // jump to that date
+    this.manageDates(data.attendance);
+    this.userId = data.attendance[0].userId;
+    this.adminId = data.attendance[0].adminId;
 
-    console.log(data, "dataa a a")
-    this.userId = data[0].userId;
-    this.adminId = data[0].adminId;
+    // this.getIndividualAttendance();
+  }
 
-    this.getIndividualAttendance();
+  ngAfterViewInit(): void {
+    this.calendar.activeDate = new Date(this.fromDate); // ✅ jump
+    this.cdr.detectChanges();
   }
 
   manageDates(data: any) {
     this.presentDates = [];
     this.absentDates = [];
     this.noData = [];
-  
+
     // Fill presentDates
     data.forEach((entry: any) => {
       if (entry.status === 'Present') {
@@ -63,50 +68,48 @@ export class AttendanceDialogComponent {
         this.presentDates.push(dateStr);
       }
     });
-  
+
     // Use toDate as the end of the loop
-    const endDate = new Date(this.toDate); 
-    let current = new Date(this.fromDate); 
-    
+    const endDate = new Date(this.toDate);
+    let current = new Date(this.fromDate);
+
     while (current <= endDate) {
       const dateStr = current.toDateString();
-  
+
       if (!this.presentDates.includes(dateStr)) {
         this.absentDates.push(dateStr); // mark red
       }
-  
+
       current.setDate(current.getDate() + 1); // increment by one day
     }
-  
-    console.log('this.absentDates:', this.absentDates);
   }
 
 
 
   getIndividualAttendance() {
-    const formatLocalDate = (date: Date): string => {
-      const year = date.getFullYear();
-      const month = (`0${date.getMonth() + 1}`).slice(-2);
-      const day = (`0${date.getDate()}`).slice(-2);
-      return `${year}-${month}-${day}`;
-    };
+    // const formatLocalDate = (date: Date): string => {
+    //   const year = date.getFullYear();
+    //   const month = (`0${date.getMonth() + 1}`).slice(-2);
+    //   const day = (`0${date.getDate()}`).slice(-2);
+    //   return `${year}-${month}-${day}`;
+    // };
 
     console.log("this.fromDate...", this.fromDate);
     console.log("this.toDate...", this.toDate);
 
     this.userService.getIndividualAttendance(
       this.adminId, this.userId,
-      formatLocalDate(this.fromDate),
-      formatLocalDate(this.toDate),
+      this.fromDate,
+      this.toDate,
       response => {
         this.manageDates(response.data);
         this.data = response.data;
-
 
         if (this.calendar) {
           this.calendar.updateTodaysDate();
         }
 
+        this.calendarActiveDate = new Date(this.fromDate);
         this.cdr.detectChanges();
       }
     );
@@ -115,10 +118,7 @@ export class AttendanceDialogComponent {
 
 
   dateClass = (date: Date) => {
-    // console.log("date..", date);
-
     const dateStr = date.toDateString();
-    // console.log("dateStr..", dateStr);
 
     if (this.presentDates.includes(dateStr)) {
       return 'present-date';
