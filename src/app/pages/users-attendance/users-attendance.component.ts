@@ -55,7 +55,6 @@ export class UsersAttendanceComponent {
   ) {
     // this.getAttendance();
     this.fetchAttendanceAccordingToDevice();
-    console.log("this.daterange...", this.dateRange);
 
   }
 
@@ -167,7 +166,7 @@ export class UsersAttendanceComponent {
 
     if (matchedDevice) {
       this.selectedDeviceId = matchedDevice.id;
-      console.log('Selected Device ID:', matchedDevice.id);
+      // console.log('Selected Device ID:', matchedDevice.id);
       this.getAttendance();
     } else {
       this.selectedDeviceId = null;
@@ -183,7 +182,7 @@ export class UsersAttendanceComponent {
   }
 
   getIndividualAttendance(element: any) {
-    console.log('element:', element);
+    // console.log('element:', element);
 
     const toDate = this.dateRange.end;
     const pickedDate = new Date(this.dateRange.start); 
