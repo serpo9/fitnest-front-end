@@ -82,7 +82,7 @@ export class EditProfileDialogComponent {
       userId: this.logindata.id,
       name: this.logindata.name,
       email: this.logindata.email,
-      phone: this.logindata.phoneNumber,
+      phone: this.logindata.phoneNumber ?? this.logindata.number
     };
 
     this.userService.updateCustomerProfile(obj, (response) => {

@@ -256,7 +256,7 @@ export class ViewUserProfileComponent {
     }
     const dialogRef = this.matdialog.open(EditProfileDialogComponent, {
       width: '250px',
-      data: { logindata: this.logindata, showBasicForm: true }
+      data: { logindata: this.userDetails, showBasicForm: true }
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {

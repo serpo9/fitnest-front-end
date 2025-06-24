@@ -33,6 +33,10 @@
   height: 47px;
   border-radius: 8px;
 }
+::ng-deep .mat-mdc-paginator-outer-container{
+  background-color : #40342C !important
+
+}
 
 ::ng-deep .mat-mdc-table tbody,
 .mat-mdc-table tfoot,

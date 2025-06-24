@@ -28,8 +28,8 @@ export interface UserInfo {
   edit: string;
   delete: string;
   joinDate: string;
-  progress: string;
-  postProgress: string;
+  // progress: string;
+  // postProgress: string;
   profile: string,
 }
 
@@ -42,7 +42,7 @@ export class JoinScheduleComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   sidenavOpen: boolean = true;
   selectedFilter: string = 'Search1';
-  displayedColumns: string[] = ["employeeNo", 'name', 'number', 'type', 'email', 'joinDate', 'sendMessage', 'progress', 'postProgress', 'profile', 'edit', 'delete'];
+  displayedColumns: string[] = ["employeeNo", 'name', 'number', 'type', 'email', 'joinDate', 'sendMessage', 'profile', 'edit', 'delete'];
   dateRange: { start: Date | null; end: Date | null } = {
     start: null,
     end: null

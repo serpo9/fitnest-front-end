@@ -6,7 +6,7 @@
         <div class="edit-profile-container">
           <input #nameInput type="text" [(ngModel)]="this.logindata.name">
           <input #emailInput class="email" type="text" [(ngModel)]="this.logindata.email" readonly>
-          <input #phoneInput type="text" [(ngModel)]="this.logindata.phoneNumber" maxlength="10">
+          <input #phoneInput type="text" [(ngModel)]="this.logindata.phoneNumber ?? this.logindata.number" maxlength="10">
         </div>
       </div>
     </div>
