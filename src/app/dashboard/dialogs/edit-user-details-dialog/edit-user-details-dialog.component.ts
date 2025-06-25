@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { SnackBarService } from 'src/app/services/snack-bar/snack-bar.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-user-details-dialog',
@@ -15,6 +16,7 @@ export class EditUserDetailsDialogComponent {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     private userService: UserService,
+    private router: Router,
     private dialogRef: MatDialogRef<EditUserDetailsDialogComponent>,
     private snackbarService: SnackBarService,) {
   }
@@ -36,7 +38,8 @@ export class EditUserDetailsDialogComponent {
         this.showErrorMsg = true
       }
 
-      this.dialogRef.close({ data: true });
+      // this.router.navigate(['view-profile'], { state: { userData: obj } });
+      this.dialogRef.close({ data: obj });
       this.snackbarService.showSnackBar('Updated the Details', 3000);
     })
   }
