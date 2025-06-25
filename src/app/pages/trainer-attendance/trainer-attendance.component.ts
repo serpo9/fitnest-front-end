@@ -90,22 +90,31 @@ export class TrainerAttendanceComponent {
   }
 
   getIndividualAttendance(element: any) {
-    console.log('element:', element);
+    // console.log('element:', element);
 
     const toDate = this.dateRange.end;
-    const fromDate = new Date(toDate);
-    fromDate.setMonth(fromDate.getMonth());
-
-    const formattedFromDate = fromDate.toISOString().split('T')[0];
-    const formattedToDate = toDate.toISOString().split('T')[0];
+    const pickedDate = new Date(this.dateRange.start); 
+  
+    // Jump to first of pickedDate's month
+    const fromDate = new Date(pickedDate.getFullYear(), pickedDate.getMonth(), 1); 
+  
+    const formattedFromDate = this.formatDate(fromDate);
+    const formattedToDate = this.formatDate(toDate);
     const adminId = this.userService.userRegisterData.id;
-    
+
+    console.log("formattedFromDate..", formattedFromDate);
+    console.log("formattedToDate..", formattedToDate);
+
 
     this.userService.getIndividualAttendance(adminId, element.userId, formattedFromDate, formattedToDate, response => {
       console.log("response:", response);
 
       this.matdialog.open(AttendanceDialogComponent, {
-        data: response.data,
+        data: {
+          attendance: response.data,
+          fromDate: formattedFromDate,  // pass as string
+          toDate: formattedToDate,
+        },
         width: '500px',
       });
     });
@@ -128,6 +137,7 @@ export class TrainerAttendanceComponent {
 
       if (!response.success) {
         this.updateTableData([]);
+        this.presentCount = 0;
         return this.dialogService.open('Oops!', `${response.message}`);
       }
       this.presentCount = response.presentCount;
@@ -152,11 +162,14 @@ export class TrainerAttendanceComponent {
       if (!response.success) {
         this.loadingService.close();
         this.updateTableData([]);
+        this.presentCount = 0;
         return this.dialogService.open('Oops!', `${response.message}`);
       }
 
       this.presentCount = response.presentCount;
       this.presentCount = response.presentCount.Trainer;
+      console.log("response.presentCount..", response.presentCount);
+      
       this.updateTableData(response.data);
       this.loadingService.close();
     })
@@ -172,6 +185,7 @@ export class TrainerAttendanceComponent {
     this.userService.getAttendance(this.filterValue, this.dateRange.start, this.dateRange.end, obj, (response) => {
       if (!response.success) {
         this.loadingService.close();
+        this.presentCount = 0;
         return this.dialogService.open('Oops!', `${response.message}`, '', false, 'Okay');
       }
 
@@ -221,4 +235,12 @@ export class TrainerAttendanceComponent {
     return device ? device.purpose : null;
   }
 
+  formatDate(date: any): string {
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const year = d.getFullYear(); // Full year
+
+    return `${year}-${month}-${day}`;
+  }
 }

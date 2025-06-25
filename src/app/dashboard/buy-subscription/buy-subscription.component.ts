@@ -264,7 +264,7 @@ export class BuySubscriptionComponent {
         monthQty: this.monthQty,
         paymentStatus: "true",
         email: this.email,
-        admissionFee: this.admissionFee,
+        admissionFee: this.admissionFee ?? 0,
       };
     }
 
@@ -283,6 +283,8 @@ export class BuySubscriptionComponent {
         paymentStatus: "true",
       };
     }
+
+    console.log("this.postObj...", this.postObj);
 
     this.dialogService.open(
       "Confirmation!",
