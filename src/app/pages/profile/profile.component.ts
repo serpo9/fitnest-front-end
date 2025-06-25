@@ -52,11 +52,11 @@ export class ProfileComponent implements OnInit {
   moreCustomerInfo: any;
   showMoreProfileDetails = false;
 
-  activeTab : any = 'none';
-  isTabSelected : boolean = false;
-  dietTab : boolean = false;
-  trackTab : boolean = false;
-  attendanceTab : boolean = false;
+  activeTab: any = 'none';
+  isTabSelected: boolean = false;
+  dietTab: boolean = false;
+  trackTab: boolean = false;
+  attendanceTab: boolean = false;
   newWeight: number | null = null;
 
   displayedColumns: string[] = ['date', 'status'];
@@ -77,7 +77,7 @@ export class ProfileComponent implements OnInit {
 
   showData: any = [];
   dialogOpen: boolean = false;
-  bmiForm : any;
+  bmiForm: any;
 
   // heightInFt: any  ;
   // heightInInch: any; 
@@ -89,26 +89,26 @@ export class ProfileComponent implements OnInit {
   };
 
   constructor(private dialog: DialogService,
-     private userService: UserService,
-      private matdialog: MatDialog, 
-      private router: Router,
-      private fb : FormBuilder
-    ) {
+    private userService: UserService,
+    private matdialog: MatDialog,
+    private router: Router,
+    private fb: FormBuilder
+  ) {
     this.getAttendances();
     this.getDietPlan();
-    
-      this.bmiForm = this.fb.group({
-        heightInFt : ['',Validators.required],
-        heightInInch : ['',Validators.required],
-        weight : ['', Validators.required],
-      })
+
+    this.bmiForm = this.fb.group({
+      heightInFt: ['', Validators.required],
+      heightInInch: ['', Validators.required],
+      weight: ['', Validators.required],
+    })
   }
 
   ngOnInit(): void {
     this.userService.getPlanForUsers((response) => {
       console.log(response, "here I got pdf data");
       const userData = this.userService.userRegisterData;
-    
+
       if (response.success && response.data.length > 0) {
         this.dietPlans = response.data.map((item: any) => ({
           title: item.pdfname?.split('.')[0] || 'Untitled Plan',
@@ -119,7 +119,7 @@ export class ProfileComponent implements OnInit {
         this.dietPlans = []; // No data
       }
     });
-    
+
 
     this.dataSource.paginator = this.paginatorOne;
 
@@ -181,7 +181,7 @@ export class ProfileComponent implements OnInit {
     document.body.removeChild(link);
   }
 
-  calculateBMI(){
+  calculateBMI() {
     if (this.bmiForm.valid && this.bmiForm.value.heightInFt > 0 && this.bmiForm.value.heightInInch >= 0 && this.bmiForm.value.weight > 0) {
       const heightInFt = this.bmiForm.value.heightInFt;
       const heightInCm = this.bmiForm.value.heightInInch * 2.54; // Convert inches to centimeters
@@ -341,84 +341,84 @@ export class ProfileComponent implements OnInit {
     return '';
   };
 
- 
-  selectedTab(tabName : any){
-    if(tabName=='none') {
+
+  selectedTab(tabName: any) {
+    if (tabName == 'none') {
       this.isTabSelected = false;
       this.activeTab = 'none';
       this.dietTab = false;
       this.attendanceTab = false;
       this.trackTab = false;
     }
-    else{
-    this.activeTab = tabName;
-    this.isTabSelected = true; 
-    if(tabName === 'diet') {
-      this.dietTab = true; 
-      this.trackTab = false; 
-      this.attendanceTab = false;
-    }
-    else if(tabName === 'track'){ 
-      this.trackTab = true;
-      this.dietTab = false; 
-      this.attendanceTab = false;
-    }
     else {
-      this.attendanceTab = true;
-      this.trackTab = false;
-      this.dietTab = false; 
-    } 
-    }
-     
-  }
-  
-
-submitWeight() {
-  if (this.newWeight !== null && this.newWeight > 0) {
-    console.log('Weight submitted:', this.newWeight);
-    console.log(this.userService.loginData)
-     const obj = {
-      userId: this.username.id,
-      weight: this.newWeight
-    }
-
-    this.userService.postTrackUsers(obj, (response) => {
-      if (!response.success) {
-        this.dialog.open('Oops',response.message,'',false,'Okay',()=>{return ;})
+      this.activeTab = tabName;
+      this.isTabSelected = true;
+      if (tabName === 'diet') {
+        this.dietTab = true;
+        this.trackTab = false;
+        this.attendanceTab = false;
+      }
+      else if (tabName === 'track') {
+        this.trackTab = true;
+        this.dietTab = false;
+        this.attendanceTab = false;
       }
       else {
-        const date = new Date();
-        const monthStr = date.toLocaleDateString().toString();
-        console.log(date, '    ',date.toLocaleString() )
-        console.log(monthStr)
-        this.dataSourceThree.data = [...this.dataSourceThree.data,
-        {month: monthStr, weight: obj.weight.toString()}];
-
+        this.attendanceTab = true;
+        this.trackTab = false;
+        this.dietTab = false;
       }
-    })
-    this.newWeight = null; 
-  } 
-}
+    }
 
-getIndividualAttendance(element: any) {
+  }
 
-  const toDate = this.dateRange.end;
-  const fromDate = new Date(toDate); 
-  fromDate.setMonth(fromDate.getMonth() - 1); 
 
-  const formattedFromDate = fromDate.toISOString().split('T')[0];
-  const formattedToDate = toDate.toISOString().split('T')[0];
-  const userId = this.userService.userRegisterData.id;
-  const adminId = this.userService.userRegisterData.createdByAdmin;
-  this.userService.getIndividualAttendance(adminId,userId, formattedFromDate, formattedToDate, response => {
+  submitWeight() {
+    if (this.newWeight !== null && this.newWeight > 0) {
+      console.log('Weight submitted:', this.newWeight);
+      console.log(this.userService.loginData)
+      const obj = {
+        userId: this.username.id,
+        weight: this.newWeight
+      }
 
-    if(response.success && response.data.length > 0) {
-    this.matdialog.open(AttendanceDialogComponent, {
-      data: response.data,
-      width: '500px',
+      this.userService.postTrackUsers(obj, (response) => {
+        if (!response.success) {
+          this.dialog.open('Oops', response.message, '', false, 'Okay', () => { return; })
+        }
+        else {
+          const date = new Date();
+          const monthStr = date.toLocaleDateString().toString();
+          console.log(date, '    ', date.toLocaleString())
+          console.log(monthStr)
+          this.dataSourceThree.data = [...this.dataSourceThree.data,
+          { month: monthStr, weight: obj.weight.toString() }];
+
+        }
+      })
+      this.newWeight = null;
+    }
+  }
+
+  getIndividualAttendance(element: any) {
+
+    const toDate = this.dateRange.end;
+    const fromDate = new Date(toDate);
+    fromDate.setMonth(fromDate.getMonth() - 1);
+
+    const formattedFromDate = fromDate.toISOString().split('T')[0];
+    const formattedToDate = toDate.toISOString().split('T')[0];
+    const userId = this.userService.userRegisterData.id;
+    const adminId = this.userService.userRegisterData.createdByAdmin;
+    this.userService.getIndividualAttendance(adminId, userId, formattedFromDate, formattedToDate, response => {
+
+      if (response.success && response.data.length > 0) {
+        // this.matdialog.open(AttendanceDialogComponent, {
+        //   data: response.data,
+        //   width: '500px',
+        // });
+      }
     });
   }
-  });
-}
 
 }

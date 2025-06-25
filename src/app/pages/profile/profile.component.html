@@ -216,7 +216,7 @@
 
 						<ng-container matColumnDef="date">
 							<th mat-header-cell *matHeaderCellDef>Date</th>
-							<td mat-cell *matCellDef="let element">{{ element.createdAt | date:'dd-MM-yyyy':'UTC' }}
+							<td mat-cell *matCellDef="let element">{{ element.time | date:'dd-MM-yyyy':'UTC' }}
 							</td>
 						</ng-container>
 						<ng-container matColumnDef="status">
