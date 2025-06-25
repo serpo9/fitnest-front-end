@@ -13,7 +13,8 @@ export interface UserInfo {
   phone: Number;
   type: string;
   presentDays: Number,
-  amount: Number
+  amount: Number,
+  admissionFee: Number
 }
 
 @Component({
@@ -27,9 +28,9 @@ export class PaymentHistoryComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   sidenavOpen: boolean = true;
-  displayedColumns: string[] = ['employeeNum', 'name', 'mail', 'phone', 'type', 'date', 'amount'];
+  displayedColumns: string[] = ['employeeNum', 'name', 'mail', 'phone', 'type', 'date', 'amount', 'admissionFee'];
   searchTerm: string = '';
-  selectedFilter = 'SalaryHistory';
+  selectedFilter = 'SubscriptionHistory';
 
   dateRange = {
     start: new Date(new Date().setDate(new Date().getDate())), // 1 days before yesterday
@@ -45,6 +46,7 @@ export class PaymentHistoryComponent {
     private userService: UserService,
     private dialogService: DialogService
   ) {
+console.log("this.selectedFilter...", this.selectedFilter);
 
     if (this.selectedFilter === "SalaryHistory") {
       this.getSalaryHistory();
@@ -103,8 +105,11 @@ export class PaymentHistoryComponent {
   }
 
   getSalaryHistory() {
-    const fromDate = this.dateRange.start.toISOString().split('T')[0];
-    const toDate = this.dateRange.end.toISOString().split('T')[0];
+    // const fromDate = this.dateRange.start.toISOString().split('T')[0];
+    // const toDate = this.dateRange.end.toISOString().split('T')[0];
+    
+    const fromDate = this.formatDate(this.dateRange.start);
+    const toDate = this.formatDate(this.dateRange.end);
     const filterValue = this.searchTerm.trim();
 
     this.userService.getSalaryHistory(filterValue, fromDate, toDate, (response) => {
@@ -114,8 +119,12 @@ export class PaymentHistoryComponent {
   }
 
   getSubsHistory() {
-    const fromDate = this.dateRange.start.toISOString().split('T')[0];
-    const toDate = this.dateRange.end.toISOString().split('T')[0];
+    console.log("this.dateRange..", this.dateRange);
+    // const fromDate = this.dateRange.start.toISOString().split('T')[0];
+    // const toDate = this.dateRange.end.toISOString().split('T')[0];
+
+    const fromDate = this.formatDate(this.dateRange.start);
+    const toDate = this.formatDate(this.dateRange.end);
     const filterValue = this.searchTerm.trim();
 
     this.userService.getSubsPaymentHistory(filterValue, fromDate, toDate, (response) => {
@@ -138,7 +147,6 @@ export class PaymentHistoryComponent {
     const fromDate = startDate.toLocaleDateString('en-CA'); // This format gives YYYY-MM-DD
     const toDate = endDate.toLocaleDateString('en-CA');     // This format gives YYYY-MM-DD
     const filterValue = this.searchTerm.trim();
-    console.log('here at 131')
     this.userService.getSubsPaymentHistory(filterValue, fromDate, toDate, (response) => {
       this.totalAmount = response.totalAmount;
       this.updateTableData(response.data);
@@ -149,7 +157,6 @@ export class PaymentHistoryComponent {
     const fromDate = this.dateRange.start.toISOString().split('T')[0];
     const toDate = this.dateRange.end.toISOString().split('T')[0];
     const filterValue = this.searchTerm.trim();
-    console.log('here at 142')
     this.userService.getSubsPaymentHistory(filterValue, fromDate, toDate, (response) => {
       this.totalAmount = response.totalAmount;
       this.updateTableData(response.data);
@@ -158,7 +165,7 @@ export class PaymentHistoryComponent {
 
   activeTable(tabName: any) {
     this.selectedFilter = tabName
-
+    
     if (this.selectedFilter === "SalaryHistory") {
       this.getSalaryHistory();
       this.displayedColumns = ['employeeNum', 'name', 'mail', 'phone', 'type', 'date', 'amount'];

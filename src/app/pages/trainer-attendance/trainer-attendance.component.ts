@@ -9,7 +9,7 @@ import { DialogService } from 'src/app/services/dialog-service/dialog.service';
 import { ROUTES } from 'src/app/app-routes.config';
 import { SnackBarService } from 'src/app/services/snack-bar/snack-bar.service';
 import { AttendanceDialogComponent } from 'src/app/utils/attendance-dialog/attendance-dialog.component';
-import { elementAt } from 'rxjs';
+import { LoadingService } from 'src/app/services/loading-services/loading.service';
 
 
 export interface UserInfo {
@@ -69,7 +69,7 @@ export class TrainerAttendanceComponent {
     private userService: UserService,
     private dialogService: DialogService,
     private snackbarService: SnackBarService,
-
+    private loadingService: LoadingService
   ) {
     this.fetchAttendanceAccordingToDevice();
   }
@@ -141,6 +141,7 @@ export class TrainerAttendanceComponent {
   }
 
   getAttendance() {
+    this.loadingService.open();
     const obj = {
       userType: this.userType,
       deviceId: this.selectedDeviceId
@@ -149,17 +150,20 @@ export class TrainerAttendanceComponent {
     this.userService.getAttendance(this.filterValue, this.dateRange.start, this.dateRange.end, obj, (response) => {
 
       if (!response.success) {
+        this.loadingService.close();
         this.updateTableData([]);
         return this.dialogService.open('Oops!', `${response.message}`);
       }
+
       this.presentCount = response.presentCount;
       this.presentCount = response.presentCount.Trainer;
       this.updateTableData(response.data);
+      this.loadingService.close();
     })
   }
 
   searchAttendanceByDate() {
-
+    this.loadingService.open();
     const obj = {
       userType: this.userType,
       deviceId: this.selectedDeviceId
@@ -167,6 +171,7 @@ export class TrainerAttendanceComponent {
 
     this.userService.getAttendance(this.filterValue, this.dateRange.start, this.dateRange.end, obj, (response) => {
       if (!response.success) {
+        this.loadingService.close();
         return this.dialogService.open('Oops!', `${response.message}`, '', false, 'Okay');
       }
 
@@ -174,6 +179,7 @@ export class TrainerAttendanceComponent {
       this.presentCount = response.presentCount.Trainer;
       console.log("this.presentCount...", this.presentCount);
 
+      this.loadingService.close();
     })
   }
 

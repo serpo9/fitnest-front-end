@@ -46,10 +46,10 @@
         </div>
 
         <div class="hikvision-filter">
+            <span class="filter-btn" [class.active]="selectedFilter === 'SubscriptionHistory'"
+            (click)="activeTable('SubscriptionHistory')">Subscription History</span>
             <span class="filter-btn" [class.active]="selectedFilter === 'SalaryHistory'"
                 (click)="activeTable('SalaryHistory')">Salary History</span>
-            <span class="filter-btn" [class.active]="selectedFilter === 'SubscriptionHistory'"
-                (click)="activeTable('SubscriptionHistory')">Subscription History</span>
             <span class="filter-btn" (click)="exportSalaryHistoryToExcel()" *ngIf="selectedFilter === 'SalaryHistory'">
                 Export to Excel
             </span>
