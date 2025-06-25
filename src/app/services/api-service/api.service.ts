@@ -14,7 +14,7 @@ export class ApiService {
 
   constructor(private http: HttpClient, private dialogService: DialogService, private loadingService: LoadingService) { }
   base_url = "api/fitnest/"
-  // apiurl = 'http://24.41.242.252:8080';
+  // apiurl = 'http://124.41.242.252:8080/';
   apiurl = 'http://localhost:8000/';
   public BASE_URL = this.apiurl;
   public CLINT_API_URL = this.base_url;

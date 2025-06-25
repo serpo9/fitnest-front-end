@@ -21,7 +21,8 @@ export interface getSubscriptionRequest {
   email: string;
   plan: string;
   phone: string;
-  buyPlan: string
+  reqDate: string;
+  buyPlan: string;
 }
 export interface getReceptionistSubscriptionRequest {
   name: any;
@@ -29,6 +30,7 @@ export interface getReceptionistSubscriptionRequest {
   plan: string;
   phone: string;
   amountPaid: string;
+  recReqDate: string;
   buyPlan: string
 }
 
@@ -44,8 +46,8 @@ export class RequestedUserComponent {
   @ViewChild('receptionistPaginator', { static: true }) receptionistPaginator!: MatPaginator;
 
   sidenavOpen: boolean = true;
-  requestColumns: string[] = ["name", "email", "phone", "plan", "buyPlan"];
-  receptionistColumns: string[] = ["name", "email", "phone", "plan", "amountPaid", "buyPlan"];
+  requestColumns: string[] = ["name", "email", "phone", "plan", "reqDate", "buyPlan"];
+  receptionistColumns: string[] = ["name", "email", "phone", "plan", "amountPaid", "recReqDate", "buyPlan"];
   dataSource = new MatTableDataSource<getSubscriptionRequest>([]); // Users list
   receptionistDataSource = new MatTableDataSource<getReceptionistSubscriptionRequest>([]); // Users list
   searchTerm: string = '';
@@ -89,6 +91,7 @@ export class RequestedUserComponent {
           name: request.username,
           phone: request.phoneNumber,
           email: request.email,
+          createdAt: request.createdAt,
           plan: request.planName,
         }));
         this.dataSource.data = formattedData;
@@ -111,6 +114,7 @@ export class RequestedUserComponent {
         phone: request.phoneNo,
         email: request.email,
         plan: request.planName,
+        createdAt: request.createdAt,
         amountPaid: request.amountPaid
       }));
       this.receptionistDataSource.data = formattedData;

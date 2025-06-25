@@ -31,6 +31,11 @@
 					<td mat-cell *matCellDef="let element">{{ element.plan }}</td>
 				</ng-container>
 
+				<ng-container matColumnDef="reqDate">
+					<th mat-header-cell *matHeaderCellDef>Date</th>
+					<td mat-cell *matCellDef="let element">{{ element.createdAt | date:'dd-MM-yyyy, h:mm a' }}</td>
+				</ng-container>
+
 				<ng-container matColumnDef="buyPlan">
 					<th mat-header-cell *matHeaderCellDef>Plan</th>
 					<td mat-cell *matCellDef="let element">
@@ -79,9 +84,15 @@
 					<th mat-header-cell *matHeaderCellDef>Plan</th>
 					<td mat-cell *matCellDef="let element">{{ element.plan }}</td>
 				</ng-container>
+
 				<ng-container matColumnDef="amountPaid">
 					<th mat-header-cell *matHeaderCellDef>Paid Amount</th>
 					<td mat-cell *matCellDef="let element">{{ element.amountPaid }}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="recReqDate">
+					<th mat-header-cell *matHeaderCellDef>Date</th>
+					<td mat-cell *matCellDef="let element">{{ element.createdAt | date:'dd-MM-yyyy, h:mm a' }}</td>
 				</ng-container>
 
 				<ng-container matColumnDef="buyPlan">
