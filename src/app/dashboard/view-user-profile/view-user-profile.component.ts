@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ROUTES } from 'src/app/app-routes.config';
 import { EditProfileDialogComponent } from 'src/app/utils/edit-profile-dialog/edit-profile-dialog.component';
+import { EditUserDetailsDialogComponent } from '../dialogs/edit-user-details-dialog/edit-user-details-dialog.component';
 import { CompleteProfileComponent } from 'src/app/components/complete-profile/complete-profile.component';
 import { ViewSubscriptionDialogComponent } from 'src/app/dashboard/dialogs/view-subscription-dialog/view-subscription-dialog.component';
 import { DateRange } from '@angular/material/datepicker';
@@ -124,6 +125,7 @@ export class ViewUserProfileComponent {
      private userService: UserService,
       private matdialog: MatDialog, 
       private router: Router,
+       private dialogService: DialogService,
       private fb : FormBuilder
     ) {
     
@@ -254,7 +256,7 @@ export class ViewUserProfileComponent {
       this.dialog.open('Attention!', 'You have just updated your details, Try again after some time.', '', false, 'Okay');
       return;
     }
-    const dialogRef = this.matdialog.open(EditProfileDialogComponent, {
+    const dialogRef = this.matdialog.open(EditUserDetailsDialogComponent, {
       width: '250px',
       data: { logindata: this.userDetails, showBasicForm: true }
     });
@@ -271,6 +273,41 @@ export class ViewUserProfileComponent {
       }
     });
   }
+
+  editUserDetails(userId: any) {
+  this.userService.getUserByAdmin(userId, async (response) => {
+    if (!response.success) {
+      return this.dialogService.open('Oops!', `${response.message}`);
+    }
+
+    const mainData = await response.data;
+
+    const dialogRef = this.matdialog.open(EditUserDetailsDialogComponent, {
+      width: '500px',
+      data: mainData
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (!result?.data) return;
+
+      // Update local UI variables
+      this.username.name = result.data.name;
+      this.username.email = result.data.email;
+      this.username.id = result.data.userId;
+      this.username.phone = result.data.phoneNumber;
+
+      // ✅ Update full userDetails state
+      this.userDetails.name = result.data.name;
+      this.userDetails.email = result.data.email;
+      this.userDetails.number = result.data.phoneNumber;
+      this.userDetails.id = result.data.userId;
+
+      // Optional: update history.state (if navigating again or saving for future use)
+      history.replaceState({ userData: this.userDetails }, '');
+    });
+  });
+}
+
 
   editMoreInfoProfile(): void {
     if (this.dialogOpen) {
@@ -308,10 +345,11 @@ export class ViewUserProfileComponent {
   }
 
   openCompleteProfile() {
+    console.log("here we have local data ")
     this.showMoreProfileDetails = false;
     const dialogRef = this.matdialog.open(CompleteProfileComponent, {
       width: "500px",
-      data: { userId: this.logindata.id }
+      data: { userId: this.userDetails.id }
     })
 
     dialogRef.afterClosed().subscribe((result: any) => {

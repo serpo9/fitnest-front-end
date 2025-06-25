@@ -15,7 +15,7 @@
 		<div  class="left-side">
 			<span [hidden]="activeTab!='none'" class="d-flex">
 				<p [hidden]="activeTab!='none'" class="welcome-text">Personal Information <span
-						(click)="editProfile()"><mat-icon>border_color</mat-icon></span></p>
+						(click)="editUserDetails(username.id)"><mat-icon>border_color</mat-icon></span></p>
 			</span>
 
 			<div [hidden]="activeTab!='none'" class="userdetails-grid">
