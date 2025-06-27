@@ -25,10 +25,10 @@ export interface UserInfo {
 export class AssignedUsersComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
    searchTerm: string = '';
-   dateRange = {
-     start: new Date(new Date().setDate(new Date().getDate())), 
-     end: new Date(new Date().setDate(new Date().getDate())), 
-   };
+ dateRange = {
+    start: null, 
+    end: null, 
+  };
    sidenavOpen: boolean = true;
    pdfFiles: any[] = [];
    userTypeFilter = 'active'
@@ -56,6 +56,8 @@ export class AssignedUsersComponent {
    foodName: any;
    foodQty: any;
    notes: any;
+fromDate?: string;
+toDate?: string;
    userRegisterData: any;
  
    constructor(
@@ -154,30 +156,44 @@ export class AssignedUsersComponent {
  
 
    
-   formatDate(date: any): string {
-     const d = new Date(date);
-     const day = String(d.getDate()).padStart(2, '0');
-     const month = String(d.getMonth() + 1).padStart(2, '0'); // Months are 0-based
-     const year = d.getFullYear(); // Full year
+  //  formatDate(date: any): string {
+  //    const d = new Date(date);
+  //    const day = String(d.getDate()).padStart(2, '0');
+  //    const month = String(d.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+  //    const year = d.getFullYear(); // Full year
  
-     return `${year}-${month}-${day}`;
-   }
- 
-   getSubscribedUsers() {
-    this.userService.getAssignedUsers((response) => {
+  //    return `${year}-${month}-${day}`;
+  //  }
+getSubscribedUsers(fromDate?: string, toDate?: string): void {
+  this.userService.getAssignedUsers(
+    (response) => {
       if (response?.success) {
-        this.dataSource.data = response.data;
+        this.updateTableData(response.data);
       }
-    });
-  }
-  
-   applyFilter(): void {
-     this.getSubscribedUsers()
-   
-   }
-  
- 
-     updateTableData(data: UserInfo[]): void {
-       this.dataSource.data = data;
-     }
-    }
+    },
+    undefined,
+    this.searchTerm,
+    fromDate,
+    toDate,
+    this.userTypeFilter
+  );
+}
+
+updateTableData(data: UserInfo[]): void {
+  this.dataSource.data = data;
+}
+
+// Optional utility function
+formatDate(date: Date): string {
+  return date.toISOString().split('T')[0]; // "YYYY-MM-DD"
+}
+applyFilter(): void {
+  // Format dates if needed (e.g., to 'YYYY-MM-DD')
+  const fromDate = this.dateRange.start ? this.formatDate(this.dateRange.start) : undefined;
+  const toDate = this.dateRange.end ? this.formatDate(this.dateRange.end) : undefined;
+
+  this.getSubscribedUsers(fromDate, toDate);
+}
+
+
+ }

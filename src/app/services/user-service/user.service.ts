@@ -1384,19 +1384,30 @@ export class UserService {
     })
   }
 
-  getAssignedUsers(onSuccess: (data: any) => void ,userId?: string) {
-    let adminId = this.userRegisterData.id;
-      if (this.userRegisterData.userType === "Admin") {
-      adminId = this.userRegisterData.id;
-    } else {
-      adminId = this.userRegisterData.createdByAdmin;
-    }
-  
-    this.apiService.get(this.apiService.uri.GET_ASSIGNED_USERS(adminId), (response) => {
-      onSuccess(response);
-    })
+getAssignedUsers(
+  onSuccess: (data: any) => void,
+  userId?: string,
+  searchTerm: string = '',
+  fromDate?: string,
+  toDate?: string,
+  userTypeFilter?: string
+) {
+  let adminId: string;
+
+  if (this.userRegisterData.userType === 'Admin') {
+    adminId = this.userRegisterData.id;
+  } else {
+    adminId = this.userRegisterData.createdByAdmin;
   }
-  
+
+  this.apiService.get(
+    this.apiService.uri.GET_ASSIGNED_USERS(adminId, searchTerm, fromDate, toDate, userTypeFilter),
+    (response) => {
+      onSuccess(response);
+    }
+  );
+}
+
   
   
 }
