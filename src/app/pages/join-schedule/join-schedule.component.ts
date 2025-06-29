@@ -42,7 +42,7 @@ export class JoinScheduleComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   sidenavOpen: boolean = true;
   selectedFilter: string = 'Search1';
-  displayedColumns: string[] = ["employeeNo", 'name', 'number', 'type', 'email', 'joinDate', 'sendMessage', 'profile', 'edit', 'delete'];
+  displayedColumns: string[] = [ 'name', 'number', 'type', 'email', 'joinDate', 'sendMessage', 'profile', 'edit', 'delete'];
   dateRange: { start: Date | null; end: Date | null } = {
     start: null,
     end: null
