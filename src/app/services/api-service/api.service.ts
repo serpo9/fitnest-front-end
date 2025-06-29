@@ -239,8 +239,8 @@ export class ApiService {
       `${this.BASE_URL}${this.CLINT_API_URL}get-plan-for-users/${id}`,
     ASSIGN_PLAN_TO_USERS: () =>
       `${this.BASE_URL}${this.CLINT_API_URL}assign-plan-to-users`,
-    GET_ASSIGNED_USERS: (id: any , searchTerm: any, fromDate: any, toDate: any, filter: any) =>
-      `${this.BASE_URL}${this.CLINT_API_URL}get-asssigned-users/${id}?searchTerm=${searchTerm}&fromDate=${fromDate}&toDate= ${toDate}&filter=${filter}`,
+    GET_ASSIGNED_USERS: (id: any , searchTerm: any, fromDate: any, toDate: any, filter: any ,page: any,limit: any) =>
+      `${this.BASE_URL}${this.CLINT_API_URL}get-asssigned-users/${id}?searchTerm=${searchTerm}&fromDate=${fromDate}&toDate= ${toDate}&filter=${filter}&page=${page}&limit=${limit}`,
     
     
     

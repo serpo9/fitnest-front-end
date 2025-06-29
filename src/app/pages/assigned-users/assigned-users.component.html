@@ -1,103 +1,146 @@
 <div class="main-container">
-    <!-- Content Area -->
-    <div class="content" [class.full-width]="sidenavOpen === false" [class.translucent]="sidenavOpen">
-        <div class="content-container">
-
-            <!-- <div class="nav-tab-container">
+  <!-- Content Area -->
+  <div
+    class="content"
+    [class.full-width]="sidenavOpen === false"
+    [class.translucent]="sidenavOpen"
+  >
+    <div class="content-container">
+      <!-- <div class="nav-tab-container">
                 <button class="custom-btn" [ngClass]="{'active-btn': activeTab}"
                     (click)="activeForm('createDiet')">Diet Plan</button>
                 <button class="custom-btn" [ngClass]="{'active-btn': !activeTab}"
                     (click)="activeForm('salaryTillNow')">Workout Plan</button>
             </div> -->
 
-            <div class="mainHistory">All Users</div>
+      <div class="mainHistory">All Users</div>
 
-
-            <div class="header">
-                <div class="search-box">
-                    <input type="search" name="serach-employee" class="search-field" [(ngModel)]="searchTerm"
-                        (ngModelChange)="onSearchChange()" placeholder="Search by Name/Email" />
-                    <!-- <button class="clearbtn" mat-icon-button matSuffix *ngIf="searchTerm" aria-label="Clear"></button> -->
-                    <button mat-raised-button class="searchbtn buttoncolor" (click)="applyFilter()">
-                        <mat-icon>search</mat-icon>
-                        <span>Search</span>
-                    </button>
-                </div>
-                <mat-form-field appearance="fill">
-                    <mat-label>Choose a date range</mat-label>
-                    <mat-date-range-input [rangePicker]="picker">
-                        <input matStartDate placeholder="Start date" [(ngModel)]="dateRange.start" name="startDate" />
-                        <input matEndDate placeholder="End date" [(ngModel)]="dateRange.end" name="endDate" />
-                    </mat-date-range-input>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-date-range-picker #picker></mat-date-range-picker>
-                </mat-form-field>
-                <button mat-raised-button class="buttoncolor" (click)="applyFilter()">Search</button>
-            </div>
-
-            <div class="table-responsive" [ngClass]="{'no-data': dataSource.data.length === 0}">
-                <div *ngIf="!dataSource || dataSource.data.length === 0" class="no-data-message">
-                    No users found.
-                </div>
-
-                <div class="table-responsive">
-                    <!-- Main Table (Default) -->
-                    <table mat-table [dataSource]="dataSource" class="custom-table"
-                        *ngIf=" (dataSource?.data?.length || 0) > 0" class="custom-table">
-                        <!-- Table Definitions -->
-                        <ng-container matColumnDef="select">
-                            <th mat-header-cell *matHeaderCellDef class="mat-column-select">Select</th>
-                            <td mat-cell *matCellDef="let element" (click)="toggleRowSelection(element)"
-                                class="mat-column-select">
-                                <mat-checkbox [(ngModel)]="element.selected" (change)="toggleRowSelection(element)">
-                                </mat-checkbox>
-                            </td>
-                        </ng-container>
-
-                        <ng-container matColumnDef="id">
-                            <th mat-header-cell *matHeaderCellDef>ID</th>
-                            <td mat-cell *matCellDef="let element">{{ element.id }}</td>
-                          </ng-container>
-
-                        <!-- Username -->
-<ng-container matColumnDef="username">
-    <th mat-header-cell *matHeaderCellDef>Name</th>
-    <td mat-cell *matCellDef="let element">{{ element.username }}</td>
-  </ng-container>
-  
-  <!-- User ID -->
-  <ng-container matColumnDef="userid">
-    <th mat-header-cell *matHeaderCellDef>User ID</th>
-    <td mat-cell *matCellDef="let element">{{ element.userid }}</td>
-  </ng-container>
-  
-  <!-- PDF Name -->
-  <ng-container matColumnDef="pdfname">
-    <th mat-header-cell *matHeaderCellDef>PDF Name</th>
-    <td mat-cell *matCellDef="let element">{{ element.pdfname }}</td>
-  </ng-container>
-  
-  <!-- Created At -->
-  <ng-container matColumnDef="createdAt">
-    <th mat-header-cell *matHeaderCellDef>Created At</th>
-    <td mat-cell *matCellDef="let element">
-      {{ element.createdAt | date: 'short' }}
-    </td>
-  </ng-container>
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-                    </table>
-
-                    <div class="table-footer" [style.display]="dataSource.data.length > 0 ? 'flex' : 'none'">
-                        <mat-paginator [pageSize]="4" class="custom-paginator"></mat-paginator>
-                        <!-- <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator> -->
-                    </div>
-                </div>
-            </div>
-
-         
-              
-
+      <div class="header">
+        <div class="search-box">
+          <input
+            type="search"
+            name="serach-employee"
+            class="search-field"
+            [(ngModel)]="searchTerm"
+            (ngModelChange)="onSearchChange()"
+            placeholder="Search by Name/Email"
+          />
+          <!-- <button class="clearbtn" mat-icon-button matSuffix *ngIf="searchTerm" aria-label="Clear"></button> -->
+          <button
+            mat-raised-button
+            class="searchbtn buttoncolor"
+            (click)="applyFilter()"
+          >
+            <mat-icon>search</mat-icon>
+            <span>Search</span>
+          </button>
         </div>
+        <mat-form-field appearance="fill">
+          <mat-label>Choose a date range</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input
+              matStartDate
+              placeholder="Start date"
+              [(ngModel)]="dateRange.start"
+              name="startDate"
+            />
+            <input
+              matEndDate
+              placeholder="End date"
+              [(ngModel)]="dateRange.end"
+              name="endDate"
+            />
+          </mat-date-range-input>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+        <button mat-raised-button class="buttoncolor" (click)="applyFilter()">
+          Search
+        </button>
+      </div>
+
+      <div
+        class="table-responsive"
+        [ngClass]="{ 'no-data': dataSource.data.length === 0 }"
+      >
+        <div
+          *ngIf="!dataSource || dataSource.data.length === 0"
+          class="no-data-message"
+        >
+          No users found.
+        </div>
+
+        <div class="table-responsive">
+          <!-- Main Table (Default) -->
+          <table
+            mat-table
+            [dataSource]="dataSource"
+            class="custom-table"
+            *ngIf="(dataSource?.data?.length || 0) > 0"
+            class="custom-table"
+          >
+            <!-- Table Definitions -->
+            <ng-container matColumnDef="select">
+              <th mat-header-cell *matHeaderCellDef class="mat-column-select">
+                Select
+              </th>
+              <td
+                mat-cell
+                *matCellDef="let element"
+                (click)="toggleRowSelection(element)"
+                class="mat-column-select"
+              >
+                <mat-checkbox
+                  [(ngModel)]="element.selected"
+                  (change)="toggleRowSelection(element)"
+                >
+                </mat-checkbox>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef>ID</th>
+              <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+            </ng-container>
+
+            <!-- Username -->
+            <ng-container matColumnDef="username">
+              <th mat-header-cell *matHeaderCellDef>Name</th>
+              <td mat-cell *matCellDef="let element">{{ element.username }}</td>
+            </ng-container>
+
+            <!-- User ID -->
+            <ng-container matColumnDef="userid">
+              <th mat-header-cell *matHeaderCellDef>User ID</th>
+              <td mat-cell *matCellDef="let element">{{ element.userid }}</td>
+            </ng-container>
+
+            <!-- PDF Name -->
+            <ng-container matColumnDef="pdfname">
+              <th mat-header-cell *matHeaderCellDef>PDF Name</th>
+              <td mat-cell *matCellDef="let element">{{ element.pdfname }}</td>
+            </ng-container>
+
+            <!-- Created At -->
+            <ng-container matColumnDef="createdAt">
+              <th mat-header-cell *matHeaderCellDef>Created At</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.createdAt | date : "short" }}
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+
+         <div class="table-footer" [style.display]="dataSource.data.length > 0 ? 'flex' : 'none'">
+            <mat-paginator #paginator [length]="totalRecords" [pageSize]="pageSize" [pageIndex]="pageIndex"
+              (page)="onPageChange($event)" class="custom-paginator"> </mat-paginator>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

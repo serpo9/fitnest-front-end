@@ -1390,7 +1390,9 @@ getAssignedUsers(
   searchTerm: string = '',
   fromDate?: string,
   toDate?: string,
-  userTypeFilter?: string
+  userTypeFilter?: string,
+  page: number = 1,
+  limit: number = 4
 ) {
   let adminId: string;
 
@@ -1401,7 +1403,8 @@ getAssignedUsers(
   }
 
   this.apiService.get(
-    this.apiService.uri.GET_ASSIGNED_USERS(adminId, searchTerm, fromDate, toDate, userTypeFilter),
+    this.apiService.uri.GET_ASSIGNED_USERS(adminId, searchTerm, fromDate, toDate, userTypeFilter , page,
+    limit),
     (response) => {
       onSuccess(response);
     }
