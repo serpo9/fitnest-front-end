@@ -26,6 +26,9 @@ export class AttendanceDialogComponent {
 
   calendarActiveDate: any = new Date();
 
+  currentMonth: number = new Date().getMonth();
+  currentYear: number = new Date().getFullYear();
+
   constructor(public dialogRef: MatDialogRef<AttendanceDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private userService: UserService,
@@ -119,4 +122,24 @@ export class AttendanceDialogComponent {
     }
   };
 
+  onMonthChanged(date: Date) {
+    const newMonth = date.getMonth();
+    const newYear = date.getFullYear();
+
+    // Only fetch if user navigates to a new month
+    if (newMonth !== this.currentMonth || newYear !== this.currentYear) {
+      this.currentMonth = newMonth;
+      this.currentYear = newYear;
+
+      // Define fromDate and toDate for the new month
+      const fromDate = new Date(newYear, newMonth, 1);
+      const toDate = new Date(newYear, newMonth + 1, 0); // last day of the month
+
+      this.fromDate = fromDate;
+      this.toDate = toDate;
+
+      // 🔁 Call API
+      this.getIndividualAttendance();
+    }
+  }
 }
