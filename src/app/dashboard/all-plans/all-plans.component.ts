@@ -20,6 +20,7 @@ export interface UserInfo {
   edit: string;
   status: string;
   planType: string;
+  delete: string;
 }
 
 @Component({
@@ -29,11 +30,11 @@ export interface UserInfo {
 })
 export class AllPlansComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  
+
   sidenavOpen: boolean = true;
   selectedFilter: string = 'Search1';
   searchTerm: string = '';
-  displayedColumns: string[] = ['planName', 'description', 'status', 'planType', 'monthlyPrice', 'quarterlyPrice', 'yearlyPrice', 'view', 'edit'];
+  displayedColumns: string[] = ['planName', 'description', 'status', 'planType', 'monthlyPrice', 'quarterlyPrice', 'yearlyPrice', 'view', 'edit', 'delete'];
 
   dataSource = new MatTableDataSource<UserInfo>([]);
 
@@ -138,6 +139,19 @@ export class AllPlansComponent {
       }
 
     })
+  }
+
+  deletePlan(planId: any) {
+    this.dialogService.open('Confirmation!', 'Are you sure ?', '', true, 'Yes', (() => {
+      this.userService.deleteMembershipPlan(planId, (response) => {
+        if (response.success) {
+          this.getAllMembershipPlans();
+          this.dialogService.open('', "Deleted the plan successfully");
+        } else {
+          this.dialogService.open('Oops!', `${response.message}`);
+        }
+      })
+    }), 'No');
   }
 
 }
