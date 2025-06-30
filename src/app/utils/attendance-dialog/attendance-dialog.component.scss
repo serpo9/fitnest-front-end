@@ -82,7 +82,11 @@
     overflow: scroll;
     margin: auto;
 
-    ::ng-deep mat-calendar-header {
+    // ::ng-deep mat-calendar-header {
+    //   display: none;
+    // }
+
+    ::ng-deep .mat-calendar-period-button {
       display: none;
     }
 
