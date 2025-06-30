@@ -18,10 +18,10 @@ export class ApiService {
   apiurl = 'http://localhost:8000/';
   public BASE_URL = this.apiurl;
   public CLINT_API_URL = this.base_url;
-  
+
 
   public uri = {
-    
+
     TOKEN: () => localStorage.getItem('token'),
     SIGNUP_URL: () =>
       `${this.BASE_URL}${this.CLINT_API_URL}register`,
@@ -118,9 +118,9 @@ export class ApiService {
       `${this.BASE_URL}${this.CLINT_API_URL}search-schedules/${userId}?searchTerm=${searchTerm}&fromDate=${fromDate}&toDate=${toDate}&status=${status}`,
     UPDATE_MEMBERSHIP_PLAN: (membershipPlanId: any) =>
       `${this.BASE_URL}${this.CLINT_API_URL}update-membership-plan/${membershipPlanId}`,
-    GET_ACTIVE_CUSTOMERS: (userId: any, searchTerm: any,page: any,limit: any) =>
+    GET_ACTIVE_CUSTOMERS: (userId: any, searchTerm: any, page: any, limit: any) =>
       `${this.BASE_URL}${this.CLINT_API_URL}get-active-customers/${userId}?searchTerm=${searchTerm}&page=${page}&limit=${limit}`,
-    GET_ACTIVE_CUSTOMER_BY_ID: (userId : any,customerId : any) =>
+    GET_ACTIVE_CUSTOMER_BY_ID: (userId: any, customerId: any) =>
       `${this.BASE_URL}${this.CLINT_API_URL}get-active-customers-by-id?customerId=${customerId}`,
     BUY_MEMBERSHIP_PLAN: () =>
       `${this.BASE_URL}${this.CLINT_API_URL}buy-membership-plan`,
@@ -163,14 +163,14 @@ export class ApiService {
       `${this.BASE_URL}${this.CLINT_API_URL}memberships-installment-payments/${adminId}?searchTerm=${searchTerm}&fromDate=${fromDate}&toDate= ${toDate}`,
     UPDATE_SUBSCRIPTON_AMOUNT_DUE: () =>
       `${this.BASE_URL}${this.CLINT_API_URL}update-memberships-dueAmount`,
-    MEMBERSHIP_DUEAMOUNT: (userId: any,purchaseDate:any, membershipPlansId:any) =>
+    MEMBERSHIP_DUEAMOUNT: (userId: any, purchaseDate: any, membershipPlansId: any) =>
       `${this.BASE_URL}${this.CLINT_API_URL}membership-dueAmount/${userId}?purchaseDate=${purchaseDate}&membershipPlansId=${membershipPlansId}`,
 
     GET_ACTIVE_STAFFS: (adminId: any, searchTerm: any, fromDate: any, toDate: any) =>
       `${this.BASE_URL}${this.CLINT_API_URL}active-staffs/${adminId}?searchTerm=${searchTerm}&fromDate=${fromDate}&toDate= ${toDate}`,
     GET_STAFF_WITH_SALARY: (adminId: any, searchTerm: any) =>
       `${this.BASE_URL}${this.CLINT_API_URL}get-staff/${adminId}?searchTerm=${searchTerm}`,
-    GET_STAFF_SALARY_INFO: (userId : any) =>
+    GET_STAFF_SALARY_INFO: (userId: any) =>
       `${this.BASE_URL}${this.CLINT_API_URL}get-salary-info?userId=${userId}`,
     ASSIGN_SALARY: () =>
       `${this.BASE_URL}${this.CLINT_API_URL}assign-SalaryToStaff`,
@@ -204,7 +204,7 @@ export class ApiService {
       `${this.BASE_URL}${this.CLINT_API_URL}get-tracking-progress/${userId}`,
     GET_USER_ATTENDANCES: (adminId: any, userId: any) =>
       `${this.BASE_URL}${this.CLINT_API_URL}get-users-attendances/${adminId}/${userId}`,
-    GET_INDIVIDUAL_ATTENDANCE: (adminId: any, userId: any, fromDate:any, toDate : any) =>
+    GET_INDIVIDUAL_ATTENDANCE: (adminId: any, userId: any, fromDate: any, toDate: any) =>
       `${this.BASE_URL}${this.CLINT_API_URL}get-individual-attendance/${adminId}/${userId}?fromDate=${fromDate}&toDate=${toDate}`,
     GET_USER_TODAYS_ATTENDANCES: (adminId: any) =>
       `${this.BASE_URL}${this.CLINT_API_URL}get-today-attendance/${adminId}`,
@@ -228,9 +228,9 @@ export class ApiService {
       `${this.BASE_URL}${this.CLINT_API_URL}send-request-for-approval`,
     UPLOADDIETPLAN: (type: string = 'dietplan', trainerId = 1) =>
       `${this.BASE_URL}${this.CLINT_API_URL}upload-file?type=${type}&trainerId=${trainerId}`,
-    GET_PDF_FILES: (id : any) =>
+    GET_PDF_FILES: (id: any) =>
       `${this.BASE_URL}${this.CLINT_API_URL}get-trainer-pdfs/${id}`,
-    
+
     GET_SUBS_APPROVAL_LIST: (adminId: any) =>
       `${this.BASE_URL}${this.CLINT_API_URL}get-subs-approval-list/${adminId}`,
     APPROVE_REQUESTED_SUB_BY_RECEPTIONIST: () =>
@@ -239,11 +239,14 @@ export class ApiService {
       `${this.BASE_URL}${this.CLINT_API_URL}get-plan-for-users/${id}`,
     ASSIGN_PLAN_TO_USERS: () =>
       `${this.BASE_URL}${this.CLINT_API_URL}assign-plan-to-users`,
-    GET_ASSIGNED_USERS: (id: any , searchTerm: any, fromDate: any, toDate: any, filter: any ,page: any,limit: any) =>
+    GET_ASSIGNED_USERS: (id: any, searchTerm: any, fromDate: any, toDate: any, filter: any, page: any, limit: any) =>
       `${this.BASE_URL}${this.CLINT_API_URL}get-asssigned-users/${id}?searchTerm=${searchTerm}&fromDate=${fromDate}&toDate= ${toDate}&filter=${filter}&page=${page}&limit=${limit}`,
-    
+
     DELETE_MEMBERSHIP_PLAN: () =>
-      `${this.BASE_URL}${this.CLINT_API_URL}delete-membership-plan`,  
+      `${this.BASE_URL}${this.CLINT_API_URL}delete-membership-plan`,
+
+    LEAVE_DETAILS: (adminId: any, searchTerm: any, fromDate: any, toDate: any) =>
+      `${this.BASE_URL}${this.CLINT_API_URL}leave-details/${adminId}?searchTerm=${searchTerm}&fromDate=${fromDate}&toDate= ${toDate}`,
   }
 
   private loadingEnabled = false;

@@ -1,10 +1,10 @@
 <div class="main-container">
   <div class="content" [class.full-width]="sidenavOpen === false" [class.translucent]="sidenavOpen">
-    <div class="mainHistory">Membership Reports</div>
+    <div class="mainHistory">Active Users</div>
     <div class="header">
       <div class="search-box">
         <input type="search" name="search-member" class="search-field" [(ngModel)]="searchTerm"
-          placeholder="Search by Phone no." />
+          placeholder="Search by Phone no." (ngModelChange)="onSearchChange()"/>
         <!-- <button
           class="clearbtn"
           mat-icon-button

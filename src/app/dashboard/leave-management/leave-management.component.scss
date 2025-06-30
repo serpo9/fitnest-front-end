@@ -67,6 +67,23 @@
   width: 100%;
   flex-direction: column;
 
+  .nav-tab-container {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    button {
+      width: 180px;
+      background-color: white;
+      color: #000;
+
+      &.active-btn {
+        background-color: #ffc978;
+      }
+    }
+  }
+
   .time-red {
     color: red !important;
     font-weight: bold !important;

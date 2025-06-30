@@ -1423,6 +1423,20 @@ export class UserService {
     })
   }
 
+  leaveDetails(searchTerm: any, fromDate: any, toDate: any, onSuccess: (data: any) => void) {
+    let adminId;
+    if (this.userRegisterData.userType === "Admin") {
+      adminId = this.userRegisterData.id;
+    } else {
+      adminId = this.userRegisterData.createdByAdmin;
+    }
+
+
+    this.apiService.get(this.apiService.uri.LEAVE_DETAILS(adminId, searchTerm, fromDate, toDate), (response) => {
+      onSuccess(response);
+    })
+  }
+
 
 
 }

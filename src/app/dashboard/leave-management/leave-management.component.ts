@@ -25,8 +25,8 @@ export class LeaveManagementComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   searchTerm: string = '';
   dateRange = {
-    start: new Date(new Date().setDate(new Date().getDate() - 7)), // 7 days before today
-    end: new Date() // Today
+    start: "null",
+    end: "null" // Today
   };
   sidenavOpen: boolean = true;
   displayedColumns: string[] = ['select', 'employeeNo', 'name', 'email', 'phone', 'type'];
@@ -39,6 +39,8 @@ export class LeaveManagementComponent {
   dayQty = 1;
   leaveDate: any;
   selectedDates: Date[] = [];
+
+  activeTab = true;
 
   constructor(private userService: UserService, private dialogService: DialogService, private snackBarService: SnackBarService, private router: Router) {
     this.activeStaffs();
@@ -57,13 +59,20 @@ export class LeaveManagementComponent {
   }
 
   applyFilter() {
-    const fromDate = this.dateRange.start.toISOString().split('T')[0];
-    const toDate = this.dateRange.end.toISOString().split('T')[0];
+    const formattedFromDate = this.dateRange.start ? this.formatDate(this.dateRange.start) : null;
+    const formattedToDate = this.dateRange.end ? this.formatDate(this.dateRange.end) : null;
+
     const filterValue = this.searchTerm.trim();
 
-    this.userService.getActiveStaffs(filterValue, fromDate, toDate, (response) => {
-      this.updateTableData(response.data);
-    })
+    if (this.activeTab) {
+      this.userService.getActiveStaffs(filterValue, formattedFromDate, formattedToDate, (response) => {
+        this.updateTableData(response.data);
+      })
+    } else {
+      this.userService.leaveDetails(filterValue, formattedFromDate, formattedToDate, (response) => {
+        this.updateTableData(response.data);
+      })
+    }
   }
 
   toggleRowSelection(element: any) {
@@ -76,11 +85,12 @@ export class LeaveManagementComponent {
   }
 
   activeStaffs() {
-    const fromDate = this.dateRange.start.toISOString().split('T')[0];
-    const toDate = this.dateRange.end.toISOString().split('T')[0];
+    const formattedFromDate = this.dateRange.start ? this.formatDate(this.dateRange.start) : null;
+    const formattedToDate = this.dateRange.end ? this.formatDate(this.dateRange.end) : null;
+
     const filterValue = this.searchTerm.trim();
 
-    this.userService.getActiveStaffs(filterValue, fromDate, toDate, (response) => {
+    this.userService.getActiveStaffs(filterValue, formattedFromDate, formattedToDate, (response) => {
       this.updateTableData(response.data);
     })
   }
@@ -170,5 +180,56 @@ export class LeaveManagementComponent {
 
     })
   }
+
+  activeForm(planName: any) {
+    if (planName === "assignLeave") {
+      this.activeTab = true;
+      this.displayedColumns = [
+        'select', 'employeeNo', 'name', 'email', 'phone', 'type'
+      ];
+      this.activeStaffs();
+    } else {
+      this.activeTab = false;
+      this.displayedColumns = [
+        'employeeNo', 'name', 'email', 'phone', 'type', 'leaveDate', 'leaveType'
+      ];
+      this.leaveDetails();
+    }
+  }
+
+
+  leaveDetails() {
+
+    const formattedFromDate = this.dateRange.start ? this.formatDate(this.dateRange.start) : "null";
+    const formattedToDate = this.dateRange.end ? this.formatDate(this.dateRange.end) : "null";
+
+    console.log("formattedToDate...", this.formatDate(this.dateRange.start));
+
+    const filterValue = this.searchTerm.trim();
+
+    this.userService.leaveDetails(filterValue, formattedFromDate, formattedToDate, (response) => {
+      this.updateTableData(response.data);
+    })
+  }
+
+  formatDate(date: any): string {
+    const d = new Date(date);
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+    const year = d.getFullYear(); // Full year
+
+    return `${year}-${month}-${day}`;
+  }
+
+  onSearchChange() {
+    if (!this.searchTerm.trim()) {
+      if (this.activeTab) {
+        this.activeStaffs();
+      } else {
+        this.leaveDetails();
+      }
+    }
+  }
+
 
 }
