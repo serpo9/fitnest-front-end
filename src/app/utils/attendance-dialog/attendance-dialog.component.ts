@@ -122,23 +122,24 @@ export class AttendanceDialogComponent {
     }
   };
 
+
   onMonthChanged(date: Date) {
     const newMonth = date.getMonth();
-    const newYear = date.getFullYear();
+    const newYear = date.getFullYear();    
 
     // Only fetch if user navigates to a new month
     if (newMonth !== this.currentMonth || newYear !== this.currentYear) {
       this.currentMonth = newMonth;
       this.currentYear = newYear;
 
-      // Define fromDate and toDate for the new month
+      // Set range for the new month
       const fromDate = new Date(newYear, newMonth, 1);
-      const toDate = new Date(newYear, newMonth + 1, 0); // last day of the month
+      const toDate = new Date(newYear, newMonth + 1, 0);
 
       this.fromDate = fromDate;
       this.toDate = toDate;
 
-      // 🔁 Call API
+      // Fetch attendance data and update calendar
       this.getIndividualAttendance();
     }
   }
