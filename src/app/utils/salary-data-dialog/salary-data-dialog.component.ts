@@ -25,7 +25,6 @@ export class SalaryDataDialogComponent implements OnInit {
     public dialogRef : MatDialogRef<SalaryDataDialogComponent>,
     public dialogService : DialogService
   ){
-    console.log(this.data , "dataa a a")
     if(this.data){
       this.getAssingedSalaryDetails();
       this.getSalaryHistory();
@@ -81,7 +80,6 @@ export class SalaryDataDialogComponent implements OnInit {
         , month : this.data.month , year : this.data.year 
       }
       this.userService.paySalary(obj, response=>{
-        console.log("response : ", response);
         this.dialogRef.close(response);
       })
     }

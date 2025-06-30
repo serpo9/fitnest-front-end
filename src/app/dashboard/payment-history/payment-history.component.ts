@@ -46,7 +46,6 @@ export class PaymentHistoryComponent {
     private userService: UserService,
     private dialogService: DialogService
   ) {
-console.log("this.selectedFilter...", this.selectedFilter);
 
     if (this.selectedFilter === "SalaryHistory") {
       this.getSalaryHistory();
@@ -90,7 +89,6 @@ console.log("this.selectedFilter...", this.selectedFilter);
     // Reset the time to midnight in the local time zone
     startDate.setHours(0, 0, 0, 0);
     endDate.setHours(0, 0, 0, 0);
-    console.log('here at 91')
 
     // Get the formatted date (YYYY-MM-DD) using toLocaleDateString
     const fromDate = startDate.toLocaleDateString('en-CA'); // This format gives YYYY-MM-DD
@@ -119,9 +117,6 @@ console.log("this.selectedFilter...", this.selectedFilter);
   }
 
   getSubsHistory() {
-    console.log("this.dateRange..", this.dateRange);
-    // const fromDate = this.dateRange.start.toISOString().split('T')[0];
-    // const toDate = this.dateRange.end.toISOString().split('T')[0];
 
     const fromDate = this.formatDate(this.dateRange.start);
     const toDate = this.formatDate(this.dateRange.end);
@@ -141,7 +136,6 @@ console.log("this.selectedFilter...", this.selectedFilter);
     // Reset the time to midnight in the local time zone
     startDate.setHours(0, 0, 0, 0);
     endDate.setHours(0, 0, 0, 0);
-    console.log('here at 91')
 
     // Get the formatted date (YYYY-MM-DD) using toLocaleDateString
     const fromDate = startDate.toLocaleDateString('en-CA'); // This format gives YYYY-MM-DD

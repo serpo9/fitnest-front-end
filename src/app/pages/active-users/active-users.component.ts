@@ -112,8 +112,6 @@ export class ActiveUsersComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log(result, "result on the active member page")
-        // classElement.trainer = result.trainerName;
       }
     });
   }
@@ -125,8 +123,6 @@ export class ActiveUsersComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log(result, "result on the active member page")
-        // classElement.trainer = result.trainerName;
       }
     });
   }

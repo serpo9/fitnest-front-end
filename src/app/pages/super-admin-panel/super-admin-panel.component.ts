@@ -85,7 +85,6 @@ export class SuperAdminPanelComponent implements OnInit {
       }
       this.userService.approveAdmin(obj, (res) => {
         if (res) {
-          console.log("here is the response we have seen ....")
         }
       });
     }));

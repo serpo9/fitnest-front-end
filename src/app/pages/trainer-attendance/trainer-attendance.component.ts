@@ -90,7 +90,6 @@ export class TrainerAttendanceComponent {
   }
 
   getIndividualAttendance(element: any) {
-    // console.log('element:', element);
 
     const toDate = this.dateRange.end;
     const pickedDate = new Date(this.dateRange.start); 
@@ -102,12 +101,9 @@ export class TrainerAttendanceComponent {
     const formattedToDate = this.formatDate(toDate);
     const adminId = this.userService.userRegisterData.id;
 
-    console.log("formattedFromDate..", formattedFromDate);
-    console.log("formattedToDate..", formattedToDate);
 
 
     this.userService.getIndividualAttendance(adminId, element.userId, formattedFromDate, formattedToDate, response => {
-      console.log("response:", response);
 
       this.matdialog.open(AttendanceDialogComponent, {
         data: {
@@ -168,7 +164,6 @@ export class TrainerAttendanceComponent {
 
       this.presentCount = response.presentCount;
       this.presentCount = response.presentCount.Trainer;
-      console.log("response.presentCount..", response.presentCount);
       
       this.updateTableData(response.data);
       this.loadingService.close();
@@ -191,7 +186,6 @@ export class TrainerAttendanceComponent {
 
       this.updateTableData(response.data)
       this.presentCount = response.presentCount.Trainer;
-      console.log("this.presentCount...", this.presentCount);
 
       this.loadingService.close();
     })
@@ -220,7 +214,6 @@ export class TrainerAttendanceComponent {
 
     if (matchedDevice) {
       this.selectedDeviceId = matchedDevice.id;
-      console.log('Selected Device ID:', matchedDevice.id);
       this.getAttendance();
     } else {
       this.selectedDeviceId = null;

@@ -190,7 +190,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.getGymName((response) => {
-      console.log(response.message, "here is got the gym name")
       this.gymname = response.gymName;
     });
 
@@ -273,7 +272,6 @@ export class HomeComponent implements OnInit {
 
   requestForSubscription(membershipId: any) {
     this.userService.requestSubscription(membershipId, (response) => {
-      console.log(response.success, "response")
       if (response.success) {
         this.snackbar.showSnackBar(response.message, 3000);
       } else {

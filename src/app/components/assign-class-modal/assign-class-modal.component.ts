@@ -25,7 +25,6 @@ export class AssignClassModalComponent implements OnInit {
 
   ngOnInit() {
     this.fetchClasses();
-    console.log("data from the active users ",this.data)
   }
 
   fetchClasses() {
@@ -34,7 +33,6 @@ export class AssignClassModalComponent implements OnInit {
           console.error('Error fetching classes', );
         this.loading = false;
         } else {
-          console.log(res,"response");
           this.classes = res.data;
         this.loading = false;
         }

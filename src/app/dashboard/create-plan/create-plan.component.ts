@@ -79,7 +79,6 @@ export class CreatePlanComponent {
   
       const renamedFile = new File([file], customFileName, { type: file.type });
       this.selectedFile = renamedFile;
-      console.log('Renamed file:', this.selectedFile.name);
     } else {
       alert('Only PDF files are allowed.');
       event.target.value = null;
@@ -100,7 +99,6 @@ export class CreatePlanComponent {
     this.http.post('http://localhost:8000/api/fitnest/upload-pdf', formData).subscribe({
       next: (response: any) => {
         this.dialogService.open('Yeah!', 'File uploaded successfully!');
-        console.log(response);
         this.selectedFile = null;
       },
       error: (error: HttpErrorResponse) => {
@@ -151,7 +149,6 @@ export class CreatePlanComponent {
     // Call the service method
     this.userService.uploadPlan(formData,
       (response) => {
-        console.log('PDF uploaded successfully:', response);
         this.dialogService.open('Success', 'PDF file uploaded!');
         this.selectedFile = null;
   

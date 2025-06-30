@@ -50,21 +50,6 @@ export class EditProfileDialogComponent {
   ngOnInit(): void {
   }
 
-  // onSave(): void {
-  //   this.logindata.name = this.nameInput.nativeElement.value;
-  //   this.logindata.email = this.emailInput.nativeElement.value;
-  //   this.logindata.phone = this.phoneInput.nativeElement.value;
-  //   console.log(this.logindata.name ,this.logindata.email,this.logindata.phone ,"here is the data which is going to ere")
-  //   this.dialogRef.close({ data: this.logindata });
-  //  const obj = {
-  //   name :this.logindata.name,
-  //   email :this.logindata.email,
-  //   phone :this.logindata.phone
-  //   }
-  //   this.userService.updateProfile(obj,(response)=>{
-  //     console.log(response)
-  //   })
-  // }
 
   onSave(): void {
     // Extracting values from input fields

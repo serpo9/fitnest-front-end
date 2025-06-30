@@ -284,7 +284,6 @@ export class BuySubscriptionComponent {
       };
     }
 
-    console.log("this.postObj...", this.postObj);
 
     this.dialogService.open(
       "Confirmation!",
@@ -346,7 +345,6 @@ export class BuySubscriptionComponent {
   }
 
   generateInvoicePDF(invoice: any) {
-    console.log("generate : ", invoice);
     const doc = new jsPDF();
 
     doc.setFont('helvetica', 'bold');

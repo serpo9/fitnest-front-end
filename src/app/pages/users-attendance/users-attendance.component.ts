@@ -166,11 +166,9 @@ export class UsersAttendanceComponent {
 
     if (matchedDevice) {
       this.selectedDeviceId = matchedDevice.id;
-      // console.log('Selected Device ID:', matchedDevice.id);
       this.getAttendance();
     } else {
       this.selectedDeviceId = null;
-      console.warn(`No device found for: ${purpose}`);
       // handle no device (maybe show a warning in UI or skip API call)
     }
   }
@@ -182,7 +180,6 @@ export class UsersAttendanceComponent {
   }
 
   getIndividualAttendance(element: any) {
-    // console.log('element:', element);
 
     const toDate = this.dateRange.end;
     const pickedDate = new Date(this.dateRange.start); 
@@ -193,13 +190,7 @@ export class UsersAttendanceComponent {
     const formattedFromDate = this.formatDate(fromDate);
     const formattedToDate = this.formatDate(toDate);
     const adminId = this.userService.userRegisterData.id;
-
-    console.log("formattedFromDate..", formattedFromDate);
-    console.log("formattedToDate..", formattedToDate);
-
-
     this.userService.getIndividualAttendance(adminId, element.userId, formattedFromDate, formattedToDate, response => {
-      console.log("response:", response);
 
       this.matdialog.open(AttendanceDialogComponent, {
         data: {

@@ -633,7 +633,6 @@ export class UserService {
     let userId = this.userRegisterData?.createdByAdmin
     if (this.userRegisterData.userType !== "Customer" && userIdforadmin) {
       userId = this.userRegisterData?.id;
-      console.log(userId, "here i got customeruserid")
     }
 
     this.apiService.get(
@@ -763,7 +762,6 @@ export class UserService {
   }
 
   editSchedule(obj: any, scheduleId: any, onSuccess: (data: any) => void) {
-    console.log(scheduleId, "scheduleId");
     this.apiService.post(this.apiService.uri.EDIT_SCHEDULE(scheduleId), obj, (response) => {
       onSuccess(response);
     })
@@ -1195,7 +1193,6 @@ export class UserService {
   }
 
   getUsersAttendances(onSuccess: (data: any) => void, userIdforadmin?: string) {
-    console.log(userIdforadmin, "here user id for admin we got ")
     let userId = this.userRegisterData.id;
     const adminId = this.userRegisterData?.createdByAdmin
     if (this.userRegisterData.userType !== "Customer" && userIdforadmin) {
@@ -1291,7 +1288,6 @@ export class UserService {
   }
 
   createdietplan(obj: any, onSuccess: (data: any) => void, p0: (error: any) => void) {
-    console.log(obj, "here is the reponse we got ")
     this.apiService.post(this.apiService.uri.CREATE_DIET_PLAN(), obj, (response) => {
       onSuccess(response);
     })

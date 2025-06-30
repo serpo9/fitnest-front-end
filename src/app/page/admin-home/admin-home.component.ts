@@ -178,7 +178,6 @@ export class AdminHomeComponent {
     })
   }
   navigate(element:any){
-    console.log("element : ",element)
     this.userService.redirectedCustomerId = element.userId;
     this.router.navigate(['/buy-subscription-plans'])
   }

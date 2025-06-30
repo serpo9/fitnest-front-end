@@ -142,7 +142,6 @@ export class ViewUserProfileComponent {
     // here we got that users detials
 
     this.userDetails = history.state['userData'];
-    console.log(this.userDetails , "here i got state")
     this.username.name = this.userDetails.name;
     this.username.email = this.userDetails.email;
     this.username.id = this.userDetails.id;
@@ -150,14 +149,11 @@ export class ViewUserProfileComponent {
 
 
     if (!this.userDetails) {
-      console.log('No user data found!');
-      // this.router.navigate(['/your-fallback-route']);
     }
     this.getAttendances();
     this.getDietPlan();
 
     this.userService.getPlanForUsers((response) => {
-      console.log(response, "here I got pdf data");
       const userData = this.userDetails; // From passed state
     
       if (response.success && response.data.length > 0) {
@@ -191,7 +187,6 @@ export class ViewUserProfileComponent {
     this.userType = this.userDetails.type;
 
     if (this.userType === "Customer") {
-      console.log("here is the admin details")
       this.userService.getProfileDetails(this.userDetails.id, (response) => {
         this.moreCustomerInfo = response.data;
 
@@ -345,7 +340,6 @@ export class ViewUserProfileComponent {
   }
 
   openCompleteProfile() {
-    console.log("here we have local data ")
     this.showMoreProfileDetails = false;
     const dialogRef = this.matdialog.open(CompleteProfileComponent, {
       width: "500px",
@@ -465,8 +459,6 @@ export class ViewUserProfileComponent {
 
 submitWeight() {
   if (this.newWeight !== null && this.newWeight > 0) {
-    console.log('Weight submitted:', this.newWeight);
-    console.log(this.userService.loginData)
      const obj = {
       userId: this.username.id,
       weight: this.newWeight
@@ -479,8 +471,6 @@ submitWeight() {
       else {
         const date = new Date();
         const monthStr = date.toLocaleDateString().toString();
-        console.log(date, '    ',date.toLocaleString() )
-        console.log(monthStr)
         this.dataSourceThree.data = [...this.dataSourceThree.data,
         {month: monthStr, weight: obj.weight.toString()}];
 

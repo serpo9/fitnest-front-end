@@ -22,7 +22,6 @@ export class MessageComponent {
 
   fetchUsers() {
     if (!this.selectedType) return;
-    console.log(this.selectedType, "this is selectedtype");
     this.userService.getUsersForNotification(this.selectedType, (response) => {
       if (response.success) {
         this.users = response.data;

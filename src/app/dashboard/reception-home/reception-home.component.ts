@@ -129,7 +129,6 @@ export class ReceptionHomeComponent {
           this.cachedData = formattedData;
         }
         this.filteredData = formattedData;
-        console.log('formattedData...', formattedData);
         this.updateTableData(formattedData);
         // this.updateTableData(this.filteredData);
       }
@@ -168,7 +167,6 @@ export class ReceptionHomeComponent {
   }
 
   openMessageDialogue(classElement: any) {
-    console.log("classElement...", classElement);
 
     this.matdialog.open(MessageDialogueComponent, {
       width: '400px',
@@ -193,7 +191,6 @@ export class ReceptionHomeComponent {
   updateTableData(data: any): void {
     this.dataSource = new MatTableDataSource(data);
     this.dataSource.paginator = this.paginator;
-    console.log("dataSource.data...", this.dataSource.data);
   }
   setActiveFilter(filter: string) {
     this.selectedFilter = filter;
@@ -273,9 +270,6 @@ export class ReceptionHomeComponent {
     })
 
     dialogRef.afterClosed().subscribe((result: any) => {
-
-      console.log("result...", result);
-
 
     })
 

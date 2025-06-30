@@ -22,7 +22,6 @@ export class TrainerClassesModalComponent {
   
   ngOnInit() {
     this.getUserClasses();
-    console.log("data from the active users ",this.data.id)
   }
   
   getUserClasses() {
@@ -30,7 +29,6 @@ export class TrainerClassesModalComponent {
       if (res.success) {
         this.userClasses = res.data;
         this.showUserDialog = true;
-        console.log("this,userclasses",this.userClasses);
       } else {
         console.error('Failed to fetch user classes');
       }

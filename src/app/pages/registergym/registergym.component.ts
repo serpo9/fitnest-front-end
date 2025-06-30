@@ -52,10 +52,6 @@ submissionStatus: boolean | null = null;  // true for success, false for failure
       alert("Please fill all required fields.");
       return;
     }
-    
-    console.log(this.userKey);
-    
-    // Check if card exists in the local 'users' object
   }
 
   
@@ -76,7 +72,6 @@ submissionStatus: boolean | null = null;  // true for success, false for failure
   
     this.http.post(apiUrl, payload).subscribe({
       next: (response) => {
-        console.log('API Response:', response);
         this.submissionMessage = `Card ID ${this.userKey} added successfully!`;
         // You can handle the successful response here if needed
       },

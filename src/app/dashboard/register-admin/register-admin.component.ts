@@ -36,7 +36,6 @@ export class RegisterAdminComponent {
         return this.dialogService.open('Oops!', `${response.message}`);
       }
 
-      console.log("response...", response);
 
       if (response.success) {
         this.dialogService.open('', 'Admin is registered successfully!', '', false, 'Okay', (() => {

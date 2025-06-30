@@ -336,7 +336,7 @@ export class SalaryManagementComponent {
     })
 
     dialogRef.afterClosed().subscribe(result=>{
-      console.log("result : ", result);
+    
       if(result){
         this.dialogService.open('',`${result.message}`,'',false,'Okay');
       }

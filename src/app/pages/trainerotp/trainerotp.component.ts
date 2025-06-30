@@ -85,7 +85,6 @@ export class TrainerotpComponent {
         password: this.userData.password,
         cPassword: this.userData.cPassword,
       };
-      console.log("here is the reponse",finalData)
   
     } else if (verificationType === 'forgotPasswordVerification') {
       finalData = {

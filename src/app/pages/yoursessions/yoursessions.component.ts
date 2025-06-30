@@ -75,9 +75,7 @@ export class YoursessionsComponent implements OnInit {
 
 
   getinfo(routes: string) {
-    console.log(routes,"routes on the page")
     this.sidenavOpen = true
-    // this.activelink = routes;
     this.router.navigate([routes]);
 
   }
@@ -87,7 +85,6 @@ export class YoursessionsComponent implements OnInit {
 
   getTrainerSchedules() {
     this.userService.getTrainerSchedules((res) => {
-      console.log(res,"response");
       if (!res.success) {
       } else {
         const formattedData: getTrainerSchedules[] = res.data.map((Schedules: any) => ({
@@ -123,7 +120,6 @@ export class YoursessionsComponent implements OnInit {
          buttonText: "Join Now"
         }));
       }
-      console.log(this.sessions,"this.sessions");
     });
   }
    getDuration(startTime:any, endTime:any):string {

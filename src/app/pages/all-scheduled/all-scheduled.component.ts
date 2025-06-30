@@ -113,9 +113,7 @@ export class AllScheduledComponent {
 
 
   getinfo(routes: string) {
-    console.log(routes, "routes on the page")
     this.sidenavOpen = true
-    // this.activelink = routes;
     this.router.navigate([routes]);
 
   }
@@ -192,7 +190,7 @@ export class AllScheduledComponent {
       }, {});
 
 
-      console.log("Trainers grouped by specialization:", this.trainersBySpecialization);
+      
     });
   }
 
@@ -226,7 +224,6 @@ export class AllScheduledComponent {
           const updatedData = this.getTrainerSchedulesData.data.filter(s => s.id !== schedule.id);
           this.getTrainerSchedulesData.data = updatedData;
         }
-        console.log("response", res);
         this.snackBar.open("Schedule deleted successfully!", "close", {
           duration: 3000
         });

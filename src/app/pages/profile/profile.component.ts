@@ -106,7 +106,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.getPlanForUsers((response) => {
-      console.log(response, "here I got pdf data");
       const userData = this.userService.userRegisterData;
 
       if (response.success && response.data.length > 0) {
@@ -375,8 +374,6 @@ export class ProfileComponent implements OnInit {
 
   submitWeight() {
     if (this.newWeight !== null && this.newWeight > 0) {
-      console.log('Weight submitted:', this.newWeight);
-      console.log(this.userService.loginData)
       const obj = {
         userId: this.username.id,
         weight: this.newWeight
@@ -389,8 +386,6 @@ export class ProfileComponent implements OnInit {
         else {
           const date = new Date();
           const monthStr = date.toLocaleDateString().toString();
-          console.log(date, '    ', date.toLocaleString())
-          console.log(monthStr)
           this.dataSourceThree.data = [...this.dataSourceThree.data,
           { month: monthStr, weight: obj.weight.toString() }];
 
