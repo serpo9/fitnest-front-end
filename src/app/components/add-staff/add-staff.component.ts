@@ -34,7 +34,7 @@ export class AddStaffComponent {
   showNewForm: boolean = false;
   selectedDate: string | number | Date = new Date();
   minDate: Date = new Date();
-  expiryDate = new Date(new Date().setDate(new Date().getDate()));
+  expiryDate = new Date(new Date().setDate(new Date().getDate() + 30));
 
   userType = [
     { value: 'Trainer', viewValue: 'Trainer' },
@@ -76,7 +76,7 @@ export class AddStaffComponent {
       this.dialogService.open('Error', 'Passwords do not match!', '', false, 'Okay');
       return;
     }
-    
+
     const obj = {
       name: this.userName,
       phoneNo: this.phone,
