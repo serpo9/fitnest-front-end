@@ -5,6 +5,7 @@ import { ROUTES } from 'src/app/app-routes.config';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { DialogService } from 'src/app/services/dialog-service/dialog.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import { LoadingService } from 'src/app/services/loading-services/loading.service';
 
 interface Locations {
   value: string;
@@ -48,7 +49,8 @@ export class AddStaffComponent {
     private http: HttpClient,
     private router: Router,
     private userService: UserService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private loadingService: LoadingService
   ) { }
 
   ngOnInit(): void { }
@@ -71,7 +73,7 @@ export class AddStaffComponent {
   }
 
   registerStaffs(): void {
-
+    this.loadingService.open();
     if (this.password !== this.confirmPassword) {
       this.dialogService.open('Error', 'Passwords do not match!', '', false, 'Okay');
       return;
@@ -90,9 +92,11 @@ export class AddStaffComponent {
 
     this.userService.registerStaff(obj, (res) => {
       if (res.success) {
+        this.loadingService.close();
         this.dialogService.open('Success', res.message, '', false, 'Okay');
         this.router.navigate([ROUTES.JOINSCHEDULE]);
       } else {
+        this.loadingService.close();
         this.dialogService.open('Oops!', res.message, '', false, 'Okay');
       }
     });
